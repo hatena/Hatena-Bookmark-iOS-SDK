@@ -25,6 +25,9 @@
 #import "HTBHatenaBookmarkViewController.h"
 #import "HTBUtility.h"
 
+#import "HTBLoginWebViewController.h"
+#import "HTBNavigationBar.h"
+
 @implementation HTBHatenaBookmarkActivity {
     NSURL *url;
 }
@@ -53,20 +56,54 @@
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
-    for (id activityItem in activityItems) {
-        if ([activityItem isKindOfClass:[NSURL class]]) {
-            NSString *scheme = [(NSURL *)activityItem scheme];
-            if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
-                url = activityItem;
-            }            
-        }
-    }
+	NSLog(@"prepareWithActivityItems");
+	[super prepareWithActivityItems:activityItems];
+	activityItems_ = [activityItems copy];
+	
+	if (![HTBHatenaBookmarkManager sharedManager].authorized) {
+		double delayInSeconds = 1.0;
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+			[[HTBHatenaBookmarkManager sharedManager] authorizeWithLoginUserInterface:self.presentingViewController success:^{
+				NSLog(@"login success");
+				[self performActivity];
+			} failure:^(NSError *error) {
+				NSLog(@"%@", error.localizedDescription);
+			}];
+		});
+		[self activityDidFinish:YES];
+	}
+	else {
+		[self performActivity];
+	}
 }
 
 - (UIViewController *)activityViewController {
-    HTBHatenaBookmarkViewController *viewController = [[HTBHatenaBookmarkViewController alloc] init];
-    viewController.URL = url;
-    return viewController;
+	HTBHatenaBookmarkViewController *viewController = nil;
+	if ([HTBHatenaBookmarkManager sharedManager].authorized) {
+		viewController = [[HTBHatenaBookmarkViewController alloc] init];
+		viewController.URL = url;
+	}
+	
+	return viewController;
+}
+
+- (void)performActivity {
+	NSLog(@"performActivity");
+	if ([HTBHatenaBookmarkManager sharedManager].authorized) {
+		for (id activityItem in activityItems_) {
+			if ([activityItem isKindOfClass:[NSURL class]]) {
+				NSString *scheme = [(NSURL *)activityItem scheme];
+				if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
+					url = activityItem;
+				}
+			}
+		}
+	}
+}
+
+- (void)activityDidFinish:(BOOL)completed {
+	[super activityDidFinish:completed];
 }
 
 @end
