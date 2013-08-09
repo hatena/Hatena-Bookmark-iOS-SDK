@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  Hatena Bookmark iOS SDK
+
+  Copyright (c) 2013 Hatena Co., Ltd. All rights reserved.
+*/
+
+"bookmark"        = "Bookmark";
+"hatenabookmark"  = "HatenaBookmark";
+"hatena-bookmark" = "Hatena Bookmark";
+"comments"        = "Comments";
+"public"          = "Public";
+"private"         = "Private";
+"add-comments"    = "Add comments";
+"add-tags"        = "Add tags";
+"keyboard"        = "Keyboard";
+"recommended"     = "Recommended";
+"tags"            = "Tags";
+"add"             = "Add";
+"edit"            = "Edit";
+"delete"          = "Delete";
+"login"           = "Login";
+"close"           = "Close";
+"back"            = "Back";
+"canonical"       = "Other URL offered";
+"cancel"          = "Cancel";
