@@ -23,7 +23,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HTBToggleButton : UIButton
-@property (nonatomic) BOOL selected;
+
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *highlightedImage;
 @property (nonatomic, strong) UIImage *selectedImage;
@@ -36,4 +36,5 @@
 @property (nonatomic, strong) UIColor *selectedTextColor;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *selectedTitle;
+
 @end

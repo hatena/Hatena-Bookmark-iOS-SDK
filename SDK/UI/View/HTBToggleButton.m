@@ -23,9 +23,8 @@
 #import "HTBToggleButton.h"
 
 @implementation HTBToggleButton
-@synthesize selected = _selected;
 
--(id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -37,89 +36,80 @@
 - (void)setImage:(UIImage *)image
 {
     _image = image;
-    [self toggleImages];
+    [self setImage:image forState:UIControlStateNormal];
 }
 
 - (void)setHighlightedImage:(UIImage *)highlightedImage
 {
     _highlightedImage = highlightedImage;
-    [self toggleImages];
+    [self setImage:highlightedImage forState:UIControlStateHighlighted];
+}
+
+- (void)setSelectedImage:(UIImage *)selectedImage
+{
+    _selectedImage = selectedImage;
+    [self setImage:selectedImage forState:UIControlStateSelected];
+}
+
+- (void)setSelectedHighlightedImage:(UIImage *)selectedHighlightedImage
+{
+    _selectedHighlightedImage = selectedHighlightedImage;
+    [self setImage:selectedHighlightedImage forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage
 {
     _backgroundImage = backgroundImage;
-    [self toggleImages];
+    [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+}
+
+- (void)setHighlightedBackgroundImage:(UIImage *)highlightedBackgroundImage
+{
+    _highlightedBackgroundImage = highlightedBackgroundImage;
+    [self setBackgroundImage:highlightedBackgroundImage forState:UIControlStateHighlighted];
 }
 
 - (void)setSelectedBackgroundImage:(UIImage *)selectedBackgroundImage
 {
     _selectedBackgroundImage = selectedBackgroundImage;
-    [self toggleImages];
+    [self setBackgroundImage:selectedBackgroundImage forState:UIControlStateSelected];
+}
+
+- (void)setSelectedHighlightedBackgroundImage:(UIImage *)selectedHighlightedBackgroundImage
+{
+    _selectedHighlightedBackgroundImage = selectedHighlightedBackgroundImage;
+    [self setBackgroundImage:selectedHighlightedBackgroundImage forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
 - (void)setTitle:(NSString *)title
 {
     _title = title;
-    [self toggleImages];
+    [self setTitle:title forState:UIControlStateNormal];
 }
 
 - (void)setSelectedTitle:(NSString *)selectedTitle
 {
     _selectedTitle = selectedTitle;
-    [self toggleImages];
+    [self setTitle:selectedTitle forState:UIControlStateSelected];
+    [self setTitle:selectedTitle forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
 - (void)setTextColor:(UIColor *)textColor
 {
     _textColor = textColor;
-    [self toggleImages];
+    [self setTitleColor:textColor forState:UIControlStateNormal];
 }
 
 - (void)setSelectedTextColor:(UIColor *)selectedTextColor
 {
     _selectedTextColor = selectedTextColor;
-    [self toggleImages];
+    [self setTitleColor:selectedTextColor forState:UIControlStateSelected];
+    [self setTitleColor:selectedTextColor forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
 - (void)toggleButton:(id)sender
 {
     self.selected = !self.selected;
-}
-
-- (void)setSelected:(BOOL)selected
-{
-    if (_selected != selected) {
-        _selected = selected;
-        [self toggleImages];
-    }
-}
-
--(void)toggleImages
-{
-    UIImage *image = self.selected ? self.selectedImage : self.image;
-    if (image)
-        [self setImage:image forState:UIControlStateNormal];
-    
-    UIImage *highlightedImage = self.selected ? self.selectedHighlightedImage : self.highlightedImage;
-    if (highlightedImage)
-        [self setImage:highlightedImage forState:UIControlStateHighlighted];        
-    
-    UIImage *backgroundImage = self.selected ? self.selectedBackgroundImage : self.backgroundImage;
-    if (backgroundImage)
-        [self setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-
-    UIImage *highlightedBackgroundImage = self.selected ? self.selectedHighlightedBackgroundImage : self.highlightedBackgroundImage;
-    if (highlightedBackgroundImage)
-        [self setBackgroundImage:highlightedBackgroundImage forState:UIControlStateHighlighted];
-    
-    UIColor *textColor = self.selected ? self.selectedTextColor : self.textColor;
-    if (textColor)
-        [self setTitleColor:textColor forState:UIControlStateNormal];
-    
-    NSString *title = self.selected ? self.selectedTitle : self.title;
-    if (title)
-        [self setTitle:title forState:UIControlStateNormal];
 }
 
 @end
