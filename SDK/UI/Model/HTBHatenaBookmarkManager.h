@@ -36,7 +36,6 @@
 @property (nonatomic, strong) HTBHatenaBookmarkAPIClient *apiClient;
 @property (nonatomic, strong) HTBUserManager *userManager;
 @property (nonatomic, readonly, assign) BOOL authorized;
-@property (nonatomic, strong) UIViewController *presentingViewController;
 
 + (instancetype)sharedManager;
 
@@ -44,9 +43,6 @@
 
 - (void)authorizeWithSuccess:(void (^)(void))success
                      failure:(void (^)(NSError *error))failure;
-
-- (void)authorizeWithLoginUserInterface:(id)viewController success:(void (^)(void))success
-								failure:(void (^)(NSError *error))failure;
 
 - (void)getMyEntryWithSuccess:(void (^)(HTBMyEntry *myEntry))success
                       failure:(void (^)(NSError *error))failure;

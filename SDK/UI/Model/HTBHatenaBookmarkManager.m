@@ -100,34 +100,6 @@
     }];
 }
 
-- (void)authorizeWithLoginUserInterface:(id)viewController success:(void (^)(void))success
-								failure:(void (^)(NSError *error))failure
-{
-	self.presentingViewController = viewController;
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showOAuthLoginView:) name:kHTBLoginStartNotification object:nil];
-	
-    [self.apiClient authorizeWithSuccess:^(AFOAuth1Token *accessToken, id responseObject) {
-        
-        self.userManager.token = accessToken;
-        if (success) success();
-        
-    } failure:^(NSError *error) {
-        if (failure) failure(error);
-		
-    }];
-}
-
-- (void)showOAuthLoginView:(NSNotification *)notification {
-	NSLog(@"showOAuthLoginView");
-	
-    NSURLRequest *req = (NSURLRequest *)notification.object;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
-    HTBLoginWebViewController *viewController = [[HTBLoginWebViewController alloc] initWithAuthorizationRequest:req];
-    navigationController.viewControllers = @[viewController];
-    [self.presentingViewController presentViewController:navigationController animated:YES completion:nil];
-}
-
-
 - (void)getMyEntryWithSuccess:(void (^)(HTBMyEntry *myEntry))success
                       failure:(void (^)(NSError *error))failure
 {
