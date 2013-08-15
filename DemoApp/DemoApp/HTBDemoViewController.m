@@ -24,16 +24,7 @@
 
 #import "HTBDemoViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "HTBHatenaBookmarkViewController.h"
-#import "HTBHatenaBookmarkAPIClient.h"
-
-#import "HTBLoginWebViewController.h"
-#import "HTBUserManager.h"
-#import "HTBMyEntry.h"
-#import "AFJSONRequestOperation.h"
-#import "HTBHatenaBookmarkManager.h"
-#import "HTBHatenaBookmarkActivity.h"
-#import "HTBNavigationBar.h"
+#import "HatenaBookmarkSDK.h"
 
 @implementation HTBDemoViewController  {
     IBOutlet UIWebView *_webView;
