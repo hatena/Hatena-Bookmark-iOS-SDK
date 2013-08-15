@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		071C366017BE0478008EDF40 /* HTBAuthorizeEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 071C365F17BE0478008EDF40 /* HTBAuthorizeEntry.m */; };
 		260BE44D17AF1E2600BEA288 /* HTBHatenaBookmarkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 260BE3E917AF1E2600BEA288 /* HTBHatenaBookmarkActivity.m */; };
 		260BE44F17AF1E2600BEA288 /* HTBBookmarkedDataEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 260BE3EE17AF1E2600BEA288 /* HTBBookmarkedDataEntry.m */; };
 		260BE45017AF1E2600BEA288 /* HTBBookmarkEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 260BE3F017AF1E2600BEA288 /* HTBBookmarkEntry.m */; };
@@ -77,6 +78,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		071C365E17BE0478008EDF40 /* HTBAuthorizeEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBAuthorizeEntry.h; sourceTree = "<group>"; };
+		071C365F17BE0478008EDF40 /* HTBAuthorizeEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBAuthorizeEntry.m; sourceTree = "<group>"; };
+		073FB36B17B8AD42009CDDEA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		07B12B8517BA08F6000B3B9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		260BE3E817AF1E2600BEA288 /* HTBHatenaBookmarkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBHatenaBookmarkActivity.h; sourceTree = "<group>"; };
 		260BE3E917AF1E2600BEA288 /* HTBHatenaBookmarkActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBHatenaBookmarkActivity.m; sourceTree = "<group>"; };
 		260BE3ED17AF1E2600BEA288 /* HTBBookmarkedDataEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBBookmarkedDataEntry.h; sourceTree = "<group>"; };
@@ -272,6 +277,8 @@
 				265F3E9D17B21E4A00A89747 /* HTBTagEntry.m */,
 				265F3EA117B2360D00A89747 /* HTBCanonicalEntry.h */,
 				265F3EA217B2360E00A89747 /* HTBCanonicalEntry.m */,
+				071C365E17BE0478008EDF40 /* HTBAuthorizeEntry.h */,
+				071C365F17BE0478008EDF40 /* HTBAuthorizeEntry.m */,
 			);
 			path = Entry;
 			sourceTree = "<group>";
@@ -497,7 +504,7 @@
 				ORGANIZATIONNAME = "Hatena Co., Ltd.";
 				TargetAttributes = {
 					267CCBFC178A5D3900063953 = {
-						TestTargetID = 267CCBDB178A5D3900063953;
+						TestTargetID = 267CCBDB178A5D3900063953 /* DemoApp */;
 					};
 				};
 			};
@@ -589,6 +596,7 @@
 				265F3EA317B2360E00A89747 /* HTBCanonicalEntry.m in Sources */,
 				265F3EA617B339A200A89747 /* HTBCanonicalView.m in Sources */,
 				265F3EAA17B4EA2200A89747 /* UIAlertView+HTBNSError.m in Sources */,
+				071C366017BE0478008EDF40 /* HTBAuthorizeEntry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

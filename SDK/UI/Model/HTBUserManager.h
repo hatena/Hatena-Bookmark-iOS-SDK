@@ -23,12 +23,19 @@
 
 #import <Foundation/Foundation.h>
 #import "HTBAFOAuth1Client.h"
+#import "HTBAuthorizeEntry.h"
+
 @class HTBMyEntry;
 @class HTBMyTagsEntry;
+
 @interface HTBUserManager : NSObject
+
 @property (nonatomic, strong) AFOAuth1Token *token;
 @property (nonatomic, strong) HTBMyEntry *myEntry;
 @property (nonatomic, strong) HTBMyTagsEntry *myTagsEntry;
+@property (nonatomic, strong) HTBAuthorizeEntry *authorizeEntry;
+
 + (instancetype)sharedManager;
 - (void)reset;
+
 @end
