@@ -117,6 +117,7 @@
 		260BE41317AF1E2600BEA288 /* HTBLoginWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBLoginWebViewController.m; sourceTree = "<group>"; };
 		260BE41417AF1E2600BEA288 /* HTBHatenaBookmarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBHatenaBookmarkViewController.h; sourceTree = "<group>"; };
 		260BE41517AF1E2600BEA288 /* HTBHatenaBookmarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBHatenaBookmarkViewController.m; sourceTree = "<group>"; };
+		26577C0617BCD15100B80A09 /* HatenaBookmarkSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HatenaBookmarkSDK.h; sourceTree = "<group>"; };
 		265F3E9917B21D1400A89747 /* HTBMyTagsEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBMyTagsEntry.h; sourceTree = "<group>"; };
 		265F3E9A17B21D1400A89747 /* HTBMyTagsEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBMyTagsEntry.m; sourceTree = "<group>"; };
 		265F3E9C17B21E4900A89747 /* HTBTagEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBTagEntry.h; sourceTree = "<group>"; };
@@ -213,6 +214,7 @@
 		260BE3AB17AF1E2600BEA288 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				26577C0617BCD15100B80A09 /* HatenaBookmarkSDK.h */,
 				260BE3AC17AF1E2600BEA288 /* API */,
 				260BE3E717AF1E2600BEA288 /* UI */,
 			);
