@@ -56,15 +56,16 @@
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
+	NSLog(@"prepareWithActivityItems");
 	[super prepareWithActivityItems:activityItems];
 	activityItems_ = [activityItems copy];
 	
 	if (![HTBHatenaBookmarkManager sharedManager].authorized) {
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showOAuthLoginView:) name:kHTBLoginStartNotification object:nil];
 		double delayInSeconds = 1.0;
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-			[[HTBHatenaBookmarkManager sharedManager] authorizeWithSuccess:^{
+			[[HTBHatenaBookmarkManager sharedManager] authorizeWithLoginUserInterface:self.presentingViewController success:^{
+				NSLog(@"login success");
 				[self performActivity];
 				double delayInSeconds = 1.0;
 				dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -74,7 +75,7 @@
 					[self.presentingViewController presentViewController:viewController animated:YES completion:nil];
 				});
 			} failure:^(NSError *error) {
-				
+				NSLog(@"%@", error.localizedDescription);
 			}];
 		});
 		[self activityDidFinish:YES];
@@ -95,6 +96,7 @@
 }
 
 - (void)performActivity {
+	NSLog(@"performActivity");
 	if ([HTBHatenaBookmarkManager sharedManager].authorized) {
 		for (id activityItem in activityItems_) {
 			if ([activityItem isKindOfClass:[NSURL class]]) {
@@ -109,15 +111,6 @@
 
 - (void)activityDidFinish:(BOOL)completed {
 	[super activityDidFinish:completed];
-}
-
-- (void)showOAuthLoginView:(NSNotification *)notification {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:kHTBLoginStartNotification object:nil];
-    NSURLRequest *req = (NSURLRequest *)notification.object;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
-    HTBLoginWebViewController *viewController = [[HTBLoginWebViewController alloc] initWithAuthorizationRequest:req];
-    navigationController.viewControllers = @[viewController];
-    [self.presentingViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end

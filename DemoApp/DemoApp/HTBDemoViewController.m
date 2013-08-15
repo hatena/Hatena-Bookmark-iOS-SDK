@@ -68,7 +68,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    self.navigationItem.rightBarButtonItem.enabled = YES;//[HTBHatenaBookmarkManager sharedManager].authorized;
+    self.navigationItem.rightBarButtonItem.enabled = [HTBHatenaBookmarkManager sharedManager].authorized;
     self.title = [_webView.request.URL absoluteString];
 }
 
@@ -88,7 +88,6 @@
     // iOS 6 or later
     if ([UIActivityViewController class]) {
         HTBHatenaBookmarkActivity *hateaBookmarkActivity = [[HTBHatenaBookmarkActivity alloc] init];
-		hateaBookmarkActivity.presentingViewController = self;
         UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[_webView.request.URL]                                                                               applicationActivities:@[hateaBookmarkActivity]];
         [self presentViewController:activityView animated:YES completion:nil];
     }
