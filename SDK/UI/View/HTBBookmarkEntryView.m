@@ -83,18 +83,24 @@
     _entryTitleLabel.font = [UIFont boldSystemFontOfSize:15.f];
     _entryTitleLabel.textColor = [UIColor colorWithRed:64.f / 255.f  green:64.f / 255.f blue:64.f / 255.f alpha:1.0];
     _entryTitleLabel.highlightedTextColor = [UIColor whiteColor];
+    _entryTitleLabel.shadowColor = [UIColor whiteColor];
+    _entryTitleLabel.shadowOffset = CGSizeMake(0, 1);
 
     _entryCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _entryCountLabel.font = [UIFont systemFontOfSize:12.f];
     _entryCountLabel.textColor = [UIColor colorWithRed:255.f / 255.f green:65.f / 255.f blue:102.f / 255.f alpha:1.0];
     _entryCountLabel.backgroundColor = [UIColor clearColor];
     _entryCountLabel.highlightedTextColor = [UIColor whiteColor];
+    _entryCountLabel.shadowColor = [UIColor whiteColor];
+    _entryCountLabel.shadowOffset = CGSizeMake(0, 1);
 
     _entryURLLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _entryURLLabel.backgroundColor = [UIColor clearColor];
     _entryURLLabel.font = [UIFont systemFontOfSize:12.f];
     _entryURLLabel.textColor = [UIColor colorWithRed:153.f / 255.f green:153.f / 255.f blue:153.f / 255.f alpha:1.0];
     _entryURLLabel.highlightedTextColor = [UIColor whiteColor];
+    _entryURLLabel.shadowColor = [UIColor whiteColor];
+    _entryURLLabel.shadowOffset = CGSizeMake(0, 1);
     
     _entryFaviconImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     NSString *imagePath = [[[HTBUtility hatenaBookmarkSDKBundle] resourcePath] stringByAppendingPathComponent:@"Images/disclosure-indicator.png"];
@@ -118,7 +124,14 @@
             [(UIControl *)view setHighlighted:highlighted];
         }
     }
-    
+
+    for (UIView *view in self.subviews) {
+        if ([view respondsToSelector:@selector(setShadowColor:)]) {
+            [view performSelector:@selector(setShadowColor:) withObject:highlighted ? [UIColor clearColor] : [UIColor whiteColor]];
+        }
+    }
+
+
     [CATransaction begin];
     [CATransaction setDisableActions: YES];
     _hilightedLayer.hidden = !self.highlighted;

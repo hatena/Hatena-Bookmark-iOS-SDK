@@ -51,12 +51,16 @@
     self.messageLabel.font = [UIFont systemFontOfSize:12.0f];
     self.messageLabel.textColor = [UIColor colorWithWhite:0.251 alpha:1.000];
     self.messageLabel.highlightedTextColor = [UIColor whiteColor];
+    self.messageLabel.shadowOffset = CGSizeMake(0, 1);
+    self.messageLabel.shadowColor = [UIColor whiteColor];
     [self addSubview:self.messageLabel];
     self.urlLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.urlLabel.backgroundColor = [UIColor clearColor];
     self.urlLabel.font = [UIFont systemFontOfSize:12.0f];
     self.urlLabel.textColor = [UIColor colorWithWhite:0.600 alpha:1.000];
     self.urlLabel.highlightedTextColor = [UIColor whiteColor];
+    self.urlLabel.shadowOffset = CGSizeMake(0, 1);
+    self.urlLabel.shadowColor = [UIColor whiteColor];
     [self addSubview:self.urlLabel];
     self.messageLabel.text = [HTBUtility localizedStringForKey:@"canonical" withDefault:@"Other URL offered"];
 
@@ -71,9 +75,16 @@
 
 - (void)setHighlighted: (BOOL) highlighted {
     [super setHighlighted: highlighted];
+
     for (UIView *view in self.subviews) {
         if ([view respondsToSelector:@selector(setHighlighted:)]) {
             [(UIControl *)view setHighlighted:highlighted];
+        }
+    }
+
+    for (UIView *view in self.subviews) {
+        if ([view respondsToSelector:@selector(setShadowColor:)]) {
+            [view performSelector:@selector(setShadowColor:) withObject:highlighted ? [UIColor clearColor] : [UIColor whiteColor]];
         }
     }
 }
