@@ -34,7 +34,7 @@
 #define KHatenaOAuthAccessTokenPath @"https://www.hatena.com/oauth/token"
 
 @implementation HTBHatenaBookmarkAPIClient {
-    NSNotificationCenter *_applicationLaunchNotificationObserver;
+    id _applicationLaunchNotificationObserver;
 }
 
 NSString * const kHTBLoginStartNotification = @"kHTBLoginStatrNotification";
@@ -95,20 +95,17 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
                  failure:(void (^)(NSError *error))failure
 {
     [self acquireOAuthRequestTokenWithPath:KHatenaOAuthReuestTokenPath callbackURL:[NSURL URLWithString:@"http://www.hatena.ne.jp/"] accessMethod:@"POST" scope:@"read_private,write_public" success:^(AFOAuth1Token *requestToken, id responseObject) {
-        
+
         NSMutableDictionary *parameters = [@{} mutableCopy];
         [parameters setValue:requestToken.key forKey:@"oauth_token"];
         NSMutableURLRequest *request = [[[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kHatenaBookmarkBaseURLString]] requestWithMethod:@"GET" path:kHatenaOAuthUserAuthorizationPath parameters:parameters];
-        
-        NSNotification *notification = [NSNotification notificationWithName:kHTBLoginStartNotification object:request];
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
 
         __block AFOAuth1Token *currentRequestToken = requestToken;
         
         _applicationLaunchNotificationObserver = [[NSNotificationCenter defaultCenter] addObserverForName:kHTBLoginFinishNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
-            
+
             NSURL *url = [[notification userInfo] valueForKey:kHTBApplicationLaunchOptionsURLKey];
-            
+
             currentRequestToken.verifier = [HTBParametersFromQueryString([url query]) valueForKey:@"oauth_verifier"];
             [self acquireOAuthAccessTokenWithPath:KHatenaOAuthAccessTokenPath requestToken:currentRequestToken accessMethod:@"POST" success:^(AFOAuth1Token * accessToken, id responseObject) {
                 [[NSNotificationCenter defaultCenter] removeObserver:_applicationLaunchNotificationObserver];
@@ -132,6 +129,8 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
             }];
         }];
 
+        NSNotification *notification = [NSNotification notificationWithName:kHTBLoginStartNotification object:request];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
         
     } failure:^(NSError *error) {
         if (failure) {

@@ -46,10 +46,6 @@
     return _sharedManager;
 }
 
--(BOOL)authorized {
-    return !!self.userManager.token;
-}
-
 - (NSString *)username
 {
     return self.userManager.authorizeEntry.username;
@@ -72,6 +68,7 @@
 - (void)logout
 {
     self.apiClient = [[HTBHatenaBookmarkAPIClient alloc] initWithKey:_consumerKey secret:_consumerSecret];
+    _authorized = NO;
     [self.userManager reset];
 }
 
@@ -79,9 +76,11 @@
     _consumerKey = consumerKey;
     _consumerSecret = consumerSecret;
     self.apiClient = [[HTBHatenaBookmarkAPIClient alloc] initWithKey:consumerKey secret:consumerSecret];
+    _authorized = NO;
 
     // Resume token
     if (self.userManager.token) {
+        _authorized = YES;
         self.apiClient.accessToken = self.userManager.token;
     }
 }
@@ -100,6 +99,7 @@
         NSString *queryString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         self.userManager.authorizeEntry = [[HTBAuthorizeEntry alloc] initWithQueryString:queryString];
         self.userManager.token = accessToken;
+        _authorized = YES;
         if (success) success();
         
     } failure:^(NSError *error) {
@@ -156,7 +156,6 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if ([operation.response statusCode] == 404) {
                 NSData *data = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
-                NSLog(operation.responseString);
                 if (data) {
                     NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                     HTBBookmarkEntry *nullEntry = [[HTBBookmarkEntry alloc] initWithJSON:responseJSON];

@@ -1,4 +1,4 @@
-//  HTBAuthorizeEntry.h
+//  HTBBookmarkedDataEntrySpec.m
 //
 //  Copyright (c) 2013 Hatena Co., Ltd. All rights reserved.
 //
@@ -20,12 +20,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface HTBAuthorizeEntry : NSObject <NSCoding>
-@property (readonly, nonatomic, copy) NSString *username;
-@property (readonly, nonatomic, copy) NSString *displayName;
+#import "HTBAppDelegate.h"
 
-- (id)initWithQueryString:(NSString *)queryString;
-
-@end
+int main(int argc, char *argv[])
+{
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([HTBAppDelegate class]));
+    }
+}

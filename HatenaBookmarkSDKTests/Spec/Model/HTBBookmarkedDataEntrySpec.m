@@ -1,4 +1,4 @@
-//  HTBAuthorizeEntry.h
+//  HTBBookmarkedDataEntrySpec.m
 //
 //  Copyright (c) 2013 Hatena Co., Ltd. All rights reserved.
 //
@@ -20,12 +20,38 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "Kiwi.h"
+#import "HTBBookmarkedDataEntry.h"
 
-@interface HTBAuthorizeEntry : NSObject <NSCoding>
-@property (readonly, nonatomic, copy) NSString *username;
-@property (readonly, nonatomic, copy) NSString *displayName;
+SPEC_BEGIN(HTBBookmarkedDataEntrySpec)
 
-- (id)initWithQueryString:(NSString *)queryString;
+describe(@"HTBBookmarkedDataEntry", ^{
+    
+    NSDictionary *json = @{
+                           @"comment" : @"便利情報",
+                           @"tags" : @[@"これはひどい", @"あとで読む", @"増田"],
+                           @"created_epoch" : @1333234800,
+                           @"private" : @1
+    };
+    __block HTBBookmarkedDataEntry *dataEntry = nil;
+    
+    beforeAll(^{
+        dataEntry = [[HTBBookmarkedDataEntry alloc] initWithJSON:json];
+    });
+    
+    it(@"BookmarkedDataEntryが生成できる", ^{
+        [[dataEntry.comment should] equal:@"便利情報"];
+        [[dataEntry.tags should] haveCountOf:3];
+        [[dataEntry.tags should] containObjectsInArray:@[@"これはひどい", @"あとで読む", @"増田"]];
 
-@end
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:1333234800];
+        [[dataEntry.modified should] equal:date];
+
+        [[theValue(dataEntry.isPrivate) should] beYes];
+
+    });
+    
+});
+
+
+SPEC_END
