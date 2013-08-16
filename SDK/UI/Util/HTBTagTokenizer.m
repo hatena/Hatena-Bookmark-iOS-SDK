@@ -22,17 +22,26 @@
 
 #import "HTBTagTokenizer.h"
 
-
 @implementation HTBTagTokenizer
 
 + (NSArray *)bracketedTextToTagArray:(NSString *)bracketText
 {
     NSError *error = nil;
-    NSRegularExpression *regex = [NSRegularExpression
-                                  regularExpressionWithPattern:@"\\[([^\\]]+)\\]"
-                                  options:NSRegularExpressionAllowCommentsAndWhitespace
-                                  error:&error];
-    return [self textToTagArray:bracketText regex:regex];
+    NSRegularExpression *prefix = [NSRegularExpression regularExpressionWithPattern:@"^(\\[[^\\]\\[]+\\])+"
+                                                                            options:NSRegularExpressionAllowCommentsAndWhitespace error:&error];
+    NSArray *result = [prefix matchesInString:bracketText
+                                      options:0
+                                        range:NSMakeRange(0, bracketText.length)];
+    if ([result count] > 0) {
+        NSRegularExpression *regex = [NSRegularExpression
+                                      regularExpressionWithPattern:@"\\[([^\\]]+)\\]"
+                                      options:NSRegularExpressionAllowCommentsAndWhitespace
+                                      error:&error];
+        NSRange range = [result[0] rangeAtIndex:0];
+        NSString *prefixText = [bracketText substringWithRange:range];
+        return [self textToTagArray:prefixText regex:regex];
+    }
+    return @[];
 }
 
 + (NSArray *)textToTagArray:(NSString *)text regex:(NSRegularExpression *)regex
@@ -57,7 +66,7 @@
             }
         }
     }
-    return tags;    
+    return tags;
 }
 
 +(NSArray *)spaceTextToTagArray:(NSString *)spaceText {
@@ -65,7 +74,7 @@
     NSRegularExpression *regex = [NSRegularExpression
                                   regularExpressionWithPattern:@"(?:\\[([^\\]]+)\\]|([^\\s]+))"
                                   options:NSRegularExpressionAllowCommentsAndWhitespace
-                                  error:&error];    
+                                  error:&error];
     return [self textToTagArray:spaceText regex:regex];
 }
 
@@ -85,7 +94,7 @@
         NSRange range = [tag rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (spaceText.length) {
             [spaceText appendString:@" "];
-        }        
+        }
         if (range.location != NSNotFound) {
             [spaceText appendFormat:@" [%@]", tag];
         }
@@ -93,7 +102,7 @@
             [spaceText appendString:tag];
         }
     }
-    return spaceText;    
+    return spaceText;
 }
 
 @end

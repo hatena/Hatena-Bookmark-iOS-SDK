@@ -4,3 +4,9 @@
 [submodule "scifihifi-iphone"]
 	path = scifihifi-iphone
 	url = https://github.com/ldandersen/scifihifi-iphone.git
+[submodule "HatenaBookmarkSDKTests/Nocilla"]
+	path = HatenaBookmarkSDKTests/Nocilla
+	url = https://github.com/luisobo/Nocilla.git
+[submodule "HatenaBookmarkSDKTests/Kiwi"]
+	path = HatenaBookmarkSDKTests/Kiwi
+	url = https://github.com/allending/Kiwi.git
