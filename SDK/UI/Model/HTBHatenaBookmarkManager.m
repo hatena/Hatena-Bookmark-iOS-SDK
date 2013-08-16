@@ -50,6 +50,16 @@
     return !!self.userManager.token;
 }
 
+- (NSString *)username
+{
+    return self.userManager.authorizeEntry.username;
+}
+
+- (NSString *)displayName
+{
+    return self.userManager.authorizeEntry.displayName;
+}
+
 - (id)init
 {
     self = [super init];
@@ -87,7 +97,8 @@
                      failure:(void (^)(NSError *error))failure
 {
     [self.apiClient authorizeWithSuccess:^(AFOAuth1Token *accessToken, id responseObject) {
-        
+        NSString *queryString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        self.userManager.authorizeEntry = [[HTBAuthorizeEntry alloc] initWithQueryString:queryString];
         self.userManager.token = accessToken;
         if (success) success();
         

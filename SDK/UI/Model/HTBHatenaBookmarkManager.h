@@ -36,6 +36,8 @@
 @property (nonatomic, strong) HTBHatenaBookmarkAPIClient *apiClient;
 @property (nonatomic, strong) HTBUserManager *userManager;
 @property (nonatomic, readonly, assign) BOOL authorized;
+@property (nonatomic, readonly, copy) NSString *username;
+@property (nonatomic, readonly, copy) NSString *displayName;
 
 + (instancetype)sharedManager;
 

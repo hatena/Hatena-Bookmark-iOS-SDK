@@ -1,4 +1,4 @@
-//  HTBUserManager.h
+//  HTBBookmarkedDataEntry.m
 //
 //  Copyright (c) 2013 Hatena Co., Ltd. All rights reserved.
 //
@@ -20,22 +20,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-
 #import <Foundation/Foundation.h>
-#import "HTBAFOAuth1Client.h"
-#import "HTBAuthorizeEntry.h"
 
-@class HTBMyEntry;
-@class HTBMyTagsEntry;
+@interface HTBAuthorizeEntry : NSObject <NSCoding>
+@property (readonly, nonatomic, copy) NSString *username;
+@property (readonly, nonatomic, copy) NSString *displayName;
 
-@interface HTBUserManager : NSObject
-
-@property (nonatomic, strong) AFOAuth1Token *token;
-@property (nonatomic, strong) HTBMyEntry *myEntry;
-@property (nonatomic, strong) HTBMyTagsEntry *myTagsEntry;
-@property (nonatomic, strong) HTBAuthorizeEntry *authorizeEntry;
-
-+ (instancetype)sharedManager;
-- (void)reset;
+- (id)initWithQueryString:(NSString *)queryString;
 
 @end
