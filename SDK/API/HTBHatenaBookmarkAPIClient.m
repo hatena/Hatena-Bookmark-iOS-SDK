@@ -111,6 +111,7 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
             
             currentRequestToken.verifier = [HTBParametersFromQueryString([url query]) valueForKey:@"oauth_verifier"];
             [self acquireOAuthAccessTokenWithPath:KHatenaOAuthAccessTokenPath requestToken:currentRequestToken accessMethod:@"POST" success:^(AFOAuth1Token * accessToken, id responseObject) {
+                [[NSNotificationCenter defaultCenter] removeObserver:_applicationLaunchNotificationObserver];
                 _applicationLaunchNotificationObserver = nil;
                 if (accessToken) {
                     self.accessToken = accessToken;
@@ -123,6 +124,7 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
                     }
                 }
             } failure:^(NSError *error) {
+                [[NSNotificationCenter defaultCenter] removeObserver:_applicationLaunchNotificationObserver];
                 _applicationLaunchNotificationObserver = nil;
                 if (failure) {
                     failure(error);

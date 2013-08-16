@@ -23,10 +23,5 @@
 #import <UIKit/UIKit.h>
 
 @interface HTBHatenaBookmarkActivity : UIActivity
-{
-	NSArray *activityItems_;
-}
-
-@property (strong, nonatomic) UIViewController *presentingViewController;
 
 @end

@@ -33,11 +33,17 @@
         UITextAttributeTextColor: [UIColor whiteColor],
         UITextAttributeTextShadowColor : [UIColor darkGrayColor],
     }];
+
     [[self appearance] setBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/header-background.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)] forBarMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/header-button.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 4, 4, 4)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/header-button-push.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 4, 4, 4)] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setBackButtonBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/back-button.png"]]resizableImageWithCapInsets:UIEdgeInsetsMake(4, 12, 4, 4)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setBackButtonBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/back-button_on.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 12, 4, 4)] forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+
+    [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/header-button-landscape.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 4, 4, 4)] forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+    [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/header-button-push-landscape.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 4, 4, 4)] forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
+    [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setBackButtonBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/back-button-landscape.png"]]resizableImageWithCapInsets:UIEdgeInsetsMake(4, 12, 4, 4)] forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+    [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setBackButtonBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/back-button-push-landscape.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 12, 4, 4)] forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
 }
 
 @end

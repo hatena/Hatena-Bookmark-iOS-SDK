@@ -31,9 +31,6 @@
 #import "AFHTTPRequestOperation.h"
 #import "HTBCanonicalEntry.h"
 
-#import "HTBNavigationBar.h"
-#import "HTBLoginWebViewController.h"
-
 @implementation HTBHatenaBookmarkManager {
     NSString *_consumerKey;
     NSString *_consumerSecret;
@@ -72,7 +69,7 @@
     _consumerKey = consumerKey;
     _consumerSecret = consumerSecret;
     self.apiClient = [[HTBHatenaBookmarkAPIClient alloc] initWithKey:consumerKey secret:consumerSecret];
-	
+
     // Resume token
     if (self.userManager.token) {
         self.apiClient.accessToken = self.userManager.token;
@@ -96,54 +93,26 @@
         
     } failure:^(NSError *error) {
         if (failure) failure(error);
-		
+
     }];
 }
-
-- (void)authorizeWithLoginUserInterface:(id)viewController success:(void (^)(void))success
-								failure:(void (^)(NSError *error))failure
-{
-	self.presentingViewController = viewController;
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showOAuthLoginView:) name:kHTBLoginStartNotification object:nil];
-	
-    [self.apiClient authorizeWithSuccess:^(AFOAuth1Token *accessToken, id responseObject) {
-        
-        self.userManager.token = accessToken;
-        if (success) success();
-        
-    } failure:^(NSError *error) {
-        if (failure) failure(error);
-		
-    }];
-}
-
-- (void)showOAuthLoginView:(NSNotification *)notification {
-	NSLog(@"showOAuthLoginView");
-	
-    NSURLRequest *req = (NSURLRequest *)notification.object;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
-    HTBLoginWebViewController *viewController = [[HTBLoginWebViewController alloc] initWithAuthorizationRequest:req];
-    navigationController.viewControllers = @[viewController];
-    [self.presentingViewController presentViewController:navigationController animated:YES completion:nil];
-}
-
 
 - (void)getMyEntryWithSuccess:(void (^)(HTBMyEntry *myEntry))success
                       failure:(void (^)(NSError *error))failure
 {
     [self.apiClient getMyWithSuccess:^(AFHTTPRequestOperation *operation, id responseJSON) {
-		
+
         HTBMyEntry *myEntry = [[HTBMyEntry alloc] initWithJSON:responseJSON];
         self.userManager.myEntry = myEntry;
         if (success) success(myEntry);
-		
+            
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		
-		// Not Authorize
-		if ([operation.response statusCode] == 401) {
-			[[HTBUserManager sharedManager] reset];
-		}
-		if (failure) failure(error);
+
+            // Not Authorize
+            if ([operation.response statusCode] == 401) {
+                [[HTBUserManager sharedManager] reset];
+            }
+            if (failure) failure(error);            
     }];
 }
 
@@ -153,9 +122,9 @@
     [self.apiClient getMyTagsWithSuccess:^(AFHTTPRequestOperation *operation, id responseJSON) {
         HTBMyTagsEntry *myTagsEntry = [[HTBMyTagsEntry alloc]initWithJSON:responseJSON];
         self.userManager.myTagsEntry = myTagsEntry;
-		if (success) success(myTagsEntry);
+            if (success) success(myTagsEntry);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		
+
         // Not Authorize
         if ([operation.response statusCode] == 401) {
             [[HTBUserManager sharedManager] reset];
@@ -169,27 +138,27 @@
                         failure:(void (^)(NSError *error))failure
 {
     [self.apiClient getEntryWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
-		
+
         HTBBookmarkEntry *entry = [[HTBBookmarkEntry alloc] initWithJSON:responseJSON];
-		if (success) success(entry);
-		
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		if ([operation.response statusCode] == 404) {
-			NSData *data = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
-			NSLog(operation.responseString);
-			if (data) {
-				NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-				HTBBookmarkEntry *nullEntry = [[HTBBookmarkEntry alloc] initWithJSON:responseJSON];
-				if (success)
-					success(nullEntry);
-				return;
-			}
-		}
-		// Not Authorize
-		if ([operation.response statusCode] == 401) {
-			[self.userManager reset];
-		}
-		if (failure) failure(error);
+            if (success) success(entry);
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if ([operation.response statusCode] == 404) {
+                NSData *data = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
+                NSLog(operation.responseString);
+                if (data) {
+                    NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                    HTBBookmarkEntry *nullEntry = [[HTBBookmarkEntry alloc] initWithJSON:responseJSON];
+                    if (success)
+                        success(nullEntry);
+                    return;
+                }
+            }
+            // Not Authorize
+            if ([operation.response statusCode] == 401) {
+                [self.userManager reset];
+            }
+            if (failure) failure(error);
     }];
 }
 
@@ -198,12 +167,12 @@
                          failure:(void (^)(NSError *error))failure
 {
     [self.apiClient getCanonicalEntryWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
-		
+
         HTBCanonicalEntry *canonicalEntry = [[HTBCanonicalEntry alloc] initWithJSON:responseJSON];
         if (success) success(canonicalEntry);
-		
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		
+
         // Not Authorize
         if ([operation.response statusCode] == 401) {
             [self.userManager reset];
@@ -213,11 +182,11 @@
 }
 
 - (void)getBookmarkedDataEntryWithURL:(NSURL *)url
-							  success:(void (^)(HTBBookmarkedDataEntry *entry))success
-							  failure:(void (^)(NSError *error))failure
+                        success:(void (^)(HTBBookmarkedDataEntry *entry))success
+                        failure:(void (^)(NSError *error))failure
 {
     [self.apiClient getBookmarkWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
-		
+
         HTBBookmarkedDataEntry *entry = [[HTBBookmarkedDataEntry alloc] initWithJSON:responseJSON];
         if (success) success(entry);
         
@@ -248,15 +217,15 @@
         
         HTBBookmarkedDataEntry *entry = [[HTBBookmarkedDataEntry alloc] initWithJSON:responseJSON];
         if (success) success(entry);
-		
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		
+
         // Not Authorize
         if ([operation.response statusCode] == 401) {
             [[HTBUserManager sharedManager] reset];
         }
         if (failure) failure(error);
-		
+
     }];
 }
 
@@ -266,17 +235,17 @@
                       failure:(void (^)(NSError *error))failure
 {
     [self.apiClient deleteBookmarkWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
-		
+
         if (success) success();
-		
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		
+
         // Not Authorize
         if ([operation.response statusCode] == 401) {
             [[HTBUserManager sharedManager] reset];
         }
         if (failure) failure(error);
-		
+
     }];
 }
 

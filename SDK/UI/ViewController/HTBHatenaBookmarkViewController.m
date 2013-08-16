@@ -24,6 +24,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "HTBNavigationBar.h"
 #import "HTBBookmarkViewController.h"
+#import "HTBHatenaBookmarkManager.h"
+#import "HTBLoginWebViewController.h"
 
 #define HTB_BOOKMARK_VIEW_MARGIN 4
 #define HTB_BOOKMARK_VIEW_HEIGHT_PHONE (192 + 4 * 2)
@@ -69,12 +71,12 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated
-{
+{	
     [super viewWillAppear:animated];
     if ([self isBeingPresented]) {
         self.presentingViewController.providesPresentationContextTransitionStyle = YES;
         self.presentingViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+        self.view.backgroundColor = [UIColor clearColor];
         _originalStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
     }
 }
@@ -89,6 +91,30 @@
         } completion:^(BOOL finished) {
         
         }];
+		if (![HTBHatenaBookmarkManager sharedManager].authorized) {
+			double delayInSeconds = 1.0;
+			dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+			dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+				UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
+				HTBLoginWebViewController *viewController = [[HTBLoginWebViewController alloc] initWithObserver];
+				viewController.dismissBlock = ^(BOOL success) {
+					HTBBookmarkViewController *viewController = _htbNavigationConroller.viewControllers[0];
+					dispatch_async(dispatch_get_main_queue(), ^{
+						if (!success) {
+							[viewController dismiss];
+						}
+						else {
+							[viewController reloadEntity];
+						}
+					});
+				};
+				navigationController.providesPresentationContextTransitionStyle = YES;
+				navigationController.modalPresentationStyle = UIModalTransitionStyleCoverVertical;
+				navigationController.viewControllers = @[viewController];
+				[self presentViewController:navigationController animated:YES completion:^{
+				}];
+			});
+		}
     }
 }
 

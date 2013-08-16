@@ -24,16 +24,7 @@
 
 #import "HTBDemoViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "HTBHatenaBookmarkViewController.h"
-#import "HTBHatenaBookmarkAPIClient.h"
-
-#import "HTBLoginWebViewController.h"
-#import "HTBUserManager.h"
-#import "HTBMyEntry.h"
-#import "AFJSONRequestOperation.h"
-#import "HTBHatenaBookmarkManager.h"
-#import "HTBHatenaBookmarkActivity.h"
-#import "HTBNavigationBar.h"
+#import "HatenaBookmarkSDK.h"
 
 @implementation HTBDemoViewController  {
     IBOutlet UIWebView *_webView;
@@ -63,12 +54,11 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+	
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    self.navigationItem.rightBarButtonItem.enabled = [HTBHatenaBookmarkManager sharedManager].authorized;
     self.title = [_webView.request.URL absoluteString];
 }
 
@@ -124,7 +114,7 @@
 }
 
 - (void)initializeHatenaBookmarkClient {
-    [[HTBHatenaBookmarkManager sharedManager] setConsumerKey:@"your consumer key" consumerSecret:@"your consumer secret"];
+	[[HTBHatenaBookmarkManager sharedManager] setConsumerKey:@"your consumer key" consumerSecret:@"your consumer secret"];
     if ([HTBHatenaBookmarkManager sharedManager].authorized) {
         [[HTBHatenaBookmarkManager sharedManager] getMyEntryWithSuccess:^(HTBMyEntry *myEntry) {
 
