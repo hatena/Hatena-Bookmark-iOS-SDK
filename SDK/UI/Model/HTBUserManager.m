@@ -25,6 +25,8 @@
 #define kHTBKeychainServiceName @"HatenaBookmark"
 #define kHTBKeychainTokenKey @"keychainTokenKey"
 #define kHTBKeychainTokenSecret @"keychainTokenSecret"
+#define kHTBUserDefaultAuthorizeEntry @"authorizeEntry"
+
 @implementation HTBUserManager
 
 + (instancetype)sharedManager
@@ -91,5 +93,23 @@
     return [SFHFKeychainUtils getPasswordForUsername:kHTBKeychainTokenSecret andServiceName:kHTBKeychainServiceName error:nil];
 }
 
+- (HTBAuthorizeEntry *)authorizeEntry
+{
+    NSData *authorizeData = [[NSUserDefaults standardUserDefaults] objectForKey:kHTBUserDefaultAuthorizeEntry];
+    if (authorizeData) {
+        return [NSKeyedUnarchiver unarchiveObjectWithData:authorizeData];
+    }
+    return nil;
+}
+
+- (void)setAuthorizeEntry:(HTBAuthorizeEntry *)authorizeEntry
+{
+    if (authorizeEntry) {
+        NSData *authorizeData = [NSKeyedArchiver archivedDataWithRootObject:authorizeEntry];
+        [[NSUserDefaults standardUserDefaults] setObject:authorizeData forKey:kHTBUserDefaultAuthorizeEntry];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kHTBUserDefaultAuthorizeEntry];
+    }
+}
 
 @end
