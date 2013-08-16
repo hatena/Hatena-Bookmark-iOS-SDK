@@ -38,6 +38,10 @@
 #define HTB_BOOKMARK_ROOT_VIEW_TAG_IMAGE_VIEW_WIDTH 20.f
 #define HTB_BOOKMARK_ROOT_VIEW_TAG_IMAGE_VIEW_LEFT_MARGIN 8.f
 #define HTB_BOOKMARK_ROOT_VIEW_TAG_IMAGE_SIZE 12.f
+#define HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_FONT_SIZE 12.f
+#define HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_RIGHT_MARGIN 8.f
+#define HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_HEIGHT 10.f
+#define HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_WIDTH 22.f
 
 @interface HTBBookmarkRootView ()
 @property (nonatomic, strong) UIView *separatorLineView;
@@ -59,6 +63,16 @@
 {
     self.commentTextView = [[HTBPlaceholderTextView alloc] initWithFrame:CGRectZero];
     self.commentTextView.backgroundColor = [UIColor clearColor];
+
+    self.textCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.textCountLabel.backgroundColor = [UIColor clearColor];
+    self.textCountLabel.textAlignment = NSTextAlignmentRight;
+    self.textCountLabel.font = [UIFont systemFontOfSize:HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_FONT_SIZE];
+    self.textCountLabel.textColor = [UIColor colorWithRed:153.f / 255.f green:153.f / 255.f blue:153.f / 255.f alpha:1.000];
+    self.textCountLabel.shadowColor = [UIColor whiteColor];
+    self.textCountLabel.shadowOffset = CGSizeMake(0, 1);
+    self.textCountLabel.text = @"0";
+
     self.tagTextField = [[HTBTagTextField alloc] initWithFrame:CGRectZero];
     self.entryView = [[HTBBookmarkEntryView alloc] initWithFrame:CGRectZero];
     self.myBookmarkActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -71,6 +85,7 @@
     self.canonicalView.hidden = YES;
 
     [self addSubview:self.commentTextView];
+    [self addSubview:self.textCountLabel];
     [self addSubview:self.tagTextField];
     [self addSubview:self.myBookmarkActivityIndicatorView];
     [self addSubview:self.entryView];
@@ -78,7 +93,9 @@
     [self addSubview:self.separatorLineView];
     [self addSubview:self.tagImageView];
     [self addSubview:self.canonicalView];
-    self.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1.000];
+    self.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1.000];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTextCount:) name:UITextViewTextDidChangeNotification object:self.commentTextView];
 
     [self.bookmarkActivityIndicatorView startAnimating];
     [self.myBookmarkActivityIndicatorView startAnimating];
@@ -86,9 +103,22 @@
     self.commentTextView.placeholder = [HTBUtility localizedStringForKey:@"add-comments" withDefault:@"Add comments"];
     self.tagTextField.font = [UIFont systemFontOfSize:12.f];
     self.tagTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    self.tagTextField.placeholder = [HTBUtility localizedStringForKey:@"add-tags" withDefault:@"Add tags"];
 
-    NSString *borderImagePath = [[[HTBUtility hatenaBookmarkSDKBundle] resourcePath] stringByAppendingPathComponent:@"Images/border-dotted.png"];    
+    NSString *placeholderText = [HTBUtility localizedStringForKey:@"add-tags" withDefault:@"Add tags"];
+    if ([self.tagTextField respondsToSelector:@selector(setAttributedPlaceholder:)]) {
+        NSShadow *shadow = [[NSShadow alloc] init];
+        shadow.shadowColor = [UIColor whiteColor];
+        shadow.shadowOffset = CGSizeMake(0, 1);
+        self.tagTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholderText attributes:@{
+                NSShadowAttributeName : shadow,
+        }];
+    }
+    else {
+        self.tagTextField.placeholder = placeholderText;
+
+    }
+
+    NSString *borderImagePath = [[[HTBUtility hatenaBookmarkSDKBundle] resourcePath] stringByAppendingPathComponent:@"Images/border-dotted.png"];
     _separatorLineView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:borderImagePath]];
 
     self.toolbarView = [[HTBBookmarkToolbarView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 44.f)];
@@ -105,7 +135,6 @@
     if (!self.canonicalView.hidden) {
         y -= HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_BOTTOM_MARGIN;
         self.canonicalView.frame = CGRectMake(HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_MARGIN, y, self.bounds.size.width - HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_MARGIN * 2, HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_HEIGHT);
-//        y -= HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_MARGIN;
     }
     else {
         self.canonicalView.frame = CGRectMake(HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_MARGIN, self.bounds.size.height, self.bounds.size.width, HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_HEIGHT);
@@ -119,10 +148,13 @@
     y -= HTB_BOOKMARK_ROOT_VIEW_SEPARATOR_LINE_HEIGHT;
     self.separatorLineView.frame = CGRectMake(0, y, self.bounds.size.width, HTB_BOOKMARK_ROOT_VIEW_SEPARATOR_LINE_HEIGHT);
 
+
     y -= HTB_BOOKMARK_ROOT_VIEW_TAG_TEXT_HEIGHT;
     self.tagImageView.frame = CGRectMake(HTB_BOOKMARK_ROOT_VIEW_TAG_IMAGE_VIEW_LEFT_MARGIN, y, HTB_BOOKMARK_ROOT_VIEW_TAG_IMAGE_SIZE, HTB_BOOKMARK_ROOT_VIEW_TAG_TEXT_HEIGHT);
     CGFloat tagTextFieldLeftMargin = self.tagImageView.frame.origin.x + self.tagImageView.frame.size.width + HTB_BOOKMARK_ROOT_VIEW_TAG_TEXT_LEFT_MARGIN;
-    self.tagTextField.frame = CGRectMake(tagTextFieldLeftMargin, y, self.bounds.size.width - tagTextFieldLeftMargin, HTB_BOOKMARK_ROOT_VIEW_TAG_TEXT_HEIGHT);
+    self.tagTextField.frame = CGRectMake(tagTextFieldLeftMargin, y, self.bounds.size.width - tagTextFieldLeftMargin - HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_WIDTH - HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_RIGHT_MARGIN, HTB_BOOKMARK_ROOT_VIEW_TAG_TEXT_HEIGHT);
+
+    self.textCountLabel.frame = CGRectMake(self.bounds.size.width - HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_WIDTH - HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_RIGHT_MARGIN, y + HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_HEIGHT, HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_WIDTH, HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_HEIGHT);
 
     self.commentTextView.frame = CGRectMake(0, 0, self.bounds.size.width, y);
     self.myBookmarkActivityIndicatorView.center = self.commentTextView.center;
@@ -138,5 +170,16 @@
     }];
 }
 
+- (void)updateTextCount:(NSNotification *)notification
+{
+    NSInteger textCount = [self.commentTextView.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding] / 3;
+    self.textCountLabel.text = [NSString stringWithFormat:@"%d", textCount];
+    if (textCount > 100) {
+        self.textCountLabel.textColor = [UIColor redColor];
+    }
+    else {
+        self.textCountLabel.textColor = [UIColor colorWithRed:153.f / 255.f green:153.f / 255.f blue:153.f / 255.f alpha:1.000];
+    }
+}
 
 @end

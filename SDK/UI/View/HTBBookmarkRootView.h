@@ -35,6 +35,7 @@
 @property (nonatomic, strong) HTBTagTextField *tagTextField;
 @property (nonatomic, strong) HTBBookmarkToolbarView *toolbarView;
 @property (nonatomic, strong) HTBCanonicalView *canonicalView;
+@property (nonatomic, strong) UILabel *textCountLabel;
 @property (nonatomic, strong) UIActivityIndicatorView *myBookmarkActivityIndicatorView;
 @property (nonatomic, strong) UIActivityIndicatorView *bookmarkActivityIndicatorView;
 

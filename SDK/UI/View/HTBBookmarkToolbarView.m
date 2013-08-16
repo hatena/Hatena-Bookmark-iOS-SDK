@@ -93,6 +93,8 @@
     _privateToggleButton.image = [UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/addbookmark-public-icon.png"]];
     _privateToggleButton.selectedImage = [UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/addbookmark-private-icon.png"]];
     _privateToggleButton.titleLabel.font = [UIFont systemFontOfSize:12.f];
+    [_privateToggleButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _privateToggleButton.titleLabel.shadowOffset = CGSizeMake(0, 1);
     [_privateToggleButton setTitleColor:[UIColor colorWithWhite:0.25 alpha:1.0] forState:UIControlStateNormal];
     [_privateToggleButton setTitleColor:[UIColor colorWithWhite:0.50 alpha:1.0] forState:UIControlStateHighlighted];
 
