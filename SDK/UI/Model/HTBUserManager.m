@@ -43,6 +43,7 @@
 {
     [self setTokenKey:nil];
     [self setTokenSecret:nil];
+    self.authorizeEntry = nil;
 }
 
 - (void)setToken:(AFOAuth1Token *)token

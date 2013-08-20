@@ -238,8 +238,8 @@
 		260BE3EC17AF1E2600BEA288 /* Entry */ = {
 			isa = PBXGroup;
 			children = (
-				0726A88617BE1FF700A484CF /* HTBAuthorizeEntry.h */,
-				0726A88717BE1FF700A484CF /* HTBAuthorizeEntry.m */,
+				0726A88617BE1FF700A484CF,
+				0726A88717BE1FF700A484CF,
 				260BE3ED17AF1E2600BEA288 /* HTBBookmarkedDataEntry.h */,
 				260BE3EE17AF1E2600BEA288 /* HTBBookmarkedDataEntry.m */,
 				260BE3EF17AF1E2600BEA288 /* HTBBookmarkEntry.h */,
@@ -483,7 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0726A88817BE204200A484CF /* HTBAuthorizeEntry.m in Sources */,
+				0726A88817BE204200A484CF,
 				267CCBEC178A5D3900063953 /* main.m in Sources */,
 				267CCBF0178A5D3900063953 /* HTBAppDelegate.m in Sources */,
 				267CCBF6178A5D3900063953 /* HTBDemoViewController.m in Sources */,
