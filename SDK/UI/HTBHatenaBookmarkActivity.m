@@ -24,6 +24,7 @@
 #import "HTBHatenaBookmarkManager.h"
 #import "HTBHatenaBookmarkViewController.h"
 #import "HTBUtility.h"
+#import "HTBComposeViewController.h"
 
 @implementation HTBHatenaBookmarkActivity {
     NSURL *url;
@@ -57,16 +58,14 @@
         if ([activityItem isKindOfClass:[NSURL class]]) {
             NSString *scheme = [(NSURL *)activityItem scheme];
             if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
-                url = activityItem;
-            }            
+                [self activityDidFinish:YES];
+                HTBHatenaBookmarkViewController *viewController = [[HTBHatenaBookmarkViewController alloc] init];
+                viewController.URL = (NSURL *)activityItem;
+                [viewController presentFromRootViewController];
+                break;
+            }
         }
     }
-}
-
-- (UIViewController *)activityViewController {
-    HTBHatenaBookmarkViewController *viewController = [[HTBHatenaBookmarkViewController alloc] init];
-    viewController.URL = url;
-    return viewController;
 }
 
 @end

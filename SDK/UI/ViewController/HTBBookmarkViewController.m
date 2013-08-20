@@ -42,6 +42,8 @@
 #import "HTBCanonicalView.h"
 #import "UIAlertView+HTBNSError.h"
 
+#import "HTBComposeViewController.h"
+
 @interface HTBBookmarkViewController ()
 @property (nonatomic, strong) HTBBookmarkEntry *entry;
 @property (nonatomic, strong) HTBCanonicalEntry *canonicalEntry;
@@ -171,26 +173,15 @@
     [self.rootView.tagTextField resignFirstResponder];
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.rootView.commentTextView becomeFirstResponder];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.rootView.commentTextView becomeFirstResponder];
-}
-
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if ([self isBeingDismissed]) {
-        CGRect frame = self.parentViewController.view.frame;
-        frame.origin.y = self.view.window.bounds.size.height;
-        [UIView animateWithDuration:animated ? 0.27 : 0 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.parentViewController.view.frame = frame;
-        } completion:nil];
-    }
 }
 
 - (void)setEntry:(HTBBookmarkEntry *)entry
@@ -243,7 +234,7 @@
     [[HTBHatenaBookmarkManager sharedManager] postBookmarkWithURL:self.URL comment:self.rootView.commentTextView.text tags:tags options:options success:^(HTBBookmarkedDataEntry *entry) {
         [self setBookmarkedDataEntry:entry];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController.parentViewController dismissViewControllerAnimated:YES completion:nil];
     } failure:^(NSError *error) {
         [self handleHTTPError:error];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
@@ -259,7 +250,7 @@
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:[HTBUtility localizedStringForKey:@"add" withDefault:@"Add"] style:UIBarButtonItemStyleBordered target:self action:@selector(addBookmarkButtonPushed:)];
         self.navigationItem.rightBarButtonItems = @[addButton];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController.parentViewController dismissViewControllerAnimated:YES completion:nil];
     } failure:^(NSError *error) {
         [self handleHTTPError:error];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
@@ -269,6 +260,6 @@
 - (IBAction)closeButtonPushed:(id)sender
 {
     [self.rootView.commentTextView resignFirstResponder];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController.parentViewController dismissViewControllerAnimated:YES completion:nil];
 }
 @end

@@ -100,7 +100,8 @@ You can call ViewController directly.
 NSURL *URL = self.webView.request.URL;
 HTBHatenaBookmarkViewController *viewController = [[HTBHatenaBookmarkViewController alloc] init];
 viewController.URL = URL;
-[self presentViewController:viewController animated:YES completion:nil];
+[viewController presentFromRootViewController];
+// or [viewController presentFromViewController:self];
 ```
 
 # Build DemoApp
@@ -130,6 +131,9 @@ Demo app also needs OAuth consumer secret and key. Add to `[[HTBHatenaBookmarkMa
 - [AFOAuth1Client](https://github.com/AFNetworking/AFOAuth1Client)
  - Currentry we forked and copied it as HTBAFOAuth1Client for waiting merge some pull requests.
 - [SFHFKeychainUtils](https://github.com/ldandersen/scifihifi-iphone/)
+
+## Credits
+Partially based on [REComposeViewController](https://github.com/romaonthego/REComposeViewController).
 
 # Hatena Bookmark API
 iOS SDK interfaces with the Hatena Bookmark API. For more details, see [api docs](docs/apis/rest.md). (They will be moved to the Hatena Developer Center at a later date);

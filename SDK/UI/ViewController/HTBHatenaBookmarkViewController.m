@@ -35,6 +35,8 @@
 @implementation HTBHatenaBookmarkViewController {
     UINavigationController *_htbNavigationConroller;
     UIStatusBarStyle _originalStatusBarStyle;
+    CGFloat _keyboardAnimationDuration;
+    CGRect _keyboardRect;
 }
 
 - (void)viewDidLoad
@@ -42,89 +44,84 @@
     [super viewDidLoad];
     HTBBookmarkViewController *viewController = [[HTBBookmarkViewController alloc] init];
     viewController.URL = self.URL;
-   _htbNavigationConroller = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
+    _htbNavigationConroller = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
     _htbNavigationConroller.viewControllers = @[viewController];
-    __block CGRect frame = CGRectInset(self.view.bounds, HTB_BOOKMARK_VIEW_MARGIN, HTB_BOOKMARK_VIEW_MARGIN);
-    frame.size.height = HTB_BOOKMARK_VIEW_HEIGHT_PHONE;
-    frame.origin.y = self.view.bounds.size.height;
-    _htbNavigationConroller.view.frame = frame;
-    _htbNavigationConroller.view.backgroundColor = [UIColor whiteColor];
+    CGRect frame = self.view.frame;
+    frame.origin.y = frame.size.height;
+    frame.size.height = [UIScreen mainScreen].bounds.size.height;
+    [self addChildViewController:_htbNavigationConroller];
+    [self.containerView addSubview:_htbNavigationConroller.view];
+    [_htbNavigationConroller didMoveToParentViewController:self];
+    self.containerView.frame = frame;
+
     _htbNavigationConroller.view.layer.cornerRadius = 6;
     _htbNavigationConroller.view.layer.masksToBounds = YES;
-    [self addChildViewController:_htbNavigationConroller];
-    [self.view addSubview:_htbNavigationConroller.view];
-    [_htbNavigationConroller didMoveToParentViewController:self];
-    self.modalPresentationStyle = UIModalPresentationCurrentContext;
-//    
-//    [UIView animateWithDuration:0.27 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-////        frame.origin.y = HTB_BOOKMARK_VIEW_MARGIN;
-////        _htbNavigationConroller.view.frame = frame;
-//    } completion:^(BOOL finished) {
-//        
-//    }];
+
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillShowNotification object:nil];
-    [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillHideNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardDidShowNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardDidHideNotification object:nil];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if ([self isBeingPresented]) {
-        self.presentingViewController.providesPresentationContextTransitionStyle = YES;
-        self.presentingViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
-        _originalStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
-    }
+    _originalStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+    [_htbNavigationConroller beginAppearanceTransition:YES animated:animated];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([self isBeingPresented]) {
-        [UIView animateWithDuration:animated ? 0.27 : 0 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.8];
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
-        } completion:^(BOOL finished) {
-        
-        }];
-    }
+    [UIView animateWithDuration:animated ? 0.27 : 0 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
+    } completion:^(BOOL finished) {
+
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if ([self isBeingDismissed]) {
-        [[UIApplication sharedApplication] setStatusBarStyle:_originalStatusBarStyle animated:animated];
-        [UIView animateWithDuration:animated ? 0.27 : 0 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
-        } completion:nil];
-    }
+    [[UIApplication sharedApplication] setStatusBarStyle:_originalStatusBarStyle animated:animated];
 }
 
-- (void)keyboardFrameWillChange:(NSNotification *)notification {
-    CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
-    CGFloat keyboardAnimationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-
-    CGRect newVisibleRect = self.view.bounds;
-    if ([notification.name isEqualToString:UIKeyboardWillShowNotification] || [notification.name isEqualToString:UIKeyboardWillHideNotification])
-        newVisibleRect.size.height -= keyboardRect.size.height;
-    
-    [UIView animateWithDuration:keyboardAnimationDuration animations:^{
-        CGRect frame = newVisibleRect;
-//        frame.size.height = fmin(frame.size.height, HTB_BOOKMARK_VIEW_HEIGHT_PHONE);
-
-        frame.origin = CGPointMake((newVisibleRect.size.width - frame.size.width) / 2, (newVisibleRect.size.height - frame.size.height) / 2);
-        _htbNavigationConroller.view.frame = CGRectInset(frame, HTB_BOOKMARK_VIEW_MARGIN, HTB_BOOKMARK_VIEW_MARGIN);
-    } completion:^(BOOL finished) {
-        
-    }];
-}
-
-- (void)didMoveToParentViewController:(UIViewController *)parent
+- (void)keyboardFrameWillChange:(NSNotification *)notification
 {
-    [super didMoveToParentViewController:parent];
+    _keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    _keyboardRect = [self.view convertRect:_keyboardRect fromView:nil];
+    _keyboardAnimationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+
+    CGRect newVisibleRect = self.view.frame;
+    if ([notification.name isEqualToString:UIKeyboardDidShowNotification] || [notification.name isEqualToString:UIKeyboardWillShowNotification]) {
+        newVisibleRect.size.height -= _keyboardRect.size.height;
+    } else if ([notification.name isEqualToString:UIKeyboardDidHideNotification]) {
+        _keyboardRect = CGRectZero;
+    }
+    newVisibleRect.size.height -= 20;
+    [self updateModalHeight:newVisibleRect duration:_keyboardAnimationDuration];
+}
+
+- (void)updateModalHeight:(CGRect)modalRect duration:(CGFloat)duration
+{
+    __block __weak HTBHatenaBookmarkViewController *weakSelf = self;
+    CGRect frame = modalRect;
+    frame.origin = CGPointMake((modalRect.size.width - frame.size.width) / 2, (modalRect.size.height - frame.size.height) / 2);
+    [UIView animateWithDuration:duration animations:^{
+        CGRect inset = CGRectInset(modalRect, HTB_BOOKMARK_VIEW_MARGIN, HTB_BOOKMARK_VIEW_MARGIN);
+        _htbNavigationConroller.view.frame = inset;
+    } completion:^(BOOL finished) {
+    }];
+
+}
+
+- (void)viewOrientationDidChanged:(NSNotification *)notification
+{
+    [super viewOrientationDidChanged:notification];
+    CGRect newVisibleRect = self.view.frame;
+    newVisibleRect.size.height -= _keyboardRect.size.height;
+    newVisibleRect.size.height -= 20;
+    [self updateModalHeight:newVisibleRect duration:_keyboardAnimationDuration];
 }
 
 @end
