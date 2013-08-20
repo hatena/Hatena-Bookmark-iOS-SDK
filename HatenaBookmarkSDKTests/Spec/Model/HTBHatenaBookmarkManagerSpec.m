@@ -99,6 +99,14 @@ describe(@"HTBHatenaBookmarkManager", ^{
                 [[expectFutureValue([HTBHatenaBookmarkManager sharedManager].displayName) shouldEventually] equal:@"しなもん"];
             });
 
+            it(@"ログアウト時、ユーザー名、表示名が取り出せない", ^ {
+                login(^{
+                    [[HTBHatenaBookmarkManager sharedManager] logout];
+                });
+                [[expectFutureValue([HTBHatenaBookmarkManager sharedManager].username) shouldEventually] beNil];
+                [[expectFutureValue([HTBHatenaBookmarkManager sharedManager].displayName) shouldEventually] beNil];
+            });
+
         });
 
         it(@"MyEntryが取得できる", ^{
