@@ -21,8 +21,7 @@
 //  THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "HTBComposeViewController.h"
 
-@interface HTBHatenaBookmarkViewController : HTBComposeViewController
+@interface HTBHatenaBookmarkViewController : UIViewController
 @property (nonatomic, strong) NSURL *URL;
 @end
