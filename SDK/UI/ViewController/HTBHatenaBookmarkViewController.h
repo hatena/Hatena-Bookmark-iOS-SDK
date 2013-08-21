@@ -22,6 +22,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTBHatenaBookmarkViewController : UIViewController
+@interface HTBHatenaBookmarkViewController : UIViewController<UIAlertViewDelegate>
 @property (nonatomic, strong) NSURL *URL;
 @end
