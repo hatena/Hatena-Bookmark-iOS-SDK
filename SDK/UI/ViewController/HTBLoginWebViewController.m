@@ -39,7 +39,7 @@
     return self;
 }
 
-- (id)initWithObserver
+- (id)init
 {
     self = [super init];
     if (self) {

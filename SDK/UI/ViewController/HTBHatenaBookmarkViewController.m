@@ -96,7 +96,7 @@
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                 UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
-                HTBLoginWebViewController *viewController = [[HTBLoginWebViewController alloc] initWithObserver];
+                HTBLoginWebViewController *viewController = [[HTBLoginWebViewController alloc] init];
                 viewController.dismissBlock = ^(BOOL success) {
                     HTBBookmarkViewController *viewController = _htbNavigationConroller.viewControllers[0];
                     dispatch_async(dispatch_get_main_queue(), ^{

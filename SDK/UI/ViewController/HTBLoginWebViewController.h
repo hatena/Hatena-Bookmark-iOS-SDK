@@ -27,6 +27,5 @@
 @property (strong, nonatomic) void (^dismissBlock)(BOOL success);
 
 -(id)initWithAuthorizationRequest:(NSURLRequest *)request;
-- (id)initWithObserver;
 
 @end
