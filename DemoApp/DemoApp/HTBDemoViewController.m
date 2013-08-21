@@ -101,7 +101,7 @@
     [[HTBHatenaBookmarkManager sharedManager] logout];
     [[HTBHatenaBookmarkManager sharedManager] authorizeWithSuccess:^{
         [self toggleLoginButtons];
-        self.navigationItem.rightBarButtonItem.enabled = [HTBHatenaBookmarkManager sharedManager].authorized;
+//        self.navigationItem.rightBarButtonItem.enabled = [HTBHatenaBookmarkManager sharedManager].authorized;
     } failure:^(NSError *error) {
     }];
 }
@@ -110,7 +110,7 @@
 {
     [[HTBHatenaBookmarkManager sharedManager] logout];
     [self toggleLoginButtons];
-    self.navigationItem.rightBarButtonItem.enabled = [HTBHatenaBookmarkManager sharedManager].authorized;
+//    self.navigationItem.rightBarButtonItem.enabled = [HTBHatenaBookmarkManager sharedManager].authorized;
 }
 
 - (void)initializeHatenaBookmarkClient {
