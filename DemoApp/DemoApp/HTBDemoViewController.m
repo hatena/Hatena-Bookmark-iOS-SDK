@@ -54,7 +54,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-	
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -114,7 +114,7 @@
 }
 
 - (void)initializeHatenaBookmarkClient {
-	[[HTBHatenaBookmarkManager sharedManager] setConsumerKey:@"your consumer key" consumerSecret:@"your consumer secret"];
+    [[HTBHatenaBookmarkManager sharedManager] setConsumerKey:@"your consumer key" consumerSecret:@"your consumer secret"];
     if ([HTBHatenaBookmarkManager sharedManager].authorized) {
         [[HTBHatenaBookmarkManager sharedManager] getMyEntryWithSuccess:^(HTBMyEntry *myEntry) {
 

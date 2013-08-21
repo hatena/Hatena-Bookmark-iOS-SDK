@@ -41,21 +41,21 @@
 
 - (id)initWithObserver
 {
-	self = [super init];
-	if (self) {
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadOAuthLoginView:) name:kHTBLoginStartNotification object:nil];
-		[[HTBHatenaBookmarkManager sharedManager] authorizeWithSuccess:^{
-		} failure:^(NSError *error) {
-		}];
-	}
-	
-	return self;
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadOAuthLoginView:) name:kHTBLoginStartNotification object:nil];
+        [[HTBHatenaBookmarkManager sharedManager] authorizeWithSuccess:^{
+        } failure:^(NSError *error) {
+        }];
+    }
+    
+    return self;
 }
 
 - (void)loadView
 {
     [super loadView];
-	
+    
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     _webView.delegate = self;
     _webView.scalesPageToFit = YES;
@@ -94,19 +94,19 @@
 }
 
 - (void)hideModalView:(BOOL)success {
-	[self dismissViewControllerAnimated:YES completion:^{
-		if (self.dismissBlock) {
-			self.dismissBlock(success);
-		}
-	}];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (self.dismissBlock) {
+            self.dismissBlock(success);
+        }
+    }];
 }
 
 #pragma mark - 
 
 -(void)loadOAuthLoginView:(NSNotification *)notification {
     NSURLRequest *req = (NSURLRequest *)notification.object;
-	_authorizationRequest = req;
-	[_webView loadRequest:_authorizationRequest];
+    _authorizationRequest = req;
+    [_webView loadRequest:_authorizationRequest];
 }
 
 
