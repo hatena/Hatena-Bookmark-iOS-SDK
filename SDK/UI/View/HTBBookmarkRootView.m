@@ -42,9 +42,12 @@
 #define HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_RIGHT_MARGIN 8.f
 #define HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_HEIGHT 10.f
 #define HTB_BOOKMARK_ROOT_VIEW_TEXT_COUNT_LABEL_WIDTH 22.f
+#define HTB_BOOKMARK_ROOT_VIEW_TEXT_MINIMUM_HEIGHT 30
 
 @interface HTBBookmarkRootView ()
 @property (nonatomic, strong) UIView *separatorLineView;
+@property (nonatomic, strong) UIView *containerView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *tagImageView;
 @end
 
@@ -54,6 +57,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
+        self.containerView = [UIView new];
+        self.scrollView.zoomScale = 1.0;
         [self initializeViews];
     }
     return self;
@@ -84,15 +90,15 @@
     self.canonicalView = [[HTBCanonicalView alloc] initWithFrame:CGRectZero];
     self.canonicalView.hidden = YES;
 
-    [self addSubview:self.commentTextView];
-    [self addSubview:self.textCountLabel];
-    [self addSubview:self.tagTextField];
-    [self addSubview:self.myBookmarkActivityIndicatorView];
-    [self addSubview:self.entryView];
-    [self addSubview:self.bookmarkActivityIndicatorView];
-    [self addSubview:self.separatorLineView];
-    [self addSubview:self.tagImageView];
-    [self addSubview:self.canonicalView];
+    [self.containerView addSubview:self.commentTextView];
+    [self.containerView addSubview:self.textCountLabel];
+    [self.containerView addSubview:self.tagTextField];
+    [self.containerView addSubview:self.myBookmarkActivityIndicatorView];
+    [self.containerView addSubview:self.entryView];
+    [self.containerView addSubview:self.bookmarkActivityIndicatorView];
+    [self.containerView addSubview:self.separatorLineView];
+    [self.containerView addSubview:self.tagImageView];
+    [self.containerView addSubview:self.canonicalView];
     self.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1.000];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTextCount:) name:UITextViewTextDidChangeNotification object:self.commentTextView];
@@ -124,13 +130,28 @@
     self.toolbarView = [[HTBBookmarkToolbarView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 44.f)];
     self.toolbarView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.commentTextView.inputAccessoryView = self.toolbarView;
+    [self.scrollView addSubview:self.containerView];
+    [self addSubview:self.scrollView];
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
 
+    self.scrollView.frame = self.frame;
+    CGFloat minimumHeight = HTB_BOOKMARK_ROOT_VIEW_ENTRY_VIEW_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_SEPARATOR_LINE_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_TAG_TEXT_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_TEXT_MINIMUM_HEIGHT;
+    if (!self.canonicalView.hidden) {
+        minimumHeight += HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_BOTTOM_MARGIN;
+    }
+
     CGFloat y = self.bounds.size.height;
+    if (self.frame.size.height < minimumHeight) {
+        y = minimumHeight;
+    }
+    CGRect newFrame = self.frame;
+    newFrame.size.height = y;
+    self.containerView.frame = newFrame;
+    self.scrollView.contentSize = newFrame.size;
 
     if (!self.canonicalView.hidden) {
         y -= HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_BOTTOM_MARGIN;
