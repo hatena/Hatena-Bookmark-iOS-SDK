@@ -1,6 +1,9 @@
-//  HTBRootViewController.h
+//  HTBComposeViewController.h
 //
-//  Copyright (c) 2013 Hatena Co., Ltd. All rights reserved.
+//  modified from REComposeViewController.h (https://github.com/romaonthego/REComposeViewController)
+//
+//  Copyright (c) 2013 Hatena Co., Ltd.
+//  Copyright (c) 2013 Roman Efimov (https://github.com/romaonthego)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,9 +23,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import "HTBComposeViewController.h"
+#import <Foundation/Foundation.h>
+#import "HTBREComposeBackgroundView.h"
 
-@interface HTBHatenaBookmarkViewController : HTBComposeViewController
-@property (nonatomic, strong) NSURL *URL;
+@interface HTBComposeViewController : UIViewController {
+    UIView *_backView;
+}
+
+@property (assign, readwrite, nonatomic) NSInteger cornerRadius;
+@property (strong, readonly, nonatomic) UIView *containerView;
+@property (weak, readonly, nonatomic) UIViewController *rootViewController;
+@property (strong, readonly, nonatomic) HTBREComposeBackgroundView *backgroundView;
+
+- (void)presentFromRootViewController;
+- (void)presentFromViewController:(UIViewController *)controller;
+- (void)viewOrientationDidChanged:(NSNotification *)notification;
+
 @end
