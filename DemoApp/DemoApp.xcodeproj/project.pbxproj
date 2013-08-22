@@ -65,8 +65,6 @@
 /* Begin PBXFileReference section */
 		071C365E17BE0478008EDF40 /* HTBAuthorizeEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBAuthorizeEntry.h; sourceTree = "<group>"; };
 		071C365F17BE0478008EDF40 /* HTBAuthorizeEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBAuthorizeEntry.m; sourceTree = "<group>"; };
-		073FB36B17B8AD42009CDDEA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		07B12B8517BA08F6000B3B9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		260BE3E817AF1E2600BEA288 /* HTBHatenaBookmarkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBHatenaBookmarkActivity.h; sourceTree = "<group>"; };
 		260BE3E917AF1E2600BEA288 /* HTBHatenaBookmarkActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBHatenaBookmarkActivity.m; sourceTree = "<group>"; };
 		260BE3ED17AF1E2600BEA288 /* HTBBookmarkedDataEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBBookmarkedDataEntry.h; sourceTree = "<group>"; };
@@ -238,8 +236,6 @@
 		260BE3EC17AF1E2600BEA288 /* Entry */ = {
 			isa = PBXGroup;
 			children = (
-				0726A88617BE1FF700A484CF,
-				0726A88717BE1FF700A484CF,
 				260BE3ED17AF1E2600BEA288 /* HTBBookmarkedDataEntry.h */,
 				260BE3EE17AF1E2600BEA288 /* HTBBookmarkedDataEntry.m */,
 				260BE3EF17AF1E2600BEA288 /* HTBBookmarkEntry.h */,
@@ -324,7 +320,10 @@
 				267CCBDE178A5D3900063953 /* Frameworks */,
 				267CCBDD178A5D3900063953 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
 		};
 		267CCBDD178A5D3900063953 /* Products */ = {
 			isa = PBXGroup;
@@ -441,7 +440,7 @@
 				ORGANIZATIONNAME = "Hatena Co., Ltd.";
 				TargetAttributes = {
 					267CCBFC178A5D3900063953 = {
-						TestTargetID = 267CCBDB178A5D3900063953 /* DemoApp */;
+						TestTargetID = 267CCBDB178A5D3900063953;
 					};
 				};
 			};
@@ -483,7 +482,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0726A88817BE204200A484CF,
 				267CCBEC178A5D3900063953 /* main.m in Sources */,
 				267CCBF0178A5D3900063953 /* HTBAppDelegate.m in Sources */,
 				267CCBF6178A5D3900063953 /* HTBDemoViewController.m in Sources */,
