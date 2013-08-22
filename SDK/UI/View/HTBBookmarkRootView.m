@@ -65,6 +65,11 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)initializeViews
 {
     self.commentTextView = [[HTBPlaceholderTextView alloc] initWithFrame:CGRectZero];
