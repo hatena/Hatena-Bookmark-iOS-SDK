@@ -27,15 +27,22 @@
 #import "HTBHatenaBookmarkManager.h"
 #import "HTBLoginWebViewController.h"
 
-#define HTB_BOOKMARK_VIEW_MARGIN 4
+#define HTB_BOOKMARK_VIEW_MARGIN_X UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 112 : 4
+#define HTB_BOOKMARK_VIEW_MARGIN_Y UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 200 : 4
+#define HTB_BOOKMARK_VIEW_MARGIN_X_LANDSCAPE UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 240 : 4
+#define HTB_BOOKMARK_VIEW_MARGIN_Y_LANDSCAPE UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 60 : 4
 #define HTB_BOOKMARK_VIEW_HEIGHT_PHONE (192 + 4 * 2)
+#define UIModalPresentationSLCompose 17
 
 @interface HTBHatenaBookmarkViewController ()
 
 @end
 
 @implementation HTBHatenaBookmarkViewController {
+    CGRect _keyboardRect;
+    CGFloat _keyboardAnimationDuration;
     UINavigationController *_htbNavigationConroller;
+    UIView *_shadowView;
     UIStatusBarStyle _originalStatusBarStyle;
 }
 
@@ -46,92 +53,116 @@
     viewController.URL = self.URL;
    _htbNavigationConroller = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
     _htbNavigationConroller.viewControllers = @[viewController];
-    __block CGRect frame = CGRectInset(self.view.bounds, HTB_BOOKMARK_VIEW_MARGIN, HTB_BOOKMARK_VIEW_MARGIN);
+    CGRect frame = CGRectInset(self.view.bounds,
+            UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_X_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_X,
+            UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_Y_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_Y);
     frame.size.height = HTB_BOOKMARK_VIEW_HEIGHT_PHONE;
-    frame.origin.y = self.view.bounds.size.height;
+
+    _shadowView = [UIView new];
+    _shadowView = [[UIView alloc] initWithFrame:frame];
+    _shadowView.layer.cornerRadius = 6;
+    _shadowView.layer.shadowOpacity = 0.7;
+    _shadowView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _shadowView.layer.shadowOffset = CGSizeMake(3, 5);
+    _shadowView.layer.shouldRasterize = YES;
+    _shadowView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    [self.view addSubview:_shadowView];
+
     _htbNavigationConroller.view.frame = frame;
     _htbNavigationConroller.view.backgroundColor = [UIColor whiteColor];
     _htbNavigationConroller.view.layer.cornerRadius = 6;
     _htbNavigationConroller.view.layer.masksToBounds = YES;
+
     [self addChildViewController:_htbNavigationConroller];
     [self.view addSubview:_htbNavigationConroller.view];
     [_htbNavigationConroller didMoveToParentViewController:self];
+
+    self.providesPresentationContextTransitionStyle = YES;
     self.modalPresentationStyle = UIModalPresentationCurrentContext;
-//    
-//    [UIView animateWithDuration:0.27 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-////        frame.origin.y = HTB_BOOKMARK_VIEW_MARGIN;
-////        _htbNavigationConroller.view.frame = frame;
-//    } completion:^(BOOL finished) {
-//        
-//    }];
+
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillShowNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillHideNotification object:nil];
-    [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardDidHideNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(orientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
-{    
+{
     [super viewWillAppear:animated];
     if ([self isBeingPresented]) {
+        [UIView animateWithDuration:animated ? 0.27 : 0 animations:^{
+            self.presentingViewController.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
+        }];
         self.presentingViewController.providesPresentationContextTransitionStyle = YES;
-        self.presentingViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        self.view.backgroundColor = [UIColor clearColor];
+        self.presentingViewController.modalPresentationStyle =UIModalPresentationSLCompose;
         _originalStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
     }
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([self isBeingPresented]) {
-        [UIView animateWithDuration:animated ? 0.27 : 0 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.8];
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
-        } completion:^(BOOL finished) {
-            if (![HTBHatenaBookmarkManager sharedManager].authorized) {
+    self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
+    if (![HTBHatenaBookmarkManager sharedManager].authorized) {
 #warning アラートの文言の修正が必要
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:@"message" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"login", nil];
-                alert.delegate = self;
-                [alert show];
-            }
-        }];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:@"message" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"login", nil];
+        alert.delegate = self;
+        [alert show];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     if ([self isBeingDismissed]) {
+        self.view.backgroundColor = [UIColor clearColor];
         [[UIApplication sharedApplication] setStatusBarStyle:_originalStatusBarStyle animated:animated];
-        [UIView animateWithDuration:animated ? 0.27 : 0 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
-        } completion:nil];
     }
 }
 
-- (void)keyboardFrameWillChange:(NSNotification *)notification {
-    CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
-    CGFloat keyboardAnimationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-
-    CGRect newVisibleRect = self.view.bounds;
-    if ([notification.name isEqualToString:UIKeyboardWillShowNotification] || [notification.name isEqualToString:UIKeyboardWillHideNotification])
-        newVisibleRect.size.height -= keyboardRect.size.height;
-    
-    [UIView animateWithDuration:keyboardAnimationDuration animations:^{
-        CGRect frame = newVisibleRect;
-//        frame.size.height = fmin(frame.size.height, HTB_BOOKMARK_VIEW_HEIGHT_PHONE);
-
-        frame.origin = CGPointMake((newVisibleRect.size.width - frame.size.width) / 2, (newVisibleRect.size.height - frame.size.height) / 2);
-        _htbNavigationConroller.view.frame = CGRectInset(frame, HTB_BOOKMARK_VIEW_MARGIN, HTB_BOOKMARK_VIEW_MARGIN);
-    } completion:^(BOOL finished) {
-        
-    }];
+- (void)keyboardFrameWillChange:(NSNotification *)notification
+{
+    _keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    _keyboardRect = [self.view convertRect:_keyboardRect fromView:nil];
+    _keyboardAnimationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    if (_keyboardRect.origin.y >= self.view.bounds.size.height || _keyboardRect.origin.x < 0) {
+        _keyboardRect = CGRectZero;
+    }
+    [self updateFrame];
 }
 
-- (void)didMoveToParentViewController:(UIViewController *)parent
+- (void)orientationDidChange:(NSNotification *)notification
 {
-    [super didMoveToParentViewController:parent];
+    [self updateFrame];
+}
+
+- (void)updateFrame
+{
+    CGRect newVisibleRect = self.view.bounds;
+    newVisibleRect.size.height -= _keyboardRect.size.height;
+
+    CGRect frame = newVisibleRect;
+    frame.origin = CGPointMake((newVisibleRect.size.width - frame.size.width) / 2, (newVisibleRect.size.height - frame.size.height) / 2);
+
+    CGRect inset = CGRectInset(frame,
+            UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_X_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_X,
+            UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_Y_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_Y);
+    CGRect fromShadowRect = _htbNavigationConroller.view.bounds;
+    CGRect shadowRect = inset;
+    fromShadowRect.origin = CGPointZero;
+    shadowRect.origin = CGPointZero;
+    CABasicAnimation *shadowAnimation = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
+    shadowAnimation.duration = _keyboardAnimationDuration * (fromShadowRect.size.height < shadowRect.size.height ? 1.2 : 0.6);
+    shadowAnimation.fromValue = (id)[UIBezierPath bezierPathWithRect:fromShadowRect].CGPath;
+    shadowAnimation.toValue = (id)[UIBezierPath bezierPathWithRect:shadowRect].CGPath;
+    [_shadowView.layer addAnimation:shadowAnimation forKey:@"shadowPath"];
+
+    [UIView animateWithDuration:_keyboardAnimationDuration animations:^{
+        _htbNavigationConroller.view.frame = inset;
+        _shadowView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:shadowRect cornerRadius:6].CGPath;
+        _shadowView.frame = inset;
+    } completion:^(BOOL finished) {
+    }];
 }
 
 #pragma mark - UIAlertViewDelegate
