@@ -1,14 +1,42 @@
-#import "API/HTBHatenaBookmarkAPIClient.h"
+//  HatenaBookmarkSDK.h
+//
+//  Copyright (c) 2013 Hatena Co., Ltd. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
-#import "UI/HTBHatenaBookmarkActivity.h"
-#import "UI/Model/HTBHatenaBookmarkManager.h"
-#import "UI/Model/HTBUserManager.h"
-#import "UI/Model/Entry/HTBBookmarkedDataEntry.h"
-#import "UI/Model/Entry/HTBBookmarkEntry.h"
-#import "UI/Model/Entry/HTBCanonicalEntry.h"
-#import "UI/Model/Entry/HTBMyEntry.h"
-#import "UI/Model/Entry/HTBMyTagsEntry.h"
-#import "UI/Model/Entry/HTBTagEntry.h"
-#import "UI/View/HTBNavigationBar.h"
-#import "UI/ViewController/HTBHatenaBookmarkViewController.h"
-#import "UI/ViewController/HTBLoginWebViewController.h"
+
+// API
+#import "HTBHatenaBookmarkAPIClient.h"
+// UI
+#import "HTBHatenaBookmarkActivity.h"
+// UI/Model/
+#import "HTBHatenaBookmarkManager.h"
+#import "HTBUserManager.h"
+// UI/Model/Entry/
+#import "HTBBookmarkedDataEntry.h"
+#import "HTBBookmarkEntry.h"
+#import "HTBCanonicalEntry.h"
+#import "HTBMyEntry.h"
+#import "HTBMyTagsEntry.h"
+#import "HTBTagEntry.h"
+// UI/View/
+#import "HTBNavigationBar.h"
+// UI/ViewController/
+#import "HTBHatenaBookmarkViewController.h"
+#import "HTBLoginWebViewController.h"
