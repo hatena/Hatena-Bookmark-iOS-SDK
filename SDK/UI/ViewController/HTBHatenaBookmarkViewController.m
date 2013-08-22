@@ -148,7 +148,7 @@
                     [viewController dismiss];
                 }
                 else {
-                    [viewController reloadEntity];
+                    [viewController loadEntry];
                 }
             });
         };
