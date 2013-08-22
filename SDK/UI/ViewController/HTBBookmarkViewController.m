@@ -67,61 +67,7 @@
     self.title = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? [HTBUtility localizedStringForKey:@"hatena-bookmark" withDefault:@"Hatena Bookmark"] : [HTBUtility localizedStringForKey:@"bookmark" withDefault:@"Bookmark"];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[HTBUtility localizedStringForKey:@"back" withDefault:@"Back"] style: UIBarButtonItemStyleBordered target:nil action:nil];
 
-    [[HTBHatenaBookmarkManager sharedManager] getBookmarkEntryWithURL:self.URL success:^(HTBBookmarkEntry *entry) {
-        _entryRequestFinised = YES;
-        [self setEntry:entry];
-        [self handleCanonicalURL];
-        [self.rootView.bookmarkActivityIndicatorView stopAnimating];
-    } failure:^(NSError *error) {
-        [self handleHTTPError:error];
-
-        _entryRequestFinised = YES;
-        [self handleCanonicalURL];
-        // handle auth
-        [self.rootView.bookmarkActivityIndicatorView stopAnimating];
-    }];
-
-    [[HTBHatenaBookmarkManager sharedManager] getCanonicalEntryWithURL:self.URL success:^(HTBCanonicalEntry *entry) {
-        _canonicalRequestFinished = YES;
-        _canonicalEntry = entry;
-        [self handleCanonicalURL];
-    } failure:^(NSError *error) {
-        [self handleHTTPError:error];
-        _canonicalRequestFinished = YES;
-        [self handleCanonicalURL];
-        // handle auth
-    }];
-
-    [[HTBHatenaBookmarkManager sharedManager] getBookmarkedDataEntryWithURL:self.URL success:^(HTBBookmarkedDataEntry *entry) {
-        [self setBookmarkedDataEntry:entry];
-        [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
-
-    } failure:^(NSError *error) {
-        [self handleHTTPError:error];
-
-        [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
-    }];
-
-    if ([HTBUserManager sharedManager].myEntry) {
-        self.rootView.toolbarView.myEntry = [HTBUserManager sharedManager].myEntry;
-    }
-    else {
-        [[HTBHatenaBookmarkManager sharedManager] getMyEntryWithSuccess:^(HTBMyEntry *myEntry) {
-            self.rootView.toolbarView.myEntry = myEntry;
-        } failure:^(NSError *error) {
-            [self handleHTTPError:error];
-        }];
-    }
-    if ([HTBUserManager sharedManager].myTagsEntry) {
-        self.rootView.tagTextField.myTags = [[HTBUserManager sharedManager].myTagsEntry.sortedTags valueForKeyPath:@"tag"];
-    }
-    else {
-        [[HTBHatenaBookmarkManager sharedManager] getMyTagsWithSuccess:^(HTBMyTagsEntry *myTagsEntry) {
-            self.rootView.tagTextField.myTags = [myTagsEntry.sortedTags valueForKeyPath:@"tag"];
-        } failure:^(NSError *error) {
-            [self handleHTTPError:error];
-        }];
-    }
+    [self loadEntry];
 
     if (self.navigationController.viewControllers.count == 1) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[HTBUtility localizedStringForKey:@"close" withDefault:@"Close"] style:UIBarButtonItemStyleBordered target:self action:@selector(closeButtonPushed:)];
@@ -279,7 +225,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)reloadEntity
+- (void)loadEntry
 {
     [self.rootView.myBookmarkActivityIndicatorView startAnimating];
     [self.rootView.bookmarkActivityIndicatorView startAnimating];

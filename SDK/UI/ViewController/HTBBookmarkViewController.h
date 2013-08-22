@@ -29,6 +29,6 @@
 @property (nonatomic, strong) NSURL *URL;
 
 - (void)dismiss;
-- (void)reloadEntity;
+- (void)loadEntry;
 
 @end
