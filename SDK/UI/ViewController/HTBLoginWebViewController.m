@@ -24,6 +24,7 @@
 #import "HTBAFOAuth1Client.h"
 #import "HTBHatenaBookmarkAPIClient.h"
 #import "HTBUtility.h"
+#import "HTBHatenaBookmarkManager.h"
 
 @implementation HTBLoginWebViewController {
     UIWebView *_webView;
@@ -38,10 +39,23 @@
     return self;
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadOAuthLoginView:) name:kHTBLoginStartNotification object:nil];
+        [[HTBHatenaBookmarkManager sharedManager] authorizeWithSuccess:^{
+        } failure:^(NSError *error) {
+        }];
+    }
+    
+    return self;
+}
+
 - (void)loadView
 {
     [super loadView];
-
+    
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     _webView.delegate = self;
     _webView.scalesPageToFit = YES;
@@ -68,8 +82,7 @@
     if (queryString && [queryString rangeOfString:@"oauth_verifier"].location != NSNotFound) {
         NSNotification *notification = [NSNotification notificationWithName:kHTBLoginFinishNotification object:nil userInfo:@{ kHTBApplicationLaunchOptionsURLKey : request.URL }];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-
-        [self hideModalView];
+        [self hideModalView:YES];
         return NO;
     }
     return YES;
@@ -77,11 +90,23 @@
 
 - (void)closeButtonPushed:(id)sender
 {
-    [self hideModalView];
+    [self hideModalView:NO];
 }
 
-- (void)hideModalView {
-   [self dismissViewControllerAnimated:YES completion:nil];
+- (void)hideModalView:(BOOL)success {
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (self.dismissBlock) {
+            self.dismissBlock(success);
+        }
+    }];
+}
+
+#pragma mark - 
+
+-(void)loadOAuthLoginView:(NSNotification *)notification {
+    NSURLRequest *req = (NSURLRequest *)notification.object;
+    _authorizationRequest = req;
+    [_webView loadRequest:_authorizationRequest];
 }
 
 

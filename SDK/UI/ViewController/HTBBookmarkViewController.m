@@ -136,11 +136,13 @@
 
 - (void)handleHTTPError:(NSError *)error
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithHTBError:error];
-        [alertView addButtonWithTitle:[HTBUtility localizedStringForKey:@"cancel" withDefault:@"Cancel"]];
-        [alertView show];
-    });
+    if ([HTBHatenaBookmarkManager sharedManager].authorized) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithHTBError:error];
+            [alertView addButtonWithTitle:[HTBUtility localizedStringForKey:@"cancel" withDefault:@"Cancel"]];
+            [alertView show];
+        });
+    }
 }
 
 - (void)handleCanonicalURL
@@ -268,7 +270,64 @@
 
 - (IBAction)closeButtonPushed:(id)sender
 {
+    [self dismiss];
+}
+
+- (void)dismiss
+{
     [self.rootView.commentTextView resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)reloadEntity
+{
+    [self.rootView.myBookmarkActivityIndicatorView startAnimating];
+    [self.rootView.bookmarkActivityIndicatorView startAnimating];
+    _entryRequestFinised = NO;
+    _canonicalRequestFinished = NO;
+    [[HTBHatenaBookmarkManager sharedManager] getBookmarkEntryWithURL:self.URL success:^(HTBBookmarkEntry *entry) {
+        _entryRequestFinised = YES;
+        [self setEntry:entry];
+        [self handleCanonicalURL];
+        [self.rootView.bookmarkActivityIndicatorView stopAnimating];
+    } failure:^(NSError *error) {
+        [self handleHTTPError:error];
+        
+        _entryRequestFinised = YES;
+        [self handleCanonicalURL];
+        // handle auth
+        [self.rootView.bookmarkActivityIndicatorView stopAnimating];
+    }];
+    
+    [[HTBHatenaBookmarkManager sharedManager] getCanonicalEntryWithURL:self.URL success:^(HTBCanonicalEntry *entry) {
+        _canonicalRequestFinished = YES;
+        _canonicalEntry = entry;
+        [self handleCanonicalURL];
+    } failure:^(NSError *error) {
+        [self handleHTTPError:error];
+        _canonicalRequestFinished = YES;
+        [self handleCanonicalURL];
+        // handle auth
+    }];
+    
+    [[HTBHatenaBookmarkManager sharedManager] getBookmarkedDataEntryWithURL:self.URL success:^(HTBBookmarkedDataEntry *entry) {
+        [self setBookmarkedDataEntry:entry];
+        [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
+        
+    } failure:^(NSError *error) {
+        [self handleHTTPError:error];
+        [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
+    }];
+    [[HTBHatenaBookmarkManager sharedManager] getMyEntryWithSuccess:^(HTBMyEntry *myEntry) {
+        self.rootView.toolbarView.myEntry = myEntry;
+    } failure:^(NSError *error) {
+        [self handleHTTPError:error];
+    }];
+    [[HTBHatenaBookmarkManager sharedManager] getMyTagsWithSuccess:^(HTBMyTagsEntry *myTagsEntry) {
+        self.rootView.tagTextField.myTags = [myTagsEntry.sortedTags valueForKeyPath:@"tag"];
+    } failure:^(NSError *error) {
+        [self handleHTTPError:error];
+    }];
+}
+
 @end

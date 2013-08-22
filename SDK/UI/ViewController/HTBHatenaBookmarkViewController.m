@@ -24,6 +24,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "HTBNavigationBar.h"
 #import "HTBBookmarkViewController.h"
+#import "HTBHatenaBookmarkManager.h"
+#import "HTBLoginWebViewController.h"
 
 #define HTB_BOOKMARK_VIEW_MARGIN 4
 #define HTB_BOOKMARK_VIEW_HEIGHT_PHONE (192 + 4 * 2)
@@ -69,12 +71,12 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated
-{
+{    
     [super viewWillAppear:animated];
     if ([self isBeingPresented]) {
         self.presentingViewController.providesPresentationContextTransitionStyle = YES;
         self.presentingViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+        self.view.backgroundColor = [UIColor clearColor];
         _originalStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
     }
 }
@@ -87,7 +89,12 @@
             self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.8];
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
         } completion:^(BOOL finished) {
-        
+            if (![HTBHatenaBookmarkManager sharedManager].authorized) {
+#warning アラートの文言の修正が必要
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:@"message" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"login", nil];
+                alert.delegate = self;
+                [alert show];
+            }
         }];
     }
 }
@@ -125,6 +132,36 @@
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
     [super didMoveToParentViewController:parent];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
+        HTBLoginWebViewController *viewController = [[HTBLoginWebViewController alloc] init];
+        viewController.dismissBlock = ^(BOOL success) {
+            HTBBookmarkViewController *viewController = _htbNavigationConroller.viewControllers[0];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!success) {
+                    [viewController dismiss];
+                }
+                else {
+                    [viewController reloadEntity];
+                }
+            });
+        };
+        navigationController.providesPresentationContextTransitionStyle = YES;
+        navigationController.modalPresentationStyle = UIModalTransitionStyleCoverVertical;
+        navigationController.viewControllers = @[viewController];
+        [self presentViewController:navigationController animated:YES completion:^{
+        }];
+    }
+    else {
+        HTBBookmarkViewController *viewController = _htbNavigationConroller.viewControllers[0];
+        [viewController dismiss];
+    }
 }
 
 @end
