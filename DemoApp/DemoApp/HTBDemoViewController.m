@@ -40,9 +40,7 @@
 
     [self initializeHatenaBookmarkClient];
     [self toggleLoginButtons];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showOAuthLoginView:) name:kHTBLoginStartNotification object:nil];
-
+    
     [self loadHatenaBookmark];
 }
 
@@ -89,6 +87,8 @@
 }
 
 -(void)showOAuthLoginView:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHTBLoginStartNotification object:nil];
+    
     NSURLRequest *req = (NSURLRequest *)notification.object;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
     HTBLoginWebViewController *viewController = [[HTBLoginWebViewController alloc] initWithAuthorizationRequest:req];
@@ -98,10 +98,11 @@
 
 - (IBAction)loginButtonPushed:(id)sender
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showOAuthLoginView:) name:kHTBLoginStartNotification object:nil];
+    
     [[HTBHatenaBookmarkManager sharedManager] logout];
     [[HTBHatenaBookmarkManager sharedManager] authorizeWithSuccess:^{
         [self toggleLoginButtons];
-//        self.navigationItem.rightBarButtonItem.enabled = [HTBHatenaBookmarkManager sharedManager].authorized;
     } failure:^(NSError *error) {
     }];
 }
