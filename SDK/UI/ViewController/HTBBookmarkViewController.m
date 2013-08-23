@@ -272,8 +272,11 @@
     }];
 }
 
+#pragma mark -
+#pragma mark Private Method
 
-- (void)dismissHatenaBookmarkViewControllerCompleted:(BOOL)completed {
+- (void)dismissHatenaBookmarkViewControllerCompleted:(BOOL)completed
+{
     HTBHatenaBookmarkViewController *hatenaBookmarkViewController = self.navigationController.parentViewController;
     if (hatenaBookmarkViewController.completionHandler) {
         hatenaBookmarkViewController.completionHandler(completed);
