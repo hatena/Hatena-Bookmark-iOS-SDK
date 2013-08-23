@@ -24,3 +24,5 @@
 "back"            = "Back";
 "canonical"       = "Other URL offered";
 "cancel"          = "Cancel";
+"auth-error-title"= "Authorization Required";
+"auth-error-body" = "You are not authorized to use Hatena Bookmark. Please login.";

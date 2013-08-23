@@ -26,6 +26,7 @@
 #import "HTBBookmarkViewController.h"
 #import "HTBHatenaBookmarkManager.h"
 #import "HTBLoginWebViewController.h"
+#import "HTBUtility.h"
 
 #define HTB_BOOKMARK_VIEW_MARGIN_X UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 112 : 4
 #define HTB_BOOKMARK_VIEW_MARGIN_Y UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 200 : 4
@@ -110,7 +111,12 @@
     }];
     if (![HTBHatenaBookmarkManager sharedManager].authorized) {
 #warning アラートの文言の修正が必要
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:@"message" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"login", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[HTBUtility localizedStringForKey:@"auth-error-title" withDefault:@"Authorization Required"]
+                                                        message:[HTBUtility localizedStringForKey:@"auth-error-body" withDefault:@"You are not authorized to use Hatena Bookmark. Please login."]
+                                                       delegate:self
+                                              cancelButtonTitle:[HTBUtility localizedStringForKey:@"cancel" withDefault:@"Cancel"]
+                                              otherButtonTitles:[HTBUtility localizedStringForKey:@"login" withDefault:@"Login"],
+                                                                nil];
         alert.delegate = self;
         [alert show];
     }
