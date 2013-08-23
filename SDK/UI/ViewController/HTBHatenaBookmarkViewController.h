@@ -25,4 +25,7 @@
 @interface HTBHatenaBookmarkViewController : UIViewController<UIAlertViewDelegate>
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, copy) void (^completionHandler)(BOOL completed);
+
+- (void)dismissHatenaBookmarkViewControllerCompleted:(BOOL)completed;
+
 @end

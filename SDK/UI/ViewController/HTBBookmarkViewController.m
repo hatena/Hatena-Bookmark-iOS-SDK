@@ -187,7 +187,7 @@
     [[HTBHatenaBookmarkManager sharedManager] postBookmarkWithURL:self.URL comment:self.rootView.commentTextView.text tags:tags options:options success:^(HTBBookmarkedDataEntry *entry) {
         [self setBookmarkedDataEntry:entry];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
-        [self dismissHatenaBookmarkViewControllerCompleted:YES];
+        [(HTBHatenaBookmarkViewController *)self.navigationController.parentViewController dismissHatenaBookmarkViewControllerCompleted:YES];
     } failure:^(NSError *error) {
         [self handleHTTPError:error];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
@@ -203,7 +203,7 @@
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:[HTBUtility localizedStringForKey:@"add" withDefault:@"Add"] style:UIBarButtonItemStyleBordered target:self action:@selector(addBookmarkButtonPushed:)];
         self.navigationItem.rightBarButtonItems = @[addButton];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
-        [self dismissHatenaBookmarkViewControllerCompleted:YES];
+        [(HTBHatenaBookmarkViewController *)self.navigationController.parentViewController dismissHatenaBookmarkViewControllerCompleted:YES];
     } failure:^(NSError *error) {
         [self handleHTTPError:error];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
@@ -212,13 +212,7 @@
 
 - (IBAction)closeButtonPushed:(id)sender
 {
-    [self dismiss];
-}
-
-- (void)dismiss
-{
-    [self.rootView.commentTextView resignFirstResponder];
-    [self dismissHatenaBookmarkViewControllerCompleted:NO];
+    [(HTBHatenaBookmarkViewController *)self.navigationController.parentViewController dismissHatenaBookmarkViewControllerCompleted:NO];
 }
 
 - (void)loadEntry
@@ -270,20 +264,6 @@
     } failure:^(NSError *error) {
         [self handleHTTPError:error];
     }];
-}
-
-#pragma mark -
-#pragma mark Private Method
-
-- (void)dismissHatenaBookmarkViewControllerCompleted:(BOOL)completed
-{
-    HTBHatenaBookmarkViewController *hatenaBookmarkViewController = self.navigationController.parentViewController;
-    if (hatenaBookmarkViewController.completionHandler) {
-        hatenaBookmarkViewController.completionHandler(completed);
-    }
-    if (!hatenaBookmarkViewController.isBeingDismissed) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
 }
 
 @end
