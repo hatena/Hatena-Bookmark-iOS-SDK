@@ -46,6 +46,16 @@
     UIStatusBarStyle _originalStatusBarStyle;
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.providesPresentationContextTransitionStyle = YES;
+        self.modalPresentationStyle = UIModalPresentationSLCompose;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -77,9 +87,6 @@
     [self.view addSubview:_htbNavigationConroller.view];
     [_htbNavigationConroller didMoveToParentViewController:self];
 
-    self.providesPresentationContextTransitionStyle = YES;
-    self.modalPresentationStyle = UIModalPresentationCurrentContext;
-
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillShowNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillHideNotification object:nil];
@@ -90,11 +97,6 @@
 {
     [super viewWillAppear:animated];
     if ([self isBeingPresented]) {
-        [UIView animateWithDuration:animated ? 0.27 : 0 animations:^{
-            self.presentingViewController.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
-        }];
-        self.presentingViewController.providesPresentationContextTransitionStyle = YES;
-        self.presentingViewController.modalPresentationStyle =UIModalPresentationSLCompose;
         _originalStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
     }
@@ -103,7 +105,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
+    [UIView animateWithDuration:animated ? 0.27 : 0 animations:^{
+        self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
+    }];
     if (![HTBHatenaBookmarkManager sharedManager].authorized) {
 #warning アラートの文言の修正が必要
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:@"message" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"login", nil];
