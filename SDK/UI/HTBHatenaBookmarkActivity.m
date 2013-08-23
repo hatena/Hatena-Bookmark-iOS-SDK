@@ -58,7 +58,7 @@
             NSString *scheme = [(NSURL *)activityItem scheme];
             if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
                 url = activityItem;
-            }            
+            }
         }
     }
 }
@@ -66,6 +66,9 @@
 - (UIViewController *)activityViewController {
     HTBHatenaBookmarkViewController *viewController = [[HTBHatenaBookmarkViewController alloc] init];
     viewController.URL = url;
+    viewController.completionHandler = ^(BOOL completion) {
+        [self activityDidFinish:completion];
+    };
     return viewController;
 }
 
