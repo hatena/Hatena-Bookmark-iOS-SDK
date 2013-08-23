@@ -24,3 +24,5 @@
 "back"            = "戻る";
 "canonical"       = "このページには別のURLが提示されています";
 "cancel"          = "キャンセル";
+"auth-error-title"= "認証が必要です";
+"auth-error-body" = "はてなブックマークの利用にはログインが必要です";
