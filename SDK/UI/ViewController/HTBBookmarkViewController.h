@@ -28,7 +28,4 @@
 @interface HTBBookmarkViewController : UIViewController<UITextViewDelegate>
 @property (nonatomic, strong) NSURL *URL;
 
-- (void)dismiss;
-- (void)loadEntry;
-
 @end

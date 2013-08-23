@@ -31,7 +31,8 @@
     NSURLRequest *_authorizationRequest;
 }
 
--(id)initWithAuthorizationRequest:(NSURLRequest *)request {
+-(id)initWithAuthorizationRequest:(NSURLRequest *)request
+{
     self = [super init];
     if (self) {
         _authorizationRequest = request;
@@ -93,17 +94,21 @@
     [self hideModalView:NO];
 }
 
-- (void)hideModalView:(BOOL)success {
-    [self dismissViewControllerAnimated:YES completion:^{
-        if (self.dismissBlock) {
-            self.dismissBlock(success);
-        }
-    }];
+- (void)hideModalView:(BOOL)success
+{
+    if (self.completionHandler) {
+        self.completionHandler(success);
+    } else {
+        [self dismissViewControllerAnimated:YES completion:^{
+
+        }];
+    }
 }
 
 #pragma mark - 
 
--(void)loadOAuthLoginView:(NSNotification *)notification {
+-(void)loadOAuthLoginView:(NSNotification *)notification
+{
     NSURLRequest *req = (NSURLRequest *)notification.object;
     _authorizationRequest = req;
     [_webView loadRequest:_authorizationRequest];

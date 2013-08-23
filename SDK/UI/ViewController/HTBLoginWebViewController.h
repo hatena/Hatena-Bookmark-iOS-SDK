@@ -24,7 +24,7 @@
 
 @interface HTBLoginWebViewController : UIViewController<UIWebViewDelegate>
 
-@property (strong, nonatomic) void (^dismissBlock)(BOOL success);
+@property (nonatomic, copy) void (^completionHandler)(BOOL success);
 
 -(id)initWithAuthorizationRequest:(NSURLRequest *)request;
 

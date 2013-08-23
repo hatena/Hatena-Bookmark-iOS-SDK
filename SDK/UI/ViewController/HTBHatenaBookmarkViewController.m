@@ -105,8 +105,7 @@
 {
     [super viewDidAppear:animated];
     self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
-    if (![HTBHatenaBookmarkManager sharedManager].authorized) {
-#warning アラートの文言の修正が必要
+    if (![HTBHatenaBookmarkManager sharedManager].authorized && !self.isBeingDismissed) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[HTBUtility localizedStringForKey:@"auth-error-title" withDefault:@"Authorization Required"]
                                                         message:[HTBUtility localizedStringForKey:@"auth-error-body" withDefault:@"You are not authorized to use Hatena Bookmark. Please login."]
                                                        delegate:self
@@ -176,29 +175,41 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
-        HTBLoginWebViewController *viewController = [[HTBLoginWebViewController alloc] init];
-        viewController.dismissBlock = ^(BOOL success) {
-            HTBBookmarkViewController *viewController = _htbNavigationConroller.viewControllers[0];
+        UINavigationController *navigationController =[[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class]
+                                                                                                    toolbarClass:nil];
+        HTBLoginWebViewController *loginViewController = [[HTBLoginWebViewController alloc] init];
+        __weak HTBHatenaBookmarkViewController *weakSelf = self;
+        __weak HTBLoginWebViewController *weakLogin = loginViewController;
+        loginViewController.completionHandler = ^(BOOL success) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (!success) {
-                    [viewController dismiss];
-                }
-                else {
-                    [viewController loadEntry];
+                if (success) {
+                    [weakLogin dismissViewControllerAnimated:YES completion:^{
+                        HTBBookmarkViewController *viewController = [[HTBBookmarkViewController alloc] init];
+                        viewController.URL = weakSelf.URL;
+                        _htbNavigationConroller.viewControllers = @[viewController];
+                    }];
+                } else {
+                    [weakSelf dismissHatenaBookmarkViewControllerCompleted:NO];
                 }
             });
         };
         navigationController.providesPresentationContextTransitionStyle = YES;
         navigationController.modalPresentationStyle = UIModalTransitionStyleCoverVertical;
-        navigationController.viewControllers = @[viewController];
+        navigationController.viewControllers = @[loginViewController];
         [self presentViewController:navigationController animated:YES completion:^{
         }];
-    }
-    else {
-        HTBBookmarkViewController *viewController = _htbNavigationConroller.viewControllers[0];
-        [viewController dismiss];
+    } else {
+        [self dismissHatenaBookmarkViewControllerCompleted:NO];
     }
 }
 
+- (void)dismissHatenaBookmarkViewControllerCompleted:(BOOL)completed
+{
+    if (self.completionHandler) {
+        self.completionHandler(completed);
+    }
+    if (!self.isBeingDismissed) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 @end
