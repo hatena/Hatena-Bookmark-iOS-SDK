@@ -22,7 +22,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTBHatenaBookmarkViewController : UIViewController<UIAlertViewDelegate>
+@interface HTBHatenaBookmarkViewController : UIViewController<UIAlertViewDelegate, UIActionSheetDelegate>
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, copy) void (^completionHandler)(BOOL completed);
 

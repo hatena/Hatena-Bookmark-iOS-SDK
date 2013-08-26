@@ -20,9 +20,10 @@
 "edit"            = "編集";
 "delete"          = "削除";
 "login"           = "ログイン";
+"logout"          = "ログアウト";
 "close"           = "閉じる";
 "back"            = "戻る";
 "canonical"       = "このページには別のURLが提示されています";
 "cancel"          = "キャンセル";
-"auth-error-title"= "認証が必要です";
+"auth-error-title"= "ログインが必要です";
 "auth-error-body" = "はてなブックマークの利用にはログインが必要です";

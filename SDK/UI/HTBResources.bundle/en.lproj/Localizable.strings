@@ -20,6 +20,7 @@
 "edit"            = "Edit";
 "delete"          = "Delete";
 "login"           = "Login";
+"logout"          = "Logout";
 "close"           = "Close";
 "back"            = "Back";
 "canonical"       = "Other URL offered";

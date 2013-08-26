@@ -69,6 +69,8 @@
     viewController.completionHandler = ^(BOOL completion) {
         [self activityDidFinish:completion];
     };
+    viewController.providesPresentationContextTransitionStyle = NO;
+    viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
     return viewController;
 }
 

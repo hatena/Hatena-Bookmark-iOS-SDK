@@ -98,6 +98,9 @@
 {
     [super viewWillAppear:animated];
     if ([self isBeingPresented]) {
+        [UIView animateWithDuration:animated ? 0.27 : 0 animations:^{
+            self.presentingViewController.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
+        }];
         _originalStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
     }
@@ -214,4 +217,14 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [[HTBHatenaBookmarkManager sharedManager] logout];
+        [self dismissHatenaBookmarkViewControllerCompleted:NO];
+    }
+}
+
 @end

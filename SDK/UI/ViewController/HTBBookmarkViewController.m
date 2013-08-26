@@ -79,6 +79,20 @@
 
     [self.rootView.entryView addTarget:self action:@selector(entryButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
     [self.rootView.canonicalView addTarget:self action:@selector(canonicalButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
+
+    if ([HTBHatenaBookmarkManager sharedManager].authorized) {
+        UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        logoutButton.frame = CGRectMake(0, 0, 120, 45);
+        logoutButton.showsTouchWhenHighlighted = YES;
+        logoutButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+        logoutButton.titleLabel.numberOfLines = 1;
+        logoutButton.titleLabel.lineBreakMode = UILineBreakModeClip;
+        logoutButton.titleLabel.minimumFontSize = 1;
+        logoutButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [logoutButton setTitle:[NSString stringWithFormat:@"id:%@", [HTBHatenaBookmarkManager sharedManager].username] forState:UIControlStateNormal];
+        [logoutButton addTarget:self action:@selector(logoutButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.titleView = logoutButton;
+    }
 }
 
 - (void)handleHTTPError:(NSError *)error
@@ -212,6 +226,23 @@
 
 - (IBAction)closeButtonPushed:(id)sender
 {
+    [self dismiss];
+}
+
+- (IBAction)logoutButtonPushed:(id)sender
+{
+    HTBHatenaBookmarkViewController *hatenaBookmarkViewController = (HTBHatenaBookmarkViewController *)self.navigationController.parentViewController;
+    UIActionSheet *actionSheet =[[UIActionSheet alloc] initWithTitle:[HTBUtility localizedStringForKey:@"logout" withDefault:@"Logout"]
+                                                            delegate: hatenaBookmarkViewController
+                                                   cancelButtonTitle:[HTBUtility localizedStringForKey:@"cancel" withDefault:@"Cancel"]
+                                              destructiveButtonTitle:[HTBUtility localizedStringForKey:@"logout" withDefault:@"Logout"]
+                                                   otherButtonTitles:nil];
+    [actionSheet showInView:self.navigationController.parentViewController.view];
+}
+
+- (void)dismiss
+{
+    [self.rootView.commentTextView resignFirstResponder];
     [(HTBHatenaBookmarkViewController *)self.navigationController.parentViewController dismissHatenaBookmarkViewControllerCompleted:NO];
 }
 
