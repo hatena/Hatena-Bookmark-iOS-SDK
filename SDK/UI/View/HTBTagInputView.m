@@ -46,12 +46,12 @@
 -(id)initWithFrame:(CGRect)frame tags:(NSArray *)tags {
     if (self = [super initWithFrame:frame]) {
         _tags = tags;
-        [self initicalizeViews];
+        [self initializeViews];
     }
     return self;
 }
 
-- (void)initicalizeViews
+- (void)initializeViews
 {
     self.tagButtons = [NSMutableDictionary dictionary];
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

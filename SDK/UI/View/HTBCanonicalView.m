@@ -39,12 +39,12 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self initicalizeViews];
+        [self initializeViews];
     }
     return self;
 }
 
-- (void)initicalizeViews
+- (void)initializeViews
 {
     self.messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.messageLabel.backgroundColor = [UIColor clearColor];

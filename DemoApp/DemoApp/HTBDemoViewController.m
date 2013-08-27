@@ -75,8 +75,9 @@
 {
     // iOS 6 or later
     if ([UIActivityViewController class]) {
-        HTBHatenaBookmarkActivity *hateaBookmarkActivity = [[HTBHatenaBookmarkActivity alloc] init];
-        UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[_webView.request.URL]                                                                               applicationActivities:@[hateaBookmarkActivity]];
+        HTBHatenaBookmarkActivity *hatenaBookmarkActivity = [[HTBHatenaBookmarkActivity alloc] init];
+        UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[_webView.request.URL]
+                                                                                   applicationActivities:@[hatenaBookmarkActivity]];
         [self presentViewController:activityView animated:YES completion:nil];
     }
     else {
