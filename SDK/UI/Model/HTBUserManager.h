@@ -24,9 +24,11 @@
 #import <Foundation/Foundation.h>
 #import "HTBAFOAuth1Client.h"
 #import "HTBAuthorizeEntry.h"
+#import "HTBHatenaBookmarkAPIClient.h"
 
 @class HTBMyEntry;
 @class HTBMyTagsEntry;
+@class HTBSelectedState;
 
 @interface HTBUserManager : NSObject
 
@@ -34,6 +36,7 @@
 @property (nonatomic, strong) HTBMyEntry *myEntry;
 @property (nonatomic, strong) HTBMyTagsEntry *myTagsEntry;
 @property (nonatomic, strong) HTBAuthorizeEntry *authorizeEntry;
+@property (nonatomic, assign) HatenaBookmarkPOSTOptions lastPostOptions;
 
 + (instancetype)sharedManager;
 - (void)reset;

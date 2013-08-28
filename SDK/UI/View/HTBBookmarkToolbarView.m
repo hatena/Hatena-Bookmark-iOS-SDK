@@ -45,8 +45,24 @@
 -(void)setMyEntry:(HTBMyEntry *)myEntry
 {
     _myEntry = myEntry;
-    [self enableButtonsWithMyEntry:myEntry];
+    [self enableButtonsWithMyEntry:_myEntry];
+    [self selectButtonsWithBookmarkedDataEntry:_bookmarkEntry lastSelectedState:_lastPostOptions];
 }
+
+- (void)setLastPostOptions:(HatenaBookmarkPOSTOptions)lastPostOptions
+{
+    _lastPostOptions = lastPostOptions;
+    [self enableButtonsWithMyEntry:_myEntry];
+    [self selectButtonsWithBookmarkedDataEntry:_bookmarkEntry lastSelectedState:_lastPostOptions];
+}
+
+-(void)setBookmarkEntry:(HTBBookmarkedDataEntry *)bookmarkEntry
+{
+    _bookmarkEntry = bookmarkEntry;
+    [self enableButtonsWithMyEntry:_myEntry];
+    [self selectButtonsWithBookmarkedDataEntry:_bookmarkEntry lastSelectedState:_lastPostOptions];
+}
+
 
 -(void)enableButtonsWithMyEntry:(HTBMyEntry *)myEntry
 {
@@ -54,12 +70,36 @@
     _facebookToggleButton.enabled = myEntry.isOAuthFacebook;
     _mixiToggleButton.enabled     = myEntry.isOAuthMixiCheck;
     _evernoteToggleButton.enabled = myEntry.isOAuthEvernote;
+
     [self setNeedsLayout];
 }
 
--(void)setBookmarkEntry:(HTBBookmarkedDataEntry *)bookmarkEntry
+- (void)selectButtonsWithBookmarkedDataEntry:(HTBBookmarkedDataEntry *)bookmarkEntry lastSelectedState:(HatenaBookmarkPOSTOptions)lastPostOptions
 {
-    _privateToggleButton.selected = bookmarkEntry.isPrivate;
+    if (_twitterToggleButton.enabled) {
+        _twitterToggleButton.selected = !!(lastPostOptions & HatenaBookmarkPostOptionTwitter);
+    }
+    if (_facebookToggleButton.enabled) {
+        _facebookToggleButton.selected = !!(lastPostOptions & HatenaBookmarkPostOptionFacebook);
+    }
+    if (_mixiToggleButton.enabled) {
+        _mixiToggleButton.selected = !!(lastPostOptions & HatenaBookmarkPostOptionMixi);
+    }
+    if (_evernoteToggleButton.enabled) {
+        _evernoteToggleButton.selected = !!(lastPostOptions & HatenaBookmarkPostOptionEvernote);
+    }
+
+    _mailToggleButton.selected = lastPostOptions & HatenaBookmarkPostOptionSendMail;
+
+    if (bookmarkEntry) {
+        _privateToggleButton.selected = bookmarkEntry.isPrivate;
+    }
+    else {
+        _privateToggleButton.selected = !!(lastPostOptions & HatenaBookmarkPostOptionPrivate);
+    }
+    if (_privateToggleButton.selected) {
+        [self togglePrivateButton:_privateToggleButton.selected];
+    }
 }
 
 - (void)initializeViews
@@ -115,8 +155,13 @@
     _privateToggleButton.frame = CGRectMake(self.bounds.size.width - HTB_BOOKMARK_TOOLBAR_VIEW_PRIVATE_BUTTON_WIDTH - HTB_BOOKMARK_TOOLBAR_VIEW_BUTTON_RIGHT_MARGIN, 0, HTB_BOOKMARK_TOOLBAR_VIEW_PRIVATE_BUTTON_WIDTH, self.bounds.size.height);
 }
 
--(void)privateButtonPushed:(HTBToggleButton *)sender {
-    if (sender.selected) {
+- (void)privateButtonPushed:(HTBToggleButton *)sender
+{
+    [self togglePrivateButton:sender.selected];
+}
+
+- (void)togglePrivateButton:(BOOL)isPrivate {
+    if (isPrivate) {
         _twitterToggleButton.selected = _facebookToggleButton.selected = _mixiToggleButton.selected = NO;
         _twitterToggleButton.enabled = _facebookToggleButton.enabled = _mixiToggleButton.enabled = NO;
     }

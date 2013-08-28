@@ -22,10 +22,12 @@
 
 #import "HTBUserManager.h"
 #import "SFHFKeychainUtils.h"
+
 #define kHTBKeychainServiceName @"HatenaBookmark"
 #define kHTBKeychainTokenKey @"keychainTokenKey"
 #define kHTBKeychainTokenSecret @"keychainTokenSecret"
 #define kHTBUserDefaultAuthorizeEntry @"authorizeEntry"
+#define kHTBUserDefaultLastPostOptions @"HTBUserDefaultLastPostOptions"
 
 @implementation HTBUserManager
 
@@ -44,6 +46,7 @@
     [self setTokenKey:nil];
     [self setTokenSecret:nil];
     [self setAuthorizeEntry:nil];
+    [self setLastPostOptions:HatenaBookmarkPostOptionNone];
 }
 
 - (void)setToken:(AFOAuth1Token *)token
@@ -111,6 +114,16 @@
     } else {
         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kHTBUserDefaultAuthorizeEntry];
     }
+}
+
+- (HatenaBookmarkPOSTOptions)lastPostOptions
+{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:kHTBUserDefaultLastPostOptions];
+}
+
+- (void)setLastPostOptions:(HatenaBookmarkPOSTOptions)lastSelectedState
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:lastSelectedState forKey:kHTBUserDefaultLastPostOptions];
 }
 
 @end
