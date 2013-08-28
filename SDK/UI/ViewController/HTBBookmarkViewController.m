@@ -90,12 +90,15 @@
         if ([logoutButton.titleLabel respondsToSelector:@selector(setMinimumScaleFactor:)]) { // iOS6 or later.
             logoutButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
             logoutButton.titleLabel.minimumScaleFactor = 10.f / 17.f;
+            logoutButton.titleLabel.adjustsLetterSpacingToFitWidth = YES;
         } else {
             logoutButton.titleLabel.lineBreakMode = UILineBreakModeClip;
             logoutButton.titleLabel.minimumFontSize = 10;
         }
+        [logoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [logoutButton setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        logoutButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
         logoutButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-        logoutButton.titleLabel.adjustsLetterSpacingToFitWidth = YES;
         [logoutButton setTitle:[NSString stringWithFormat:@"id:%@", [HTBHatenaBookmarkManager sharedManager].username] forState:UIControlStateNormal];
         [logoutButton addTarget:self action:@selector(logoutButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
         [wrapper addSubview:logoutButton];
