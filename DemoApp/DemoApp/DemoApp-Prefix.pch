@@ -13,4 +13,8 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+    // https://github.com/AFNetworking/AFNetworking/wiki/AFNetworking-FAQ#im-getting-a-a-warning-systemconfiguration-framework-not-found-in-project-how-do-i-fix-this
+    #import <SystemConfiguration/SystemConfiguration.h>
+    #import <MobileCoreServices/MobileCoreServices.h>
 #endif
