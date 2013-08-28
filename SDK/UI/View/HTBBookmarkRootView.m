@@ -198,7 +198,7 @@
 
 - (void)updateTextCount:(NSNotification *)notification
 {
-    NSInteger textCount = [self.commentTextView.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding] / 3;
+    NSInteger textCount = ceilf((float)[self.commentTextView.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding] / 3.f);
     self.textCountLabel.text = [NSString stringWithFormat:@"%d", textCount];
     if (textCount > 100) {
         self.textCountLabel.textColor = [UIColor redColor];
