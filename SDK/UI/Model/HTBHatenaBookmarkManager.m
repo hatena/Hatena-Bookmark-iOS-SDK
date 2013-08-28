@@ -121,7 +121,7 @@
 
             // Not Authorize
             if ([operation.response statusCode] == 401) {
-                [[HTBUserManager sharedManager] reset];
+                [self logout];
             }
             if (failure) failure(error);            
     }];
@@ -138,7 +138,7 @@
 
         // Not Authorize
         if ([operation.response statusCode] == 401) {
-            [[HTBUserManager sharedManager] reset];
+            [self logout];
         }
         if (failure) failure(error);
     }];
@@ -166,7 +166,7 @@
             }
             // Not Authorize
             if ([operation.response statusCode] == 401) {
-                [self.userManager reset];
+                [self logout];
             }
             if (failure) failure(error);
     }];
@@ -185,7 +185,7 @@
 
         // Not Authorize
         if ([operation.response statusCode] == 401) {
-            [self.userManager reset];
+            [self logout];
         }
         if (failure) failure(error);
     }];
@@ -208,7 +208,7 @@
         }
         // Not Authorize
         if ([operation.response statusCode] == 401) {
-            [self.userManager reset];
+            [self logout];
         }
         if (failure) failure(error);
         
@@ -232,7 +232,7 @@
 
         // Not Authorize
         if ([operation.response statusCode] == 401) {
-            [[HTBUserManager sharedManager] reset];
+            [self logout];
         }
         if (failure) failure(error);
 
@@ -252,7 +252,7 @@
 
         // Not Authorize
         if ([operation.response statusCode] == 401) {
-            [[HTBUserManager sharedManager] reset];
+            [self logout];
         }
         if (failure) failure(error);
 
