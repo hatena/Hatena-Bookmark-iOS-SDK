@@ -70,7 +70,7 @@
     [self addSubview:_disclosureIndicatorImageView];
 
     NSString *resourcePath = [[HTBUtility hatenaBookmarkSDKBundle] resourcePath];
-    [self setBackgroundImage:[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/canonical.png"]] forState:UIControlStateNormal];
+    [self setBackgroundImage:[[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/canonical.png"]] resizableImageWithCapInsets:UIEdgeInsetsMake(8, 8, 8, 8)] forState:UIControlStateNormal];
 }
 
 - (void)setHighlighted: (BOOL) highlighted {
