@@ -80,6 +80,8 @@
     [self.rootView.entryView addTarget:self action:@selector(entryButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
     [self.rootView.canonicalView addTarget:self action:@selector(canonicalButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
 
+    self.rootView.toolbarView.lastPostOptions = [HTBHatenaBookmarkManager sharedManager].userManager.lastPostOptions;
+
     if ([HTBHatenaBookmarkManager sharedManager].authorized) {
         UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
         logoutButton.frame = CGRectMake(0, 0, 120, 45);
@@ -200,6 +202,7 @@
     }
     [[HTBHatenaBookmarkManager sharedManager] postBookmarkWithURL:self.URL comment:self.rootView.commentTextView.text tags:tags options:options success:^(HTBBookmarkedDataEntry *entry) {
         [self setBookmarkedDataEntry:entry];
+        [HTBHatenaBookmarkManager sharedManager].userManager.lastPostOptions = options;
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
         [(HTBHatenaBookmarkViewController *)self.navigationController.parentViewController dismissHatenaBookmarkViewControllerCompleted:YES];
     } failure:^(NSError *error) {

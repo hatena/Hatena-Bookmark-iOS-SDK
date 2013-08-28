@@ -21,14 +21,16 @@
 //  THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "HTBHatenaBookmarkAPIClient.h"
 
 @class HTBMyEntry;
 @class HTBBookmarkedDataEntry;
 @class HTBToggleButton;
-
+@class HTBSelectedState;
 @interface HTBBookmarkToolbarView : UIView
 @property (nonatomic, strong) HTBMyEntry *myEntry;
 @property (nonatomic, strong) HTBBookmarkedDataEntry *bookmarkEntry;
+@property (nonatomic, assign) HatenaBookmarkPOSTOptions lastPostOptions;
 @property (nonatomic, strong) HTBToggleButton *twitterToggleButton;
 @property (nonatomic, strong) HTBToggleButton *facebookToggleButton;
 @property (nonatomic, strong) HTBToggleButton *mixiToggleButton;
