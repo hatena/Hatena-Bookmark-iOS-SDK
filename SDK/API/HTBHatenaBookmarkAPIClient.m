@@ -99,7 +99,7 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
         NSMutableDictionary *parameters = [@{} mutableCopy];
         [parameters setValue:requestToken.key forKey:@"oauth_token"];
         NSMutableURLRequest *request = [[[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kHatenaBookmarkBaseURLString]] requestWithMethod:@"GET" path:kHatenaOAuthUserAuthorizationPath parameters:parameters];
-
+        request.HTTPShouldHandleCookies = NO;
         __block AFOAuth1Token *currentRequestToken = requestToken;
         
         _applicationLaunchNotificationObserver = [[NSNotificationCenter defaultCenter] addObserverForName:kHTBLoginFinishNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
