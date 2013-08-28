@@ -143,7 +143,7 @@
 {
     [super layoutSubviews];
 
-    self.scrollView.frame = self.frame;
+    self.scrollView.frame = self.bounds;
     CGFloat minimumHeight = HTB_BOOKMARK_ROOT_VIEW_ENTRY_VIEW_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_SEPARATOR_LINE_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_TAG_TEXT_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_TEXT_MINIMUM_HEIGHT;
     if (!self.canonicalView.hidden) {
         minimumHeight += HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_BOTTOM_MARGIN;
@@ -153,7 +153,7 @@
     if (self.frame.size.height < minimumHeight) {
         y = minimumHeight;
     }
-    CGRect newFrame = self.frame;
+    CGRect newFrame = self.bounds;
     newFrame.size.height = y;
     self.containerView.frame = newFrame;
     self.scrollView.contentSize = newFrame.size;
