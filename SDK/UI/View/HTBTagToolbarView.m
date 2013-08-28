@@ -22,7 +22,8 @@
 
 #import "HTBTagToolbarView.h"
 #import "HTBUtility.h"
-#define HTB_TAG_TOOLBAR_VIEW_SIDE_MARGIN 8
+#define HTB_TAG_TOOLBAR_VIEW_SIDE_MARGIN 20
+#define HTB_TAG_TOOLBAR_VIEW_VERTICAL_MARGIN 8
 @implementation HTBTagToolbarView {
     UIBarButtonItem *_segmentedControlItem;
 }
@@ -39,7 +40,7 @@
 - (void)initializeViews
 {
     self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[[HTBUtility localizedStringForKey:@"keyboard" withDefault:@"Keybaord"],  [HTBUtility localizedStringForKey:@"recommended" withDefault:@"Recommended"],  [HTBUtility localizedStringForKey:@"tags" withDefault:@"Tags"]]];
+    _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[[HTBUtility localizedStringForKey:@"keyboard" withDefault:@"Keyboard"],  [HTBUtility localizedStringForKey:@"recommended" withDefault:@"Recommended"],  [HTBUtility localizedStringForKey:@"tags" withDefault:@"Tags"]]];
      _segmentedControlItem = [[UIBarButtonItem alloc] initWithCustomView:_segmentedControl];
     _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -47,9 +48,10 @@
     self.tintColor = [UIColor colorWithWhite:0.8 alpha:1.0];
 }
 
--(void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
-    _segmentedControlItem.width = self.bounds.size.width - HTB_TAG_TOOLBAR_VIEW_SIDE_MARGIN * 2;
+    _segmentedControl.frame = CGRectInset(CGRectMake(0, 0, self.superview.bounds.size.width, self.bounds.size.height), HTB_TAG_TOOLBAR_VIEW_SIDE_MARGIN, HTB_TAG_TOOLBAR_VIEW_VERTICAL_MARGIN);
 }
 
 @end
