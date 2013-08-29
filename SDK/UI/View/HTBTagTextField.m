@@ -67,13 +67,11 @@
 -(void)recommendTag {
     self.mode = RecommendedTagsInputMode;
     [self reloadInputViews];
-    [self toggleTagButtons];
 }
 
 -(void)myTag {
     self.mode = MyTagsInputMode;
     [self reloadInputViews];
-    [self toggleTagButtons];
 }
 
 -(void)keybord {
@@ -104,12 +102,14 @@
             if (!self.recommendedTagInputView) {
                 self.recommendedTagInputView = [self inputScrollViewWithTags:self.recommendedTags];
             }
+            [self toggleTagButtons];
             return self.recommendedTagInputView;
             break;
         case MyTagsInputMode:
             if (!self.myTagInputView) {
                 self.myTagInputView = [self inputScrollViewWithTags:[self.myTags subarrayWithRange:NSMakeRange(0, fmin(self.myTags.count, HTB_TAG_TEXT_FIELD_MY_TAG_MAX_NUM))]];
             }
+            [self toggleTagButtons];
             return self.myTagInputView;
             break;
         case TextInputMode:
