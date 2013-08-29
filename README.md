@@ -1,4 +1,6 @@
 # Hatena Bookmark iOS SDK
+<img alt="travis-ci" src="https://travis-ci.org/hatena/Hatena-Bookmark-iOS-SDK.png?branch=master" />
+
 Integrate Hatena Bookmark into your application. This is an Objective-C library for handling the Hatena Bookmark API and for providing a user interface.
 
 <img alt="Main Screenshot" src="http://cdn-ak.f.st-hatena.com/images/fotolife/h/hatenabookmark/20130809/20130809153934.png?1376030463" width="240px" style="width: 240px;" />
