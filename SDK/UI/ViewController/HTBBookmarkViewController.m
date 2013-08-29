@@ -52,6 +52,11 @@
 @implementation HTBBookmarkViewController {
     BOOL _entryRequestFinised;
     BOOL _canonicalRequestFinished;
+
+// Save/resume buffers for memory warinngs
+    NSString *_textBuffer;
+    NSString *_tagBuffer;
+    HatenaBookmarkPOSTOptions _optionsBuffer;
 }
 
 -(void)loadView
@@ -106,6 +111,13 @@
         [wrapper addSubview:logoutButton];
         self.navigationItem.titleView = wrapper;
     }
+    [self resumeViewStates];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    [self saveViewStates];
 }
 
 - (void)handleHTTPError:(NSError *)error
@@ -191,26 +203,8 @@
     [self.rootView.myBookmarkActivityIndicatorView startAnimating];
     NSArray *tags = [HTBTagTokenizer spaceTextToTagArray:self.rootView.tagTextField.text];
 
-    HatenaBookmarkPOSTOptions options = HatenaBookmarkPostOptionNone;
+    HatenaBookmarkPOSTOptions options = self.rootView.toolbarView.selectedPostOptions;
     
-    if (self.rootView.toolbarView.twitterToggleButton.selected) {
-        options |= HatenaBookmarkPostOptionTwitter;
-    }
-    if (self.rootView.toolbarView.facebookToggleButton.selected) {
-        options |= HatenaBookmarkPostOptionFacebook;
-    }
-    if (self.rootView.toolbarView.mixiToggleButton.selected) {
-        options |= HatenaBookmarkPostOptionMixi;
-    }
-    if (self.rootView.toolbarView.mailToggleButton.selected) {
-        options |= HatenaBookmarkPostOptionSendMail;
-    }
-    if (self.rootView.toolbarView.evernoteToggleButton.selected) {
-        options |= HatenaBookmarkPostOptionEvernote;
-    }
-    if (self.rootView.toolbarView.privateToggleButton.selected) {
-        options |= HatenaBookmarkPostOptionPrivate;
-    }
     [[HTBHatenaBookmarkManager sharedManager] postBookmarkWithURL:self.URL comment:self.rootView.commentTextView.text tags:tags options:options success:^(HTBBookmarkedDataEntry *entry) {
         [self setBookmarkedDataEntry:entry];
         [HTBHatenaBookmarkManager sharedManager].userManager.lastPostOptions = options;
@@ -293,10 +287,14 @@
     
     [[HTBHatenaBookmarkManager sharedManager] getBookmarkedDataEntryWithURL:self.URL success:^(HTBBookmarkedDataEntry *entry) {
         [self setBookmarkedDataEntry:entry];
+        [self resumeViewStates];
+        [self clearViewStates];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
         
     } failure:^(NSError *error) {
         [self handleHTTPError:error];
+        [self resumeViewStates];
+        [self clearViewStates];
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
     }];
     [[HTBHatenaBookmarkManager sharedManager] getMyEntryWithSuccess:^(HTBMyEntry *myEntry) {
@@ -309,6 +307,34 @@
     } failure:^(NSError *error) {
         [self handleHTTPError:error];
     }];
+}
+
+// Save/resume states for iOS 5 memory warnings
+- (void)saveViewStates
+{
+    _textBuffer = self.rootView.commentTextView.text;
+    _tagBuffer = self.rootView.tagTextField.text;
+    _optionsBuffer = self.rootView.toolbarView.selectedPostOptions;
+}
+
+- (void)resumeViewStates
+{
+    if (_textBuffer) {
+        self.rootView.commentTextView.text = _textBuffer;
+    }
+    if (_tagBuffer) {
+        self.rootView.tagTextField.text = _tagBuffer;
+    }
+    if (_optionsBuffer) {
+        self.rootView.toolbarView.lastPostOptions = _optionsBuffer;
+    }
+}
+
+- (void)clearViewStates
+{
+    _textBuffer = nil;
+    _tagBuffer = nil;
+    _optionsBuffer = 0;
 }
 
 @end

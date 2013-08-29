@@ -37,4 +37,7 @@
 @property (nonatomic, strong) HTBToggleButton *evernoteToggleButton;
 @property (nonatomic, strong) HTBToggleButton *mailToggleButton;
 @property (nonatomic, strong) HTBToggleButton *privateToggleButton;
+
+@property (nonatomic, readonly, assign) HatenaBookmarkPOSTOptions selectedPostOptions;
+
 @end
