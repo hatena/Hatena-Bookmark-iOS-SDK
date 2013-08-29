@@ -77,6 +77,9 @@ The SDK provides two ways for integrating the Hatena Bookmark Panel UI.
 UIActivity is an iOS native sharing interface, available on iOS 6 or later.
 This SDK provides `HTBHatenaBookmarkActivity`.
 
+#### iPhone / iPod touch
+
+You can present a UIActivityViewController modally on iPhone or iPod touch.
 ```objc
 NSURL *URL = self.webView.request.URL;
 
@@ -89,6 +92,32 @@ if ([UIActivityViewController class]) {
 ```
 
 <img alt="UIActivity Screenshot" src="http://cdn-ak.f.st-hatena.com/images/fotolife/h/hatenabookmark/20130809/20130809153935.png?1376030507" width="240px" style="width: 240px;" />
+
+#### iPad
+
+Apple official document said that "on iPad, it must be presented in a popover".
+```objc
+NSURL *URL = self.webView.request.URL;
+
+// iOS 6 or later
+if ([UIActivityViewController class]) {
+    HTBHatenaBookmarkActivity *hateaBookmarkActivity = [[HTBHatenaBookmarkActivity alloc] init];
+    UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[URL]                                                                               applicationActivities:@[hateaBookmarkActivity]];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) { // on iPad
+        self.activityPopover = [[UIPopoverController alloc] initWithContentViewController:activityView];
+        __weak UIPopoverController *weakPopover = self.activityPopover;
+        activityView.completionHandler = ^(NSString *activityType, BOOL completed){
+            // dismiss popover on activity completed.
+            [weakPopover dismissPopoverAnimated:YES];
+        };
+        [self.activityPopover presentPopoverFromBarButtonItem:sender
+                                     permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                     animated:YES];
+    }
+}
+```
+
+See `HTBDemoViewController` for detail.
 
 ### HTBHatenaBookmarkViewController
 
@@ -105,9 +134,13 @@ viewController.URL = URL;
 
 # Build DemoApp
 
-Pull this repository and run `git submodule update --init`. After that, open `/DemoApp/DemoApp.xcodeproj` and build.
+Clone this repository and run `git submodule update --init`. After that, open `/DemoApp/DemoApp.xcodeproj` and build.
 
 Demo app also needs OAuth consumer secret and key. Add to `[[HTBHatenaBookmarkManager sharedManager] setConsumerKey:@"your consumer key" consumerSecret:@"your consumer secret"];` in `HTBDemoViewController`.
+
+# Running Tests
+
+Clone this repository and run `make clean test` in root directory.
 
 # Archtecture
 - `/SDK/API/`
