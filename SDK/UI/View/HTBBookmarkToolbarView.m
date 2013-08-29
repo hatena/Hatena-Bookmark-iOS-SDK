@@ -70,7 +70,7 @@
     _facebookToggleButton.enabled = myEntry.isOAuthFacebook;
     _mixiToggleButton.enabled     = myEntry.isOAuthMixiCheck;
     _evernoteToggleButton.enabled = myEntry.isOAuthEvernote;
-
+    _mailToggleButton.enabled     = myEntry.isPlususer;
     [self setNeedsLayout];
 }
 
@@ -88,8 +88,9 @@
     if (_evernoteToggleButton.enabled) {
         _evernoteToggleButton.selected = !!(lastPostOptions & HatenaBookmarkPostOptionEvernote);
     }
-
-    _mailToggleButton.selected = lastPostOptions & HatenaBookmarkPostOptionSendMail;
+    if (_mailToggleButton.enabled) {
+        _mailToggleButton.selected = !!(lastPostOptions & HatenaBookmarkPostOptionSendMail);
+    }
 
     if (bookmarkEntry) {
         _privateToggleButton.selected = bookmarkEntry.isPrivate;
