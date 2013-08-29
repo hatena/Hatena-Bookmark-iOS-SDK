@@ -84,16 +84,24 @@
 
     if ([HTBHatenaBookmarkManager sharedManager].authorized) {
         UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIView *wrapper =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 45)];
         logoutButton.frame = CGRectMake(0, 0, 120, 45);
         logoutButton.showsTouchWhenHighlighted = YES;
         logoutButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         logoutButton.titleLabel.numberOfLines = 1;
-        logoutButton.titleLabel.lineBreakMode = UILineBreakModeClip;
-        logoutButton.titleLabel.minimumFontSize = 1;
+        if ([logoutButton.titleLabel respondsToSelector:@selector(setMinimumScaleFactor:)]) { // iOS6 or later.
+            logoutButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+            logoutButton.titleLabel.minimumScaleFactor = 10.f / 17.f;
+        } else {
+            logoutButton.titleLabel.lineBreakMode = UILineBreakModeClip;
+            logoutButton.titleLabel.minimumFontSize = 10;
+        }
         logoutButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        logoutButton.titleLabel.adjustsLetterSpacingToFitWidth = YES;
         [logoutButton setTitle:[NSString stringWithFormat:@"id:%@", [HTBHatenaBookmarkManager sharedManager].username] forState:UIControlStateNormal];
         [logoutButton addTarget:self action:@selector(logoutButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.titleView = logoutButton;
+        [wrapper addSubview:logoutButton];
+        self.navigationItem.titleView = wrapper;
     }
 }
 
