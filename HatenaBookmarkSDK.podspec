@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "HatenaBookmarkSDK"
-  s.version      = "1.0"
+  s.version      = "1.0.1"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.summary      = "Hatena Bookmark iOS SDK"
   s.homepage     = "https://github.com/hatena/Hatena-Bookmark-iOS-SDK"
