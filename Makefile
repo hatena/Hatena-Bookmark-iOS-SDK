@@ -1,4 +1,4 @@
-PROJECT = HatenaBookmarkSDK/HatenaBookmarkSDK.xcodeproj
+PROJECT = HatenaBookmarkSDKTests/HatenaBookmarkSDKTests.xcodeproj
 TARGET = HatenaBookmarkSDKTests
 
 clean:
