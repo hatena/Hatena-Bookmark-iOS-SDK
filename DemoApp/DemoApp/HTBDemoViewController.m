@@ -167,6 +167,12 @@
     });
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // for iOS5
+    return interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+}
+
 #pragma mark - UIWebViewDelegate
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
