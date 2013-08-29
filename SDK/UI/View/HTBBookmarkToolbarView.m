@@ -171,4 +171,26 @@
     }
 }
 
+- (HatenaBookmarkPOSTOptions)selectedPostOptions
+{
+    HatenaBookmarkPOSTOptions options = HatenaBookmarkPostOptionNone;
+
+    if (self.twitterToggleButton.selected) {
+        options |= HatenaBookmarkPostOptionTwitter;
+    }
+    if (self.facebookToggleButton.selected) {
+        options |= HatenaBookmarkPostOptionFacebook;
+    }
+    if (self.mixiToggleButton.selected) {
+        options |= HatenaBookmarkPostOptionMixi;
+    }
+    if (self.mailToggleButton.selected) {
+        options |= HatenaBookmarkPostOptionSendMail;
+    }
+    if (self.evernoteToggleButton.selected) {
+        options |= HatenaBookmarkPostOptionEvernote;
+    }
+    return options;
+}
+
 @end
