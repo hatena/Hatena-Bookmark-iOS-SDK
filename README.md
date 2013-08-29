@@ -12,7 +12,7 @@ Add the lines below to your Podfile.
 ```
 platform :ios, '5.0'
 
-pod 'HatenaBookmarkSDK', :git => 'https://github.com/hatena/Hatena-Bookmark-iOS-SDK.git'
+pod 'HatenaBookmarkSDK'
 ```
 
 We will make a pull request to `CocoaPods/Specs` after public release.
