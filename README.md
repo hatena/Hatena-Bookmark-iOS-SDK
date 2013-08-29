@@ -15,8 +15,6 @@ platform :ios, '5.0'
 pod 'HatenaBookmarkSDK'
 ```
 
-We will make a pull request to `CocoaPods/Specs` after public release.
-
 ## Without Cocoa Pods
 
 Copy `/SDK/` directory and add dependent modules [AFNetworking](https://github.com/AFNetworking/AFNetworking) and [SFHFKeychainUtils](https://github.com/ldandersen/scifihifi-iphone/) to your project .
