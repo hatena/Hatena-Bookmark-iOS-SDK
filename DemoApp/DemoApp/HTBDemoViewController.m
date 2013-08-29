@@ -23,7 +23,6 @@
 //  THE SOFTWARE.
 
 #import "HTBDemoViewController.h"
-#import <QuartzCore/QuartzCore.h>
 #import "HatenaBookmarkSDK.h"
 
 @implementation HTBDemoViewController  {
@@ -42,22 +41,13 @@
     [self toggleLoginButtons];
     
     [self loadHatenaBookmark];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 -(void)loadHatenaBookmark {
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://b.hatena.ne.jp/touch"]];
 
     [_webView loadRequest:req];
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    self.title = [_webView.request.URL absoluteString];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,7 +68,27 @@
         HTBHatenaBookmarkActivity *hatenaBookmarkActivity = [[HTBHatenaBookmarkActivity alloc] init];
         UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:@[_webView.request.URL]
                                                                                    applicationActivities:@[hatenaBookmarkActivity]];
-        [self presentViewController:activityView animated:YES completion:nil];
+        /**
+        * On iPad, you must present the view controller in a popover.
+        * On iPhone and iPod touch, you must present it modally.
+        * refs : https://developer.apple.com/library/ios/documentation/uikit/reference/UIActivityViewController_Class/Reference/Reference.html
+        * */
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) { // for iPad
+            if (self.activityPopover && self.activityPopover.isPopoverVisible) {
+                [self.activityPopover dismissPopoverAnimated:YES];
+            } else {
+                self.activityPopover=[[UIPopoverController alloc] initWithContentViewController:activityView];
+                __weak UIPopoverController *weakPopup = self.activityPopover;
+                activityView.completionHandler = ^(NSString *activityType, BOOL completed){
+                    [weakPopup dismissPopoverAnimated:YES];
+                };
+                [self.activityPopover presentPopoverFromBarButtonItem:sender
+                                             permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                             animated:YES];
+            }
+        } else {
+            [self presentViewController:activityView animated:YES completion:nil];
+        }
     }
     else {
         HTBHatenaBookmarkViewController *viewController = [[HTBHatenaBookmarkViewController alloc] init];
@@ -112,7 +122,7 @@
 {
     [[HTBHatenaBookmarkManager sharedManager] logout];
     [self toggleLoginButtons];
-//    self.navigationItem.rightBarButtonItem.enabled = [HTBHatenaBookmarkManager sharedManager].authorized;
+    self.navigationItem.rightBarButtonItem.enabled = [HTBHatenaBookmarkManager sharedManager].authorized;
 }
 
 - (void)initializeHatenaBookmarkClient {
@@ -155,6 +165,18 @@
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleBordered target:self action:@selector(logoutButtonPushed:)];
         self.navigationController.toolbar.items = @[item];
     });
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    self.title = [_webView.request.URL absoluteString];
+    self.navigationItem.rightBarButtonItem.enabled = YES;
 }
 
 @end

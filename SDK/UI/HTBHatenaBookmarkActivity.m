@@ -69,8 +69,10 @@
     viewController.completionHandler = ^(BOOL completion) {
         [self activityDidFinish:completion];
     };
-    viewController.providesPresentationContextTransitionStyle = NO;
-    viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        viewController.providesPresentationContextTransitionStyle = NO;
+        viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    }
     return viewController;
 }
 

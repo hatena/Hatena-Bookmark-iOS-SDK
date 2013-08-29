@@ -25,4 +25,5 @@
 #import <UIKit/UIKit.h>
 
 @interface HTBDemoViewController : UIViewController<UIWebViewDelegate>
+@property (nonatomic, strong) UIPopoverController *activityPopover;
 @end
