@@ -190,6 +190,9 @@
     if (self.evernoteToggleButton.selected) {
         options |= HatenaBookmarkPostOptionEvernote;
     }
+    if (self.privateToggleButton.selected) {
+        options |= HatenaBookmarkPostOptionPrivate;
+    }
     return options;
 }
 
