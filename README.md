@@ -17,6 +17,12 @@ pod 'HatenaBookmarkSDK'
 
 ## Without CocoaPods
 
+Clone this repository.
+
+```
+git clone --recursive https://github.com/hatena/Hatena-Bookmark-iOS-SDK.git
+```
+
 Copy `/SDK/` directory and add dependent modules [AFNetworking](https://github.com/AFNetworking/AFNetworking) and [SFHFKeychainUtils](https://github.com/ldandersen/scifihifi-iphone/) to your project .
 
 # Usage
