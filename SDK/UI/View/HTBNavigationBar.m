@@ -22,11 +22,16 @@
 
 #import "HTBNavigationBar.h"
 #import "HTBUtility.h"
+#import "HTBMacro.h"
 
 @implementation HTBNavigationBar
 
 +(void)initialize
 {
+    if (HTB_IS_RUNNING_IOS7) { // for iOS7, navigation bars are not applyed appearance.
+        return;
+    }
+    
     NSString *resourcePath = [[HTBUtility hatenaBookmarkSDKBundle] resourcePath];
 
     [[self appearance] setTitleTextAttributes:@{

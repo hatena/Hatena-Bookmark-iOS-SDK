@@ -22,6 +22,7 @@
 #import "HTBTagInputView.h"
 #import "HTBToggleButton.h"
 #import "HTBUtility.h"
+#import "HTBMacro.h"
 
 #define HTB_BOOKMARK_TAG_KEY_FONT_SIZE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 15 : 18)
 #define HTB_BOOKMARK_TAG_KEY_HEIGHT (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 40 : 60)
@@ -29,7 +30,7 @@
 #define HTB_BOOKMARK_TAG_KEY_V_MARGIN (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 14 : 10)
 #define HTB_BOOKMARK_TAG_KEY_TEXT_H_MARGIN (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 10 : 16)
 #define HTB_BOOKMARK_TAG_KEY_LEFT_MARGIN (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 3 : 8)
-#define HTB_BOOKMARK_TAG_KEY_H_MARGIN (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 2 : 8)
+#define HTB_BOOKMARK_TAG_KEY_H_MARGIN (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? (HTB_IS_RUNNING_IOS7 ? 7 : 2) : (HTB_IS_RUNNING_IOS7 ? 14 : 8))
 #define HTB_BOOKMARK_TAG_PAGE_CONTOL_HEIGHT 30
 #define HTB_BOOKMARK_TAG_PAGE_CONTOL_BOTTOM_MARGIN 6
 
@@ -57,7 +58,9 @@
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     NSString *resourcePath = [[HTBUtility hatenaBookmarkSDKBundle] resourcePath];
-    backgroundImageView.image = [UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/keyboard.png"]];
+    NSString *imagePath = [resourcePath stringByAppendingPathComponent:HTB_IS_RUNNING_IOS7 ? @"Images7" : @"Images"];
+    
+    backgroundImageView.image = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:@"keyboard.png"]];
     backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:backgroundImageView];
     self.inputView = [[UIScrollView alloc] initWithFrame:self.bounds];
@@ -73,10 +76,10 @@
         button.selectedTitle = tag;
         button.titleLabel.font = [UIFont boldSystemFontOfSize:HTB_BOOKMARK_TAG_KEY_FONT_SIZE];
         [button addTarget:self action:@selector(inputTag:) forControlEvents:UIControlEventTouchUpInside];        
-        button.backgroundImage = [[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/keyboard-button.png"]] stretchableImageWithLeftCapWidth:6 topCapHeight:6];
-        button.highlightedBackgroundImage = [[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/keyboard-button-highlighted.png"]] stretchableImageWithLeftCapWidth:6 topCapHeight:6];
-        button.selectedBackgroundImage = [[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/keyboard-selected-button.png"]] stretchableImageWithLeftCapWidth:6 topCapHeight:6];
-        button.selectedHighlightedBackgroundImage  = [[UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:@"Images/keyboard-selected-button-highlighted.png"]] stretchableImageWithLeftCapWidth:6 topCapHeight:6];
+        button.backgroundImage = [[UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:@"keyboard-button.png"]] stretchableImageWithLeftCapWidth:6 topCapHeight:6];
+        button.highlightedBackgroundImage = [[UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:@"keyboard-button-highlighted.png"]] stretchableImageWithLeftCapWidth:6 topCapHeight:6];
+        button.selectedBackgroundImage = [[UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:@"keyboard-selected-button.png"]] stretchableImageWithLeftCapWidth:6 topCapHeight:6];
+        button.selectedHighlightedBackgroundImage  = [[UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:@"keyboard-selected-button-highlighted.png"]] stretchableImageWithLeftCapWidth:6 topCapHeight:6];
         button.textColor = [UIColor blackColor];
         button.selectedTextColor = [UIColor whiteColor];
         [self.inputView addSubview:button];

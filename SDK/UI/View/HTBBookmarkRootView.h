@@ -36,9 +36,11 @@
 @property (nonatomic, strong) HTBBookmarkToolbarView *toolbarView;
 @property (nonatomic, strong) HTBCanonicalView *canonicalView;
 @property (nonatomic, strong) UILabel *textCountLabel;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIActivityIndicatorView *myBookmarkActivityIndicatorView;
 @property (nonatomic, strong) UIActivityIndicatorView *bookmarkActivityIndicatorView;
 
 -(void)setCanonicalViewShown:(BOOL)shown urlString:(NSString *)urlString animated:(BOOL)animated;
+- (void)updateTextCount;
 
 @end

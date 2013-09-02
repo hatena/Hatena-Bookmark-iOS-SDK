@@ -42,6 +42,7 @@
 #import "HTBCanonicalView.h"
 #import "UIAlertView+HTBNSError.h"
 #import "HTBHatenaBookmarkViewController.h"
+#import "HTBMacro.h"
 
 @interface HTBBookmarkViewController ()
 @property (nonatomic, strong) HTBBookmarkEntry *entry;
@@ -52,8 +53,8 @@
 @implementation HTBBookmarkViewController {
     BOOL _entryRequestFinised;
     BOOL _canonicalRequestFinished;
-
-// Save/resume buffers for memory warinngs
+    
+    // Save/resume buffers for memory warinngs
     NSString *_textBuffer;
     NSString *_tagBuffer;
     HatenaBookmarkPOSTOptions _optionsBuffer;
@@ -72,40 +73,45 @@
     [super viewDidLoad];
     self.title = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? [HTBUtility localizedStringForKey:@"hatena-bookmark" withDefault:@"Hatena Bookmark"] : [HTBUtility localizedStringForKey:@"bookmark" withDefault:@"Bookmark"];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[HTBUtility localizedStringForKey:@"back" withDefault:@"Back"] style: UIBarButtonItemStyleBordered target:nil action:nil];
-
+    
     [self loadEntry];
-
+    
     if (self.navigationController.viewControllers.count == 1) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[HTBUtility localizedStringForKey:@"close" withDefault:@"Close"] style:UIBarButtonItemStyleBordered target:self action:@selector(closeButtonPushed:)];
     }
-
+    
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:[HTBUtility localizedStringForKey:@"add" withDefault:@"Add"] style:UIBarButtonItemStyleBordered target:self action:@selector(addBookmarkButtonPushed:)];
     self.navigationItem.rightBarButtonItems = @[addButton];
-
+    
     [self.rootView.entryView addTarget:self action:@selector(entryButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
     [self.rootView.canonicalView addTarget:self action:@selector(canonicalButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     self.rootView.toolbarView.lastPostOptions = [HTBHatenaBookmarkManager sharedManager].userManager.lastPostOptions;
-
+    
     if ([HTBHatenaBookmarkManager sharedManager].authorized) {
         UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIView *wrapper =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 45)];
-        logoutButton.frame = CGRectMake(0, 0, 120, 45);
+        CGFloat wrapperWidth = HTB_IS_RUNNING_IOS7 ? 90 : 120;
+        UIView *wrapper =[[UIView alloc] initWithFrame:CGRectMake(0, 0, wrapperWidth, 45)];
+        logoutButton.frame = wrapper.frame;
         logoutButton.showsTouchWhenHighlighted = YES;
         logoutButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
         logoutButton.titleLabel.numberOfLines = 1;
+        const float kMinimumFontSize = 7;
         if ([logoutButton.titleLabel respondsToSelector:@selector(setMinimumScaleFactor:)]) { // iOS6 or later.
             logoutButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-            logoutButton.titleLabel.minimumScaleFactor = 10.f / 17.f;
-            logoutButton.titleLabel.adjustsLetterSpacingToFitWidth = YES;
+            logoutButton.titleLabel.minimumScaleFactor = kMinimumFontSize / 17.f;
         } else {
             logoutButton.titleLabel.lineBreakMode = UILineBreakModeClip;
-            logoutButton.titleLabel.minimumFontSize = 10;
+            logoutButton.titleLabel.minimumFontSize = kMinimumFontSize;
         }
-        [logoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [logoutButton setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        logoutButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
         logoutButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        if (HTB_IS_RUNNING_IOS7) {
+            [logoutButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        } else {
+            [logoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [logoutButton setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+            logoutButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
+        }
         [logoutButton setTitle:[NSString stringWithFormat:@"id:%@", [HTBHatenaBookmarkManager sharedManager].username] forState:UIControlStateNormal];
         [logoutButton addTarget:self action:@selector(logoutButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
         [wrapper addSubview:logoutButton];
@@ -139,7 +145,7 @@
         if (canonicalURLDetected || entryMissingButCanonicalDetected) {
             [self.rootView setCanonicalViewShown:YES urlString:self.canonicalEntry.displayCanonicalURLString animated:YES];
         }
-
+        
     }
 }
 
@@ -159,11 +165,12 @@
     [self.rootView.tagTextField resignFirstResponder];
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.rootView.commentTextView becomeFirstResponder];
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -174,6 +181,29 @@
             self.parentViewController.view.frame = frame;
         } completion:nil];
     }
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+#if __IPHONE_7_0 && __IPHONE_OS_VERSION_MAX_ALLOWED >=  __IPHONE_7_0
+    if ([self respondsToSelector:@selector(topLayoutGuide)]) { // for iOS7
+        self.rootView.scrollView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 0, 0);
+    }
+    
+    /**
+     * on iOS7, when navigationController.view.frame is changed, but it's child view controllers' views are not resized.
+     * So, change self.rootView.frame forcibly.
+     */
+    if (HTB_IS_RUNNING_IOS7) {
+        CGFloat y = self.view.frame.origin.y;
+        self.rootView.frame = CGRectMake(0,
+                                         y,
+                                         self.navigationController.view.frame.size.width,
+                                         self.navigationController.view.frame.size.height - y);
+    }
+    
+#endif
 }
 
 - (void)setEntry:(HTBBookmarkEntry *)entry
@@ -191,7 +221,8 @@
         self.rootView.commentTextView.text = entry.comment;
         self.rootView.tagTextField.text = [HTBTagTokenizer tagArrayToSpaceText:entry.tags];
         self.rootView.toolbarView.bookmarkEntry = entry;
-
+        [self.rootView updateTextCount];
+        
         UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:[HTBUtility localizedStringForKey:@"edit" withDefault:@"Edit"] style:UIBarButtonItemStyleBordered target:self action:@selector(addBookmarkButtonPushed:)];
         UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithTitle: [HTBUtility localizedStringForKey:@"delete" withDefault:@"Delete"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteBookmarkButtonPushed:)];
         self.navigationItem.rightBarButtonItems = @[editButton, deleteButton];
@@ -202,7 +233,7 @@
 {
     [self.rootView.myBookmarkActivityIndicatorView startAnimating];
     NSArray *tags = [HTBTagTokenizer spaceTextToTagArray:self.rootView.tagTextField.text];
-
+    
     HatenaBookmarkPOSTOptions options = self.rootView.toolbarView.selectedPostOptions;
     
     [[HTBHatenaBookmarkManager sharedManager] postBookmarkWithURL:self.URL comment:self.rootView.commentTextView.text tags:tags options:options success:^(HTBBookmarkedDataEntry *entry) {
