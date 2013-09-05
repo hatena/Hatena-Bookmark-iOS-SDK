@@ -171,6 +171,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		071808E017D8668E00384F1B /* HTBMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBMacro.h; sourceTree = "<group>"; };
 		0788556817BDF53600DF0CBD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0788556A17BDF53600DF0CBD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0788556C17BDF53600DF0CBD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1089,6 +1090,7 @@
 				0788582517BDFC5300DF0CBD /* HTBUtility.m */,
 				0788582617BDFC5300DF0CBD /* UIAlertView+HTBNSError.h */,
 				0788582717BDFC5300DF0CBD /* UIAlertView+HTBNSError.m */,
+				071808E017D8668E00384F1B /* HTBMacro.h */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1534,6 +1536,7 @@
 				0788559B17BDF56A00DF0CBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
