@@ -73,7 +73,6 @@
                                UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_Y_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_Y);
     frame.size.height = HTB_BOOKMARK_VIEW_HEIGHT_PHONE;
     
-    _shadowView = [UIView new];
     _shadowView = [[UIView alloc] initWithFrame:frame];
     _shadowView.layer.cornerRadius = 6;
     _shadowView.layer.shadowOpacity = 0.7;
