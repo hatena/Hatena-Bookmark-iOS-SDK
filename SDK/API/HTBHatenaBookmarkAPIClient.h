@@ -1,4 +1,4 @@
-//  HTBCommentViewController.m
+//  HTBHatenaBookmarkAPIClient.h
 //
 //  Copyright (c) 2013 Hatena Co., Ltd. All rights reserved.
 //
