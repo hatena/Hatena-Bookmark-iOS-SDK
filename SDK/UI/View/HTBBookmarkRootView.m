@@ -47,7 +47,6 @@
 @interface HTBBookmarkRootView ()
 @property (nonatomic, strong) UIView *separatorLineView;
 @property (nonatomic, strong) UIView *containerView;
-@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *tagImageView;
 @end
 
@@ -58,7 +57,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
-        self.containerView = [UIView new];
+        self.containerView = [[UIView alloc] initWithFrame:frame];
         self.scrollView.zoomScale = 1.0;
         [self initializeViews];
     }
@@ -106,7 +105,7 @@
     [self.containerView addSubview:self.canonicalView];
     self.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1.000];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTextCount:) name:UITextViewTextDidChangeNotification object:self.commentTextView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentDidChanged:) name:UITextViewTextDidChangeNotification object:self.commentTextView];
 
     [self.bookmarkActivityIndicatorView startAnimating];
     [self.myBookmarkActivityIndicatorView startAnimating];
@@ -149,7 +148,7 @@
         minimumHeight += HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_HEIGHT + HTB_BOOKMARK_ROOT_VIEW_TAG_CANONICAL_VIEW_BOTTOM_MARGIN;
     }
 
-    CGFloat y = self.bounds.size.height;
+    CGFloat y = self.bounds.size.height - self.scrollView.contentInset.top;
     if (self.frame.size.height < minimumHeight) {
         y = minimumHeight;
     }
@@ -196,7 +195,7 @@
     }];
 }
 
-- (void)updateTextCount:(NSNotification *)notification
+- (void)updateTextCount
 {
     NSInteger textCount = ceilf((float)[self.commentTextView.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding] / 3.f);
     self.textCountLabel.text = [NSString stringWithFormat:@"%d", textCount];
@@ -207,5 +206,11 @@
         self.textCountLabel.textColor = [UIColor colorWithRed:153.f / 255.f green:153.f / 255.f blue:153.f / 255.f alpha:1.000];
     }
 }
+
+- (void)commentDidChanged:(NSNotification *)notification
+{
+    [self updateTextCount];
+}
+
 
 @end

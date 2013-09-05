@@ -22,8 +22,10 @@
 
 #import "HTBTagToolbarView.h"
 #import "HTBUtility.h"
+#import "HTBMacro.h"
 #define HTB_TAG_TOOLBAR_VIEW_SIDE_MARGIN 20
 #define HTB_TAG_TOOLBAR_VIEW_VERTICAL_MARGIN 8
+
 @implementation HTBTagToolbarView {
     UIBarButtonItem *_segmentedControlItem;
 }
@@ -43,9 +45,12 @@
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[[HTBUtility localizedStringForKey:@"keyboard" withDefault:@"Keyboard"],  [HTBUtility localizedStringForKey:@"recommended" withDefault:@"Recommended"],  [HTBUtility localizedStringForKey:@"tags" withDefault:@"Tags"]]];
      _segmentedControlItem = [[UIBarButtonItem alloc] initWithCustomView:_segmentedControl];
     _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    _segmentedControl.selectedSegmentIndex = 0;
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     self.items = @[spacer, _segmentedControlItem, spacer];
-    self.tintColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+    if (!HTB_IS_RUNNING_IOS7) { // on iOS7, tintColor of separated controller will be default one.
+        self.tintColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+    }
 }
 
 - (void)layoutSubviews

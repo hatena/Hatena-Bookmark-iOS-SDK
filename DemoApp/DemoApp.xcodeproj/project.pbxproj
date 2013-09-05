@@ -63,6 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		071808DF17D833E100384F1B /* HTBMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTBMacro.h; sourceTree = "<group>"; };
 		071C365E17BE0478008EDF40 /* HTBAuthorizeEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBAuthorizeEntry.h; sourceTree = "<group>"; };
 		071C365F17BE0478008EDF40 /* HTBAuthorizeEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBAuthorizeEntry.m; sourceTree = "<group>"; };
 		260BE3E817AF1E2600BEA288 /* HTBHatenaBookmarkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBHatenaBookmarkActivity.h; sourceTree = "<group>"; };
@@ -263,6 +264,7 @@
 				268A35CB17AF32D60089ED47 /* HTBUtility.m */,
 				265F3EA817B4EA2200A89747 /* UIAlertView+HTBNSError.h */,
 				265F3EA917B4EA2200A89747 /* UIAlertView+HTBNSError.m */,
+				071808DF17D833E100384F1B /* HTBMacro.h */,
 			);
 			path = Util;
 			sourceTree = "<group>";

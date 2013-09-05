@@ -27,6 +27,7 @@
 #import "HTBHatenaBookmarkManager.h"
 #import "HTBLoginWebViewController.h"
 #import "HTBUtility.h"
+#import "HTBMacro.h"
 
 #define HTB_BOOKMARK_VIEW_MARGIN_X UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 112 : 4
 #define HTB_BOOKMARK_VIEW_MARGIN_Y UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 200 : 4
@@ -62,13 +63,16 @@
     [super viewDidLoad];
     HTBBookmarkViewController *viewController = [[HTBBookmarkViewController alloc] init];
     viewController.URL = self.URL;
-   _htbNavigationConroller = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
+    _htbNavigationConroller = [[UINavigationController alloc] initWithNavigationBarClass:[HTBNavigationBar class] toolbarClass:nil];
     _htbNavigationConroller.viewControllers = @[viewController];
-    CGRect frame = CGRectInset(self.view.bounds,
-            UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_X_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_X,
-            UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_Y_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_Y);
+    
+    CGRect screenFrame = self.view.bounds;
+    screenFrame.origin.y = MIN([UIApplication sharedApplication].statusBarFrame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height);
+    CGRect frame = CGRectInset(screenFrame,
+                               UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_X_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_X,
+                               UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_Y_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_Y);
     frame.size.height = HTB_BOOKMARK_VIEW_HEIGHT_PHONE;
-
+    
     _shadowView = [UIView new];
     _shadowView = [[UIView alloc] initWithFrame:frame];
     _shadowView.layer.cornerRadius = 6;
@@ -78,16 +82,18 @@
     _shadowView.layer.shouldRasterize = YES;
     _shadowView.layer.rasterizationScale = [UIScreen mainScreen].scale;
     [self.view addSubview:_shadowView];
-
+    
+    _keyboardRect = CGRectZero;
+    
     _htbNavigationConroller.view.frame = frame;
     _htbNavigationConroller.view.backgroundColor = [UIColor whiteColor];
     _htbNavigationConroller.view.layer.cornerRadius = 6;
     _htbNavigationConroller.view.layer.masksToBounds = YES;
-
+    
     [self addChildViewController:_htbNavigationConroller];
     [self.view addSubview:_htbNavigationConroller.view];
     [_htbNavigationConroller didMoveToParentViewController:self];
-
+    
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillShowNotification object:nil];
     [notificationCenter addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillHideNotification object:nil];
@@ -103,7 +109,16 @@
             self.presentingViewController.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
         }];
         _originalStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+#if __IPHONE_7_0 && __IPHONE_OS_VERSION_MAX_ALLOWED >=  __IPHONE_7_0 // for iOS7
+        // on iOS7, UIStatusBarStyleBlackOpaque is deprecated.
+        if (HTB_IS_RUNNING_IOS7) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
+        }
+#else
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
+#endif
     }
 }
 
@@ -117,7 +132,7 @@
                                                        delegate:self
                                               cancelButtonTitle:[HTBUtility localizedStringForKey:@"cancel" withDefault:@"Cancel"]
                                               otherButtonTitles:[HTBUtility localizedStringForKey:@"login" withDefault:@"Login"],
-                                                                nil];
+                              nil];
         alert.delegate = self;
         [alert show];
     }
@@ -151,13 +166,20 @@
 {
     CGRect newVisibleRect = self.view.bounds;
     newVisibleRect.size.height -= _keyboardRect.size.height;
-
+    
     CGRect frame = newVisibleRect;
     frame.origin = CGPointMake((newVisibleRect.size.width - frame.size.width) / 2, (newVisibleRect.size.height - frame.size.height) / 2);
-
+#if __IPHONE_7_0 && __IPHONE_OS_VERSION_MAX_ALLOWED >=  __IPHONE_7_0 // for iOS7
+    if ([self respondsToSelector:(@selector(topLayoutGuide))]) { // for iOS7 use topLayoutGuide
+        CGFloat statusBarHeight = self.topLayoutGuide.length;
+        frame.origin.y += statusBarHeight;
+        frame.size.height -= statusBarHeight;
+    }
+#endif
+    
     CGRect inset = CGRectInset(frame,
-            UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_X_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_X,
-            UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_Y_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_Y);
+                               UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_X_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_X,
+                               UIDeviceOrientationIsLandscape(self.interfaceOrientation) ? HTB_BOOKMARK_VIEW_MARGIN_Y_LANDSCAPE : HTB_BOOKMARK_VIEW_MARGIN_Y);
     CGRect fromShadowRect = _htbNavigationConroller.view.bounds;
     CGRect shadowRect = inset;
     fromShadowRect.origin = CGPointZero;
@@ -167,7 +189,7 @@
     shadowAnimation.fromValue = (id)[UIBezierPath bezierPathWithRect:fromShadowRect].CGPath;
     shadowAnimation.toValue = (id)[UIBezierPath bezierPathWithRect:shadowRect].CGPath;
     [_shadowView.layer addAnimation:shadowAnimation forKey:@"shadowPath"];
-
+    
     [UIView animateWithDuration:_keyboardAnimationDuration animations:^{
         _htbNavigationConroller.view.frame = inset;
         _shadowView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:shadowRect cornerRadius:6].CGPath;
