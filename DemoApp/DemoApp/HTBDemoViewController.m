@@ -115,6 +115,8 @@
     [[HTBHatenaBookmarkManager sharedManager] authorizeWithSuccess:^{
         [self toggleLoginButtons];
     } failure:^(NSError *error) {
+        UIAlertView* errorAlert = [[UIAlertView alloc] initWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil];
+        [errorAlert show];
     }];
 }
 
