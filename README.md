@@ -171,7 +171,7 @@ Clone this repository and run `make clean test` in root directory.
 - [SFHFKeychainUtils](https://github.com/ldandersen/scifihifi-iphone/)
 
 # Hatena Bookmark API
-iOS SDK interfaces with the Hatena Bookmark API. For more details, see [api docs](docs/apis/rest.md). (They will be moved to the Hatena Developer Center at a later date);
+iOS SDK interfaces with the Hatena Bookmark API. For more details, see [api docs](http://developer.hatena.ne.jp/ja/documents/bookmark/apis/rest) (In Japanese).
 
 # License
 [Apache]: http://www.apache.org/licenses/LICENSE-2.0
