@@ -1,5 +1,5 @@
 PROJECT = HatenaBookmarkSDKTests/HatenaBookmarkSDKTests.xcodeproj
-TARGET = HatenaBookmarkSDKTests
+SCHEME = HatenaBookmarkSDKTests
 
 clean:
 	xcodebuild \
@@ -8,9 +8,9 @@ clean:
 
 test:
 	xcodebuild \
+		test \
 		-project $(PROJECT) \
-		-target $(TARGET) \
+		-scheme $(SCHEME) \
 		-sdk iphonesimulator \
-		TEST_AFTER_BUILD=YES \
 		ONLY_ACTIVE_ARCH=NO \
 		TEST_HOST=
