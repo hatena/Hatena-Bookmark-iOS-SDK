@@ -29,7 +29,15 @@ Copy `/SDK/` directory and add dependent modules [AFNetworking](https://github.c
 
 ## Register OAuth
 
-Register your app information at [Hatena Developer Center](http://developer.hatena.com/). After registration, you will get a consumer key and a consumer secret.
+Register your app information at [Hatena Developer Center](http://developer.hatena.com/). This SDK needs all scope, read_public, read_private, write_public, write_private.
+
+<img alt="Scope Settings" src="http://cdn-ak.f.st-hatena.com/images/fotolife/h/hatenabookmark/20131204/20131204094841.png?1386118126" width="531px" style="width: 531px;" />
+
+After registration, you will get a consumer key and a consumer secret. 
+
+<img alt="Consumer Key and Consumer Secret" src="http://cdn-ak.f.st-hatena.com/images/fotolife/h/hatenabookmark/20131204/20131204095421.png?1386118494" width="604px" style="width: 604px;" />
+
+
 
 ## Initialize
 
