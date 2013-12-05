@@ -46,7 +46,9 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadOAuthLoginView:) name:kHTBLoginStartNotification object:nil];
         [[HTBHatenaBookmarkManager sharedManager] authorizeWithSuccess:^{
+            [self hideModalView:YES];
         } failure:^(NSError *error) {
+            [self hideModalView:NO];
         }];
     }
     
@@ -83,7 +85,7 @@
     if (queryString && [queryString rangeOfString:@"oauth_verifier"].location != NSNotFound) {
         NSNotification *notification = [NSNotification notificationWithName:kHTBLoginFinishNotification object:nil userInfo:@{ kHTBApplicationLaunchOptionsURLKey : request.URL }];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-        [self hideModalView:YES];
+
         return NO;
     }
     return YES;
