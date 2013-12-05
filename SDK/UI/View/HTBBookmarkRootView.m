@@ -110,7 +110,7 @@
     [self.bookmarkActivityIndicatorView startAnimating];
     [self.myBookmarkActivityIndicatorView startAnimating];
     self.commentTextView.font = [UIFont systemFontOfSize:17.f];
-    self.commentTextView.placeholder = [HTBUtility localizedStringForKey:@"add-comments" withDefault:@"Add comments"];
+    self.commentTextView.placeholderText = [HTBUtility localizedStringForKey:@"add-comments" withDefault:@"Add comments"];
     self.tagTextField.font = [UIFont systemFontOfSize:12.f];
     self.tagTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 
