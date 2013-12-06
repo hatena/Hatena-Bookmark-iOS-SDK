@@ -25,7 +25,7 @@
 
 @interface HTBPlaceholderTextView : UITextView
 
-@property (nonatomic, strong) NSString *placeholder;
+@property (nonatomic, strong) NSString *placeholderText;
 @property (nonatomic, strong) UIColor *placeholderColor;
 
 @end

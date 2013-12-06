@@ -40,8 +40,8 @@
     
     // Use Interface Builder User Defined Runtime Attributes to set
     // placeholder and placeholderColor in Interface Builder.
-    if (!self.placeholder) {
-        [self setPlaceholder:@""];
+    if (!self.placeholderText) {
+        [self setPlaceholderText:@""];
     }
     
     if (!self.placeholderColor) {
@@ -55,7 +55,7 @@
 {
     if( (self = [super initWithFrame:frame]) )
     {
-        [self setPlaceholder:@""];
+        [self setPlaceholderText:@""];
         [self setPlaceholderColor:[UIColor lightGrayColor]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:self];
     }
@@ -64,7 +64,7 @@
 
 - (void)textChanged:(NSNotification *)notification
 {
-    if([[self placeholder] length] == 0)
+    if([[self placeholderText] length] == 0)
     {
         return;
     }
@@ -86,7 +86,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if( [[self placeholder] length] > 0 )
+    if( [[self placeholderText] length] > 0 )
     {
         if (_placeHolderLabel == nil )
         {
@@ -101,12 +101,12 @@
             [self addSubview:_placeHolderLabel];
         }
         
-        _placeHolderLabel.text = self.placeholder;
+        _placeHolderLabel.text = self.placeholderText;
         [_placeHolderLabel sizeToFit];
         [self sendSubviewToBack:_placeHolderLabel];
     }
     
-    if( [[self text] length] == 0 && [[self placeholder] length] > 0 )
+    if( [[self text] length] == 0 && [[self placeholderText] length] > 0 )
     {
         [[self viewWithTag:999] setAlpha:1];
     }
