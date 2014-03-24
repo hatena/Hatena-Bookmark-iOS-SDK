@@ -11,6 +11,5 @@ Pod::Spec.new do |s|
   s.frameworks = 'Foundation', 'Security', 'QuartzCore'
   s.requires_arc = true
   s.resource = 'SDK/UI/HTBResources.bundle'
-  s.dependency 'AFNetworking', '~> 1.0'
   s.dependency 'SFHFKeychainUtils'
 end

@@ -1,6 +1,3 @@
-[submodule "AFNetworking"]
-	path = AFNetworking
-	url = https://github.com/AFNetworking/AFNetworking.git
 [submodule "scifihifi-iphone"]
 	path = scifihifi-iphone
 	url = https://github.com/ldandersen/scifihifi-iphone.git
