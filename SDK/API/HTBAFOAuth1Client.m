@@ -25,7 +25,7 @@
 // THE SOFTWARE.
 
 #import "HTBAFOAuth1Client.h"
-#import "AFHTTPRequestOperation.h"
+#import "HatenaAFHTTPRequestOperation.h"
 
 #import <CommonCrypto/CommonHMAC.h>
 
@@ -256,7 +256,7 @@ static inline NSString * AFHMACSHA1Signature(NSURLRequest *request, NSString *co
     [mutableParameters addEntriesFromDictionary:mutableAuthorizationParameters];
     [mutableAuthorizationParameters setValue:[self OAuthSignatureForMethod:method path:path parameters:mutableParameters token:self.accessToken] forKey:@"oauth_signature"];
     
-    NSArray *sortedComponents = [[AFQueryStringFromParametersWithEncoding(mutableAuthorizationParameters, self.stringEncoding) componentsSeparatedByString:@"&"] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    NSArray *sortedComponents = [[HatenaAFQueryStringFromParametersWithEncoding(mutableAuthorizationParameters, self.stringEncoding) componentsSeparatedByString:@"&"] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     NSMutableArray *mutableComponents = [NSMutableArray array];
     for (NSString *component in sortedComponents) {
         NSArray *subcomponents = [component componentsSeparatedByString:@"="];
@@ -337,12 +337,12 @@ static inline NSString * AFHMACSHA1Signature(NSURLRequest *request, NSString *co
 
     NSMutableURLRequest *request = [self requestWithMethod:accessMethod path:path parameters:parameters];
     
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    HatenaAFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(HatenaAFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             AFOAuth1Token *accessToken = [[AFOAuth1Token alloc] initWithQueryString:operation.responseString];
             success(accessToken, responseObject);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(error);
         }
@@ -365,12 +365,12 @@ static inline NSString * AFHMACSHA1Signature(NSURLRequest *request, NSString *co
 
     NSMutableURLRequest *request = [self requestWithMethod:accessMethod path:path parameters:parameters];
 
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    HatenaAFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(HatenaAFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             AFOAuth1Token *accessToken = [[AFOAuth1Token alloc] initWithQueryString:operation.responseString];
             success(accessToken, responseObject);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(error);
         }
@@ -403,7 +403,7 @@ static inline NSString * AFHMACSHA1Signature(NSURLRequest *request, NSString *co
 - (NSMutableURLRequest *)multipartFormRequestWithMethod:(NSString *)method
                                                    path:(NSString *)path
                                              parameters:(NSDictionary *)parameters
-                              constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
+                              constructingBodyWithBlock:(void (^)(id <HatenaAFMultipartFormData> formData))block
 {
     NSMutableURLRequest *request = [super multipartFormRequestWithMethod:method path:path parameters:parameters constructingBodyWithBlock:block];
     [request setValue:[self authorizationHeaderForMethod:method path:path parameters:parameters] forHTTPHeaderField:@"Authorization"];
