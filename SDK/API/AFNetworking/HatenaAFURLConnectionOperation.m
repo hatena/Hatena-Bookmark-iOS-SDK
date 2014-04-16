@@ -592,6 +592,7 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
         SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
         
         SecPolicyRef policy = SecPolicyCreateBasicX509();
+        SecTrustEvaluate(serverTrust, NULL);
         CFIndex certificateCount = SecTrustGetCertificateCount(serverTrust);
         NSMutableArray *trustChain = [NSMutableArray arrayWithCapacity:certificateCount];
         
@@ -738,15 +739,19 @@ didReceiveResponse:(NSURLResponse *)response
             while (totalNumberOfBytesWritten < length) {
                 numberOfBytesWritten = [self.outputStream write:&dataBuffer[0] maxLength:length];
                 if (numberOfBytesWritten == -1) {
-                    [self.connection cancel];
-                    [self performSelector:@selector(connection:didFailWithError:) withObject:self.connection withObject:self.outputStream.streamError];
-                    return;
-                } else {
-                    totalNumberOfBytesWritten += numberOfBytesWritten;
+                    break;
                 }
+
+                totalNumberOfBytesWritten += numberOfBytesWritten;
             }
 
             break;
+        }
+
+        if (self.outputStream.streamError) {
+            [self.connection cancel];
+            [self performSelector:@selector(connection:didFailWithError:) withObject:self.connection withObject:self.outputStream.streamError];
+            return;
         }
     }
     
