@@ -210,6 +210,7 @@
 		070B808417BE3B9600ED4723 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B808317BE3B9600ED4723 /* Security.framework */; };
 		070B808517BE3BA400ED4723 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B802917BE38DF00ED4723 /* SystemConfiguration.framework */; };
 		070B808617BE3BBF00ED4723 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B802B17BE38E900ED4723 /* MobileCoreServices.framework */; };
+		3F7308651AA5F05500A9D097 /* HTBMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F7308641AA5F05500A9D097 /* HTBMacro.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -556,6 +557,7 @@
 		070B806917BE3A1400ED4723 /* LSStubResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSStubResponse.m; sourceTree = "<group>"; };
 		070B808017BE3B1600ED4723 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		070B808317BE3B9600ED4723 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3F7308641AA5F05500A9D097 /* HTBMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -712,6 +714,7 @@
 		070B7A2317BE370500ED4723 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				3F7308641AA5F05500A9D097 /* HTBMacro.h */,
 				070B7A2417BE370500ED4723 /* HTBTagTokenizer.h */,
 				070B7A2517BE370500ED4723 /* HTBTagTokenizer.m */,
 				070B7A2617BE370500ED4723 /* HTBUtility.h */,
@@ -1238,6 +1241,7 @@
 				070B7A4A17BE370500ED4723 /* HTBHatenaBookmarkAPIClient.h in Headers */,
 				070B7A4D17BE370500ED4723 /* HTBHatenaBookmarkActivity.h in Headers */,
 				070B7A5017BE370500ED4723 /* HTBAuthorizeEntry.h in Headers */,
+				3F7308651AA5F05500A9D097 /* HTBMacro.h in Headers */,
 				070B7A5217BE370500ED4723 /* HTBBookmarkedDataEntry.h in Headers */,
 				070B7A5417BE370500ED4723 /* HTBBookmarkEntry.h in Headers */,
 				070B7A5617BE370500ED4723 /* HTBCanonicalEntry.h in Headers */,
@@ -1320,7 +1324,7 @@
 			name = HatenaBookmarkSDKTests;
 			productName = HatenaBookmarkSDKTests;
 			productReference = 070B79E817BE36C500ED4723 /* HatenaBookmarkSDKTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
