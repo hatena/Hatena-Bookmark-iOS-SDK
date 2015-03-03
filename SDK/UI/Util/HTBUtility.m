@@ -30,7 +30,7 @@
     static NSBundle *bundle = nil;
     
     dispatch_once(&fetchBundleOnce, ^{
-        NSString *path = [[NSBundle mainBundle]
+        NSString *path = [[NSBundle bundleForClass:self.class]
                           pathForResource:@"HTBResources"
                                    ofType:@"bundle"];
         bundle = [NSBundle bundleWithPath:path];
