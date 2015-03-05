@@ -28,7 +28,7 @@
 #import "HTBTagEntry.h"
 #import "HTBMyTagsEntry.h"
 #import "HTBUserManager.h"
-#import "AFHTTPRequestOperation.h"
+#import "HatenaAFHTTPRequestOperation.h"
 #import "HTBCanonicalEntry.h"
 
 @implementation HTBHatenaBookmarkManager {
@@ -111,13 +111,13 @@
 - (void)getMyEntryWithSuccess:(void (^)(HTBMyEntry *myEntry))success
                       failure:(void (^)(NSError *error))failure
 {
-    [self.apiClient getMyWithSuccess:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self.apiClient getMyWithSuccess:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
 
         HTBMyEntry *myEntry = [[HTBMyEntry alloc] initWithJSON:responseJSON];
         self.userManager.myEntry = myEntry;
         if (success) success(myEntry);
             
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
             // Not Authorize
             if ([operation.response statusCode] == 401) {
@@ -130,11 +130,11 @@
 - (void)getMyTagsWithSuccess:(void (^)(HTBMyTagsEntry *))success
                      failure:(void (^)(NSError *))failure
 {
-    [self.apiClient getMyTagsWithSuccess:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self.apiClient getMyTagsWithSuccess:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
         HTBMyTagsEntry *myTagsEntry = [[HTBMyTagsEntry alloc]initWithJSON:responseJSON];
         self.userManager.myTagsEntry = myTagsEntry;
             if (success) success(myTagsEntry);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
         // Not Authorize
         if ([operation.response statusCode] == 401) {
@@ -148,12 +148,12 @@
                         success:(void (^)(HTBBookmarkEntry *entry))success
                         failure:(void (^)(NSError *error))failure
 {
-    [self.apiClient getEntryWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self.apiClient getEntryWithURL:url success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
 
         HTBBookmarkEntry *entry = [[HTBBookmarkEntry alloc] initWithJSON:responseJSON];
             if (success) success(entry);
 
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
             if ([operation.response statusCode] == 404) {
                 NSData *data = [operation.responseString dataUsingEncoding:NSUTF8StringEncoding];
                 if (data) {
@@ -176,12 +176,12 @@
                          success:(void (^)(HTBCanonicalEntry *entry))success
                          failure:(void (^)(NSError *error))failure
 {
-    [self.apiClient getCanonicalEntryWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self.apiClient getCanonicalEntryWithURL:url success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
 
         HTBCanonicalEntry *canonicalEntry = [[HTBCanonicalEntry alloc] initWithJSON:responseJSON];
         if (success) success(canonicalEntry);
 
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
         // Not Authorize
         if ([operation.response statusCode] == 401) {
@@ -195,12 +195,12 @@
                         success:(void (^)(HTBBookmarkedDataEntry *entry))success
                         failure:(void (^)(NSError *error))failure
 {
-    [self.apiClient getBookmarkWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self.apiClient getBookmarkWithURL:url success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
 
         HTBBookmarkedDataEntry *entry = [[HTBBookmarkedDataEntry alloc] initWithJSON:responseJSON];
         if (success) success(entry);
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (operation.response.statusCode == 404) {
             // Not bookmarked yet.
             if (success) success(nil);
@@ -223,12 +223,12 @@
                     success:(void (^)(HTBBookmarkedDataEntry *entry))success
                     failure:(void (^)(NSError *error))failure
 {
-    [self.apiClient postBookmarkWithURL:url comment:comment tags:tags options:options success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self.apiClient postBookmarkWithURL:url comment:comment tags:tags options:options success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
         
         HTBBookmarkedDataEntry *entry = [[HTBBookmarkedDataEntry alloc] initWithJSON:responseJSON];
         if (success) success(entry);
 
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
         // Not Authorize
         if ([operation.response statusCode] == 401) {
@@ -244,11 +244,11 @@
                       success:(void (^)(void))success
                       failure:(void (^)(NSError *error))failure
 {
-    [self.apiClient deleteBookmarkWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self.apiClient deleteBookmarkWithURL:url success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
 
         if (success) success();
 
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
         // Not Authorize
         if ([operation.response statusCode] == 401) {

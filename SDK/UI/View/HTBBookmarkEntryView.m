@@ -23,7 +23,7 @@
 #import "HTBBookmarkEntryView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HTBBookmarkEntry.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+HatenaAFNetworking.h"
 #import "HTBUtility.h"
 
 #define HTB_ENTRY_VIEW_FAVICON_MARGIN 8.f
