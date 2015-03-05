@@ -122,9 +122,9 @@ describe(@"HTBHatenaBookmarkAPIClient", ^{
 
             __block id response = nil;
 
-            [client getMyWithSuccess:^(AFHTTPRequestOperation *operation, id responseJSON) {
+            [client getMyWithSuccess:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
                 response = responseJSON;
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
             }];
             [[expectFutureValue(response) shouldEventually] beNonNil];
         });
@@ -145,9 +145,9 @@ describe(@"HTBHatenaBookmarkAPIClient", ^{
 
             __block HTBMyTagsEntry *myTagsEntry = nil;
 
-            [client getMyTagsWithSuccess:^(AFHTTPRequestOperation *operation, id responseJSON) {
+            [client getMyTagsWithSuccess:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
                 myTagsEntry = [[HTBMyTagsEntry alloc] initWithJSON:responseJSON];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
             }];
             [[expectFutureValue(myTagsEntry) shouldEventually] beNonNil];
             [[expectFutureValue(myTagsEntry.tags) shouldEventually] haveCountOf:4];
@@ -175,9 +175,9 @@ describe(@"HTBHatenaBookmarkAPIClient", ^{
                                     comment:@"tag0"
                                        tags:@[@"tag0", @"tag1"]
                                     options:HatenaBookmarkPostOptionTwitter | HatenaBookmarkPostOptionFacebook
-                        success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+                        success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
                             bookmarkedDataEntry = [[HTBBookmarkedDataEntry alloc] initWithJSON:responseJSON];
-                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
                 }];
                 [[expectFutureValue(bookmarkedDataEntry) shouldEventually] beNonNil];
@@ -199,9 +199,9 @@ describe(@"HTBHatenaBookmarkAPIClient", ^{
                         withHeaders(@{@"Content-Type": @"application/json"}).
                         withBody([[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 
-                [client getBookmarkWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+                [client getBookmarkWithURL:url success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
                     bookmarkedDataEntry = [[HTBBookmarkedDataEntry alloc] initWithJSON:responseJSON];
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
                 }];
                 [[expectFutureValue(bookmarkedDataEntry) shouldEventually] beNonNil];
@@ -217,10 +217,10 @@ describe(@"HTBHatenaBookmarkAPIClient", ^{
                         withBody(@"{\"status\" : \"ok\"}");
                 __block id response = nil;
                 [client deleteBookmarkWithURL:url
-                                      success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+                                      success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
                                           response = responseJSON;
                                       }
-                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                      failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
                                       }];
                 [[expectFutureValue(response) shouldEventually] beNonNil];
@@ -249,9 +249,9 @@ describe(@"HTBHatenaBookmarkAPIClient", ^{
                         withBody([[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 
                 __block HTBBookmarkEntry *bookmarkEntry = nil;
-                [client getEntryWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+                [client getEntryWithURL:url success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
                     bookmarkEntry = [[HTBBookmarkEntry alloc] initWithJSON:responseJSON];
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
                 }];
                 [[expectFutureValue(bookmarkEntry) shouldEventually] beNonNil];
@@ -279,9 +279,9 @@ describe(@"HTBHatenaBookmarkAPIClient", ^{
                         withBody([[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 
                 __block HTBCanonicalEntry *canonicalEntry = nil;
-                [client getCanonicalEntryWithURL:url success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+                [client getCanonicalEntryWithURL:url success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
                     canonicalEntry = [[HTBCanonicalEntry alloc] initWithJSON:responseJSON];
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
 
                 }];
                 [[expectFutureValue(canonicalEntry) shouldEventually] beNonNil];

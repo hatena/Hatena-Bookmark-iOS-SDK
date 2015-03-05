@@ -161,25 +161,6 @@
 		070B7FE517BE378000ED4723 /* HTBTagEntrySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B7F1517BE378000ED4723 /* HTBTagEntrySpec.m */; };
 		070B7FE617BE378000ED4723 /* HTBUserManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B7F1617BE378000ED4723 /* HTBUserManagerSpec.m */; };
 		070B7FE717BE378000ED4723 /* HTBTagTokenizerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B7F1817BE378000ED4723 /* HTBTagTokenizerSpec.m */; };
-		070B800F17BE386E00ED4723 /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B7FFC17BE386E00ED4723 /* AFHTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B801017BE386E00ED4723 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B7FFD17BE386E00ED4723 /* AFHTTPClient.m */; };
-		070B801117BE386E00ED4723 /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B7FFE17BE386E00ED4723 /* AFHTTPRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B801217BE386E00ED4723 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B7FFF17BE386E00ED4723 /* AFHTTPRequestOperation.m */; };
-		070B801317BE386E00ED4723 /* AFImageRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B800017BE386E00ED4723 /* AFImageRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B801417BE386E00ED4723 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B800117BE386E00ED4723 /* AFImageRequestOperation.m */; };
-		070B801517BE386E00ED4723 /* AFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B800217BE386E00ED4723 /* AFJSONRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B801617BE386E00ED4723 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B800317BE386E00ED4723 /* AFJSONRequestOperation.m */; };
-		070B801717BE386E00ED4723 /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B800417BE386E00ED4723 /* AFNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B801817BE386E00ED4723 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B800517BE386E00ED4723 /* AFNetworkActivityIndicatorManager.m */; };
-		070B801917BE386E00ED4723 /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B800617BE386E00ED4723 /* AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B801A17BE386E00ED4723 /* AFPropertyListRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B800717BE386E00ED4723 /* AFPropertyListRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B801B17BE386E00ED4723 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B800817BE386E00ED4723 /* AFPropertyListRequestOperation.m */; };
-		070B801C17BE386E00ED4723 /* AFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B800917BE386E00ED4723 /* AFURLConnectionOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B801D17BE386E00ED4723 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B800A17BE386E00ED4723 /* AFURLConnectionOperation.m */; };
-		070B801E17BE386E00ED4723 /* AFXMLRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B800B17BE386E00ED4723 /* AFXMLRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B801F17BE386E00ED4723 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B800C17BE386E00ED4723 /* AFXMLRequestOperation.m */; };
-		070B802017BE386E00ED4723 /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B800D17BE386E00ED4723 /* UIImageView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		070B802117BE386E00ED4723 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B800E17BE386E00ED4723 /* UIImageView+AFNetworking.m */; };
 		070B802517BE387900ED4723 /* SFHFKeychainUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 070B802317BE387900ED4723 /* SFHFKeychainUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070B802617BE387900ED4723 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B802417BE387900ED4723 /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		070B802817BE38AE00ED4723 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B802717BE38AE00ED4723 /* UIKit.framework */; };
@@ -211,6 +192,34 @@
 		070B808517BE3BA400ED4723 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B802917BE38DF00ED4723 /* SystemConfiguration.framework */; };
 		070B808617BE3BBF00ED4723 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B802B17BE38E900ED4723 /* MobileCoreServices.framework */; };
 		3F7308651AA5F05500A9D097 /* HTBMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F7308641AA5F05500A9D097 /* HTBMacro.h */; };
+		099A4BAD18E0280E0085DD25 /* HatenaAFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4B9A18E0280E0085DD25 /* HatenaAFHTTPClient.h */; };
+		099A4BAE18E0280E0085DD25 /* HatenaAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4B9B18E0280E0085DD25 /* HatenaAFHTTPClient.m */; };
+		099A4BAF18E0280E0085DD25 /* HatenaAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4B9B18E0280E0085DD25 /* HatenaAFHTTPClient.m */; };
+		099A4BB018E0280E0085DD25 /* HatenaAFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4B9C18E0280E0085DD25 /* HatenaAFHTTPRequestOperation.h */; };
+		099A4BB118E0280E0085DD25 /* HatenaAFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4B9D18E0280E0085DD25 /* HatenaAFHTTPRequestOperation.m */; };
+		099A4BB218E0280E0085DD25 /* HatenaAFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4B9D18E0280E0085DD25 /* HatenaAFHTTPRequestOperation.m */; };
+		099A4BB318E0280E0085DD25 /* HatenaAFImageRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4B9E18E0280E0085DD25 /* HatenaAFImageRequestOperation.h */; };
+		099A4BB418E0280E0085DD25 /* HatenaAFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4B9F18E0280E0085DD25 /* HatenaAFImageRequestOperation.m */; };
+		099A4BB518E0280E0085DD25 /* HatenaAFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4B9F18E0280E0085DD25 /* HatenaAFImageRequestOperation.m */; };
+		099A4BB618E0280E0085DD25 /* HatenaAFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4BA018E0280E0085DD25 /* HatenaAFJSONRequestOperation.h */; };
+		099A4BB718E0280E0085DD25 /* HatenaAFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BA118E0280E0085DD25 /* HatenaAFJSONRequestOperation.m */; };
+		099A4BB818E0280E0085DD25 /* HatenaAFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BA118E0280E0085DD25 /* HatenaAFJSONRequestOperation.m */; };
+		099A4BB918E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4BA218E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.h */; };
+		099A4BBA18E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BA318E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.m */; };
+		099A4BBB18E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BA318E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.m */; };
+		099A4BBC18E0280E0085DD25 /* HatenaAFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4BA418E0280E0085DD25 /* HatenaAFNetworking.h */; };
+		099A4BBD18E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4BA518E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.h */; };
+		099A4BBE18E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BA618E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.m */; };
+		099A4BBF18E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BA618E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.m */; };
+		099A4BC018E0280E0085DD25 /* HatenaAFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4BA718E0280E0085DD25 /* HatenaAFURLConnectionOperation.h */; };
+		099A4BC118E0280E0085DD25 /* HatenaAFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BA818E0280E0085DD25 /* HatenaAFURLConnectionOperation.m */; };
+		099A4BC218E0280E0085DD25 /* HatenaAFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BA818E0280E0085DD25 /* HatenaAFURLConnectionOperation.m */; };
+		099A4BC318E0280E0085DD25 /* HatenaAFXMLRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4BA918E0280E0085DD25 /* HatenaAFXMLRequestOperation.h */; };
+		099A4BC418E0280E0085DD25 /* HatenaAFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BAA18E0280E0085DD25 /* HatenaAFXMLRequestOperation.m */; };
+		099A4BC518E0280E0085DD25 /* HatenaAFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BAA18E0280E0085DD25 /* HatenaAFXMLRequestOperation.m */; };
+		099A4BC618E0280E0085DD25 /* UIImageView+HatenaAFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4BAB18E0280E0085DD25 /* UIImageView+HatenaAFNetworking.h */; };
+		099A4BC718E0280E0085DD25 /* UIImageView+HatenaAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BAC18E0280E0085DD25 /* UIImageView+HatenaAFNetworking.m */; };
+		099A4BC818E0280E0085DD25 /* UIImageView+HatenaAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4BAC18E0280E0085DD25 /* UIImageView+HatenaAFNetworking.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -241,7 +250,7 @@
 		070B7A0617BE370500ED4723 /* HTBAFOAuth1Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBAFOAuth1Client.h; sourceTree = "<group>"; };
 		070B7A0717BE370500ED4723 /* HTBAFOAuth1Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBAFOAuth1Client.m; sourceTree = "<group>"; };
 		070B7A0817BE370500ED4723 /* HTBHatenaBookmarkAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBHatenaBookmarkAPIClient.h; sourceTree = "<group>"; };
-		070B7A0917BE370500ED4723 /* HTBHatenaBookmarkAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBHatenaBookmarkAPIClient.m; sourceTree = "<group>"; };
+		070B7A0917BE370500ED4723 /* HTBHatenaBookmarkAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBHatenaBookmarkAPIClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		070B7A0A17BE370500ED4723 /* HatenaBookmarkSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaBookmarkSDK.h; sourceTree = "<group>"; };
 		070B7A0C17BE370500ED4723 /* HTBHatenaBookmarkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBHatenaBookmarkActivity.h; sourceTree = "<group>"; };
 		070B7A0D17BE370500ED4723 /* HTBHatenaBookmarkActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBHatenaBookmarkActivity.m; sourceTree = "<group>"; };
@@ -481,25 +490,6 @@
 		070B7F1517BE378000ED4723 /* HTBTagEntrySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBTagEntrySpec.m; sourceTree = "<group>"; };
 		070B7F1617BE378000ED4723 /* HTBUserManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBUserManagerSpec.m; sourceTree = "<group>"; };
 		070B7F1817BE378000ED4723 /* HTBTagTokenizerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBTagTokenizerSpec.m; sourceTree = "<group>"; };
-		070B7FFC17BE386E00ED4723 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
-		070B7FFD17BE386E00ED4723 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
-		070B7FFE17BE386E00ED4723 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
-		070B7FFF17BE386E00ED4723 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
-		070B800017BE386E00ED4723 /* AFImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageRequestOperation.h; sourceTree = "<group>"; };
-		070B800117BE386E00ED4723 /* AFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageRequestOperation.m; sourceTree = "<group>"; };
-		070B800217BE386E00ED4723 /* AFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFJSONRequestOperation.h; sourceTree = "<group>"; };
-		070B800317BE386E00ED4723 /* AFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFJSONRequestOperation.m; sourceTree = "<group>"; };
-		070B800417BE386E00ED4723 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
-		070B800517BE386E00ED4723 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
-		070B800617BE386E00ED4723 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
-		070B800717BE386E00ED4723 /* AFPropertyListRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPropertyListRequestOperation.h; sourceTree = "<group>"; };
-		070B800817BE386E00ED4723 /* AFPropertyListRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPropertyListRequestOperation.m; sourceTree = "<group>"; };
-		070B800917BE386E00ED4723 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
-		070B800A17BE386E00ED4723 /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
-		070B800B17BE386E00ED4723 /* AFXMLRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFXMLRequestOperation.h; sourceTree = "<group>"; };
-		070B800C17BE386E00ED4723 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
-		070B800D17BE386E00ED4723 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
-		070B800E17BE386E00ED4723 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		070B802317BE387900ED4723 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		070B802417BE387900ED4723 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		070B802717BE38AE00ED4723 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -558,6 +548,25 @@
 		070B808017BE3B1600ED4723 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		070B808317BE3B9600ED4723 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3F7308641AA5F05500A9D097 /* HTBMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBMacro.h; sourceTree = "<group>"; };
+		099A4B9A18E0280E0085DD25 /* HatenaAFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFHTTPClient.h; sourceTree = "<group>"; };
+		099A4B9B18E0280E0085DD25 /* HatenaAFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HatenaAFHTTPClient.m; sourceTree = "<group>"; };
+		099A4B9C18E0280E0085DD25 /* HatenaAFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		099A4B9D18E0280E0085DD25 /* HatenaAFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HatenaAFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		099A4B9E18E0280E0085DD25 /* HatenaAFImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFImageRequestOperation.h; sourceTree = "<group>"; };
+		099A4B9F18E0280E0085DD25 /* HatenaAFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HatenaAFImageRequestOperation.m; sourceTree = "<group>"; };
+		099A4BA018E0280E0085DD25 /* HatenaAFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFJSONRequestOperation.h; sourceTree = "<group>"; };
+		099A4BA118E0280E0085DD25 /* HatenaAFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HatenaAFJSONRequestOperation.m; sourceTree = "<group>"; };
+		099A4BA218E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		099A4BA318E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HatenaAFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		099A4BA418E0280E0085DD25 /* HatenaAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFNetworking.h; sourceTree = "<group>"; };
+		099A4BA518E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFPropertyListRequestOperation.h; sourceTree = "<group>"; };
+		099A4BA618E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HatenaAFPropertyListRequestOperation.m; sourceTree = "<group>"; };
+		099A4BA718E0280E0085DD25 /* HatenaAFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFURLConnectionOperation.h; sourceTree = "<group>"; };
+		099A4BA818E0280E0085DD25 /* HatenaAFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HatenaAFURLConnectionOperation.m; sourceTree = "<group>"; };
+		099A4BA918E0280E0085DD25 /* HatenaAFXMLRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFXMLRequestOperation.h; sourceTree = "<group>"; };
+		099A4BAA18E0280E0085DD25 /* HatenaAFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HatenaAFXMLRequestOperation.m; sourceTree = "<group>"; };
+		099A4BAB18E0280E0085DD25 /* UIImageView+HatenaAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HatenaAFNetworking.h"; sourceTree = "<group>"; };
+		099A4BAC18E0280E0085DD25 /* UIImageView+HatenaAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HatenaAFNetworking.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -626,7 +635,6 @@
 			isa = PBXGroup;
 			children = (
 				070B802217BE387900ED4723 /* SFHFKeychainUtils */,
-				070B7FFB17BE386E00ED4723 /* AFNetworking */,
 				070B79DD17BE36C500ED4723 /* Supporting Files */,
 			);
 			path = HatenaBookmarkSDK;
@@ -660,6 +668,7 @@
 				070B7A0717BE370500ED4723 /* HTBAFOAuth1Client.m */,
 				070B7A0817BE370500ED4723 /* HTBHatenaBookmarkAPIClient.h */,
 				070B7A0917BE370500ED4723 /* HTBHatenaBookmarkAPIClient.m */,
+				099A4B9918E0280E0085DD25 /* AFNetworking */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1063,33 +1072,6 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		070B7FFB17BE386E00ED4723 /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				070B7FFC17BE386E00ED4723 /* AFHTTPClient.h */,
-				070B7FFD17BE386E00ED4723 /* AFHTTPClient.m */,
-				070B7FFE17BE386E00ED4723 /* AFHTTPRequestOperation.h */,
-				070B7FFF17BE386E00ED4723 /* AFHTTPRequestOperation.m */,
-				070B800017BE386E00ED4723 /* AFImageRequestOperation.h */,
-				070B800117BE386E00ED4723 /* AFImageRequestOperation.m */,
-				070B800217BE386E00ED4723 /* AFJSONRequestOperation.h */,
-				070B800317BE386E00ED4723 /* AFJSONRequestOperation.m */,
-				070B800417BE386E00ED4723 /* AFNetworkActivityIndicatorManager.h */,
-				070B800517BE386E00ED4723 /* AFNetworkActivityIndicatorManager.m */,
-				070B800617BE386E00ED4723 /* AFNetworking.h */,
-				070B800717BE386E00ED4723 /* AFPropertyListRequestOperation.h */,
-				070B800817BE386E00ED4723 /* AFPropertyListRequestOperation.m */,
-				070B800917BE386E00ED4723 /* AFURLConnectionOperation.h */,
-				070B800A17BE386E00ED4723 /* AFURLConnectionOperation.m */,
-				070B800B17BE386E00ED4723 /* AFXMLRequestOperation.h */,
-				070B800C17BE386E00ED4723 /* AFXMLRequestOperation.m */,
-				070B800D17BE386E00ED4723 /* UIImageView+AFNetworking.h */,
-				070B800E17BE386E00ED4723 /* UIImageView+AFNetworking.m */,
-			);
-			name = AFNetworking;
-			path = ../../AFNetworking/AFNetworking;
-			sourceTree = "<group>";
-		};
 		070B802217BE387900ED4723 /* SFHFKeychainUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1230,6 +1212,32 @@
 			path = Stubs;
 			sourceTree = "<group>";
 		};
+		099A4B9918E0280E0085DD25 /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				099A4B9A18E0280E0085DD25 /* HatenaAFHTTPClient.h */,
+				099A4B9B18E0280E0085DD25 /* HatenaAFHTTPClient.m */,
+				099A4B9C18E0280E0085DD25 /* HatenaAFHTTPRequestOperation.h */,
+				099A4B9D18E0280E0085DD25 /* HatenaAFHTTPRequestOperation.m */,
+				099A4B9E18E0280E0085DD25 /* HatenaAFImageRequestOperation.h */,
+				099A4B9F18E0280E0085DD25 /* HatenaAFImageRequestOperation.m */,
+				099A4BA018E0280E0085DD25 /* HatenaAFJSONRequestOperation.h */,
+				099A4BA118E0280E0085DD25 /* HatenaAFJSONRequestOperation.m */,
+				099A4BA218E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.h */,
+				099A4BA318E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.m */,
+				099A4BA418E0280E0085DD25 /* HatenaAFNetworking.h */,
+				099A4BA518E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.h */,
+				099A4BA618E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.m */,
+				099A4BA718E0280E0085DD25 /* HatenaAFURLConnectionOperation.h */,
+				099A4BA818E0280E0085DD25 /* HatenaAFURLConnectionOperation.m */,
+				099A4BA918E0280E0085DD25 /* HatenaAFXMLRequestOperation.h */,
+				099A4BAA18E0280E0085DD25 /* HatenaAFXMLRequestOperation.m */,
+				099A4BAB18E0280E0085DD25 /* UIImageView+HatenaAFNetworking.h */,
+				099A4BAC18E0280E0085DD25 /* UIImageView+HatenaAFNetworking.m */,
+			);
+			path = AFNetworking;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1239,11 +1247,13 @@
 			files = (
 				070B7A4C17BE370500ED4723 /* HatenaBookmarkSDK.h in Headers */,
 				070B7A4A17BE370500ED4723 /* HTBHatenaBookmarkAPIClient.h in Headers */,
+				099A4BB018E0280E0085DD25 /* HatenaAFHTTPRequestOperation.h in Headers */,
 				070B7A4D17BE370500ED4723 /* HTBHatenaBookmarkActivity.h in Headers */,
 				070B7A5017BE370500ED4723 /* HTBAuthorizeEntry.h in Headers */,
 				3F7308651AA5F05500A9D097 /* HTBMacro.h in Headers */,
 				070B7A5217BE370500ED4723 /* HTBBookmarkedDataEntry.h in Headers */,
 				070B7A5417BE370500ED4723 /* HTBBookmarkEntry.h in Headers */,
+				099A4BC018E0280E0085DD25 /* HatenaAFURLConnectionOperation.h in Headers */,
 				070B7A5617BE370500ED4723 /* HTBCanonicalEntry.h in Headers */,
 				070B7A5817BE370500ED4723 /* HTBMyEntry.h in Headers */,
 				070B7A5A17BE370500ED4723 /* HTBMyTagsEntry.h in Headers */,
@@ -1252,7 +1262,9 @@
 				070B7A6017BE370500ED4723 /* HTBUserManager.h in Headers */,
 				070B7A6217BE370500ED4723 /* HTBTagTokenizer.h in Headers */,
 				070B7A6417BE370500ED4723 /* HTBUtility.h in Headers */,
+				099A4BBD18E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.h in Headers */,
 				070B7A6617BE370500ED4723 /* UIAlertView+HTBNSError.h in Headers */,
+				099A4BAD18E0280E0085DD25 /* HatenaAFHTTPClient.h in Headers */,
 				070B7A6817BE370500ED4723 /* HTBBookmarkEntryView.h in Headers */,
 				070B7A6A17BE370500ED4723 /* HTBBookmarkRootView.h in Headers */,
 				070B7A6C17BE370500ED4723 /* HTBBookmarkToolbarView.h in Headers */,
@@ -1260,24 +1272,20 @@
 				070B7A7017BE370500ED4723 /* HTBNavigationBar.h in Headers */,
 				070B7A7217BE370500ED4723 /* HTBPlaceholderTextView.h in Headers */,
 				070B7A7417BE370500ED4723 /* HTBTagInputView.h in Headers */,
+				099A4BC318E0280E0085DD25 /* HatenaAFXMLRequestOperation.h in Headers */,
 				070B7A7617BE370500ED4723 /* HTBTagTextField.h in Headers */,
 				070B7A7817BE370500ED4723 /* HTBTagToolbarView.h in Headers */,
+				099A4BBC18E0280E0085DD25 /* HatenaAFNetworking.h in Headers */,
+				099A4BC618E0280E0085DD25 /* UIImageView+HatenaAFNetworking.h in Headers */,
+				099A4BB318E0280E0085DD25 /* HatenaAFImageRequestOperation.h in Headers */,
 				070B7A7A17BE370500ED4723 /* HTBToggleButton.h in Headers */,
 				070B7A7C17BE370500ED4723 /* HTBBookmarkViewController.h in Headers */,
 				070B7A7E17BE370500ED4723 /* HTBCommentViewController.h in Headers */,
 				070B7A8017BE370500ED4723 /* HTBHatenaBookmarkViewController.h in Headers */,
 				070B7A8217BE370500ED4723 /* HTBLoginWebViewController.h in Headers */,
 				070B7A4817BE370500ED4723 /* HTBAFOAuth1Client.h in Headers */,
-				070B800F17BE386E00ED4723 /* AFHTTPClient.h in Headers */,
-				070B801117BE386E00ED4723 /* AFHTTPRequestOperation.h in Headers */,
-				070B801317BE386E00ED4723 /* AFImageRequestOperation.h in Headers */,
-				070B801517BE386E00ED4723 /* AFJSONRequestOperation.h in Headers */,
-				070B801717BE386E00ED4723 /* AFNetworkActivityIndicatorManager.h in Headers */,
-				070B801917BE386E00ED4723 /* AFNetworking.h in Headers */,
-				070B801A17BE386E00ED4723 /* AFPropertyListRequestOperation.h in Headers */,
-				070B801C17BE386E00ED4723 /* AFURLConnectionOperation.h in Headers */,
-				070B801E17BE386E00ED4723 /* AFXMLRequestOperation.h in Headers */,
-				070B802017BE386E00ED4723 /* UIImageView+AFNetworking.h in Headers */,
+				099A4BB618E0280E0085DD25 /* HatenaAFJSONRequestOperation.h in Headers */,
+				099A4BB918E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.h in Headers */,
 				070B802517BE387900ED4723 /* SFHFKeychainUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1332,6 +1340,7 @@
 		070B79CB17BE36C500ED4723 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 070B79CE17BE36C500ED4723 /* Build configuration list for PBXProject "HatenaBookmarkSDK" */;
@@ -1432,24 +1441,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				070B7A4917BE370500ED4723 /* HTBAFOAuth1Client.m in Sources */,
+				099A4BBE18E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.m in Sources */,
 				070B7A4B17BE370500ED4723 /* HTBHatenaBookmarkAPIClient.m in Sources */,
 				070B7A4E17BE370500ED4723 /* HTBHatenaBookmarkActivity.m in Sources */,
+				099A4BC718E0280E0085DD25 /* UIImageView+HatenaAFNetworking.m in Sources */,
 				070B7A5117BE370500ED4723 /* HTBAuthorizeEntry.m in Sources */,
 				070B7A5317BE370500ED4723 /* HTBBookmarkedDataEntry.m in Sources */,
 				070B7A5517BE370500ED4723 /* HTBBookmarkEntry.m in Sources */,
 				070B7A5717BE370500ED4723 /* HTBCanonicalEntry.m in Sources */,
 				070B7A5917BE370500ED4723 /* HTBMyEntry.m in Sources */,
+				099A4BB118E0280E0085DD25 /* HatenaAFHTTPRequestOperation.m in Sources */,
 				070B7A5B17BE370500ED4723 /* HTBMyTagsEntry.m in Sources */,
 				070B7A5D17BE370500ED4723 /* HTBTagEntry.m in Sources */,
 				070B7A5F17BE370500ED4723 /* HTBHatenaBookmarkManager.m in Sources */,
 				070B7A6117BE370500ED4723 /* HTBUserManager.m in Sources */,
 				070B7A6317BE370500ED4723 /* HTBTagTokenizer.m in Sources */,
 				070B7A6517BE370500ED4723 /* HTBUtility.m in Sources */,
+				099A4BC118E0280E0085DD25 /* HatenaAFURLConnectionOperation.m in Sources */,
+				099A4BBA18E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.m in Sources */,
+				099A4BAE18E0280E0085DD25 /* HatenaAFHTTPClient.m in Sources */,
 				070B7A6717BE370500ED4723 /* UIAlertView+HTBNSError.m in Sources */,
 				070B7A6917BE370500ED4723 /* HTBBookmarkEntryView.m in Sources */,
+				099A4BB718E0280E0085DD25 /* HatenaAFJSONRequestOperation.m in Sources */,
 				070B7A6B17BE370500ED4723 /* HTBBookmarkRootView.m in Sources */,
 				070B7A6D17BE370500ED4723 /* HTBBookmarkToolbarView.m in Sources */,
 				070B7A6F17BE370500ED4723 /* HTBCanonicalView.m in Sources */,
+				099A4BB418E0280E0085DD25 /* HatenaAFImageRequestOperation.m in Sources */,
 				070B7A7117BE370500ED4723 /* HTBNavigationBar.m in Sources */,
 				070B7A7317BE370500ED4723 /* HTBPlaceholderTextView.m in Sources */,
 				070B7A7517BE370500ED4723 /* HTBTagInputView.m in Sources */,
@@ -1460,15 +1477,7 @@
 				070B7A7F17BE370500ED4723 /* HTBCommentViewController.m in Sources */,
 				070B7A8117BE370500ED4723 /* HTBHatenaBookmarkViewController.m in Sources */,
 				070B7A8317BE370500ED4723 /* HTBLoginWebViewController.m in Sources */,
-				070B801017BE386E00ED4723 /* AFHTTPClient.m in Sources */,
-				070B801217BE386E00ED4723 /* AFHTTPRequestOperation.m in Sources */,
-				070B801417BE386E00ED4723 /* AFImageRequestOperation.m in Sources */,
-				070B801617BE386E00ED4723 /* AFJSONRequestOperation.m in Sources */,
-				070B801817BE386E00ED4723 /* AFNetworkActivityIndicatorManager.m in Sources */,
-				070B801B17BE386E00ED4723 /* AFPropertyListRequestOperation.m in Sources */,
-				070B801D17BE386E00ED4723 /* AFURLConnectionOperation.m in Sources */,
-				070B801F17BE386E00ED4723 /* AFXMLRequestOperation.m in Sources */,
-				070B802117BE386E00ED4723 /* UIImageView+AFNetworking.m in Sources */,
+				099A4BC418E0280E0085DD25 /* HatenaAFXMLRequestOperation.m in Sources */,
 				070B802617BE387900ED4723 /* SFHFKeychainUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1487,6 +1496,7 @@
 				070B7F2717BE378000ED4723 /* KWExampleSuiteBuilder.m in Sources */,
 				070B7F2817BE378000ED4723 /* KWFailure.m in Sources */,
 				070B7F2917BE378000ED4723 /* KWFormatter.m in Sources */,
+				099A4BBF18E0280E0085DD25 /* HatenaAFPropertyListRequestOperation.m in Sources */,
 				070B7F2A17BE378000ED4723 /* KWFutureObject.m in Sources */,
 				070B7F2B17BE378000ED4723 /* KWInvocationCapturer.m in Sources */,
 				070B7F2C17BE378000ED4723 /* KWMatcher.m in Sources */,
@@ -1504,11 +1514,13 @@
 				070B7F3817BE378000ED4723 /* NSInvocation+OCMAdditions.m in Sources */,
 				070B7F3917BE378000ED4723 /* NSMethodSignature+KiwiAdditions.m in Sources */,
 				070B7F3A17BE378000ED4723 /* NSNumber+KiwiAdditions.m in Sources */,
+				099A4BC818E0280E0085DD25 /* UIImageView+HatenaAFNetworking.m in Sources */,
 				070B7F3B17BE378000ED4723 /* NSObject+KiwiSpyAdditions.m in Sources */,
 				070B7F3C17BE378000ED4723 /* NSObject+KiwiVerifierAdditions.m in Sources */,
 				070B7F3D17BE378000ED4723 /* NSProxy+KiwiVerifierAdditions.m in Sources */,
 				070B7F3E17BE378000ED4723 /* NSValue+KiwiAdditions.m in Sources */,
 				070B7F3F17BE378000ED4723 /* SenTestSuite+KiwiAdditions.m in Sources */,
+				099A4BC518E0280E0085DD25 /* HatenaAFXMLRequestOperation.m in Sources */,
 				070B7F4017BE378000ED4723 /* KWBeBetweenMatcher.m in Sources */,
 				070B7F4117BE378000ED4723 /* KWBeEmptyMatcher.m in Sources */,
 				070B7F4217BE378000ED4723 /* KWBeIdenticalToMatcher.m in Sources */,
@@ -1531,6 +1543,7 @@
 				070B7F5317BE378000ED4723 /* KWHaveValueMatcher.m in Sources */,
 				070B7F5417BE378000ED4723 /* KWInequalityMatcher.m in Sources */,
 				070B7F5517BE378000ED4723 /* KWNilMatcher.m in Sources */,
+				099A4BAF18E0280E0085DD25 /* HatenaAFHTTPClient.m in Sources */,
 				070B7F5617BE378000ED4723 /* KWRaiseMatcher.m in Sources */,
 				070B7F5717BE378000ED4723 /* KWReceiveMatcher.m in Sources */,
 				070B7F5817BE378000ED4723 /* KWRegularExpressionPatternMatcher.m in Sources */,
@@ -1541,6 +1554,7 @@
 				070B7F5D17BE378000ED4723 /* KWMock.m in Sources */,
 				070B7F5E17BE378000ED4723 /* NSObject+KiwiMockAdditions.m in Sources */,
 				070B7F5F17BE378000ED4723 /* KWAfterAllNode.m in Sources */,
+				099A4BB818E0280E0085DD25 /* HatenaAFJSONRequestOperation.m in Sources */,
 				070B7F6017BE378000ED4723 /* KWAfterEachNode.m in Sources */,
 				070B7F6117BE378000ED4723 /* KWBeforeAllNode.m in Sources */,
 				070B7F6217BE378000ED4723 /* KWBeforeEachNode.m in Sources */,
@@ -1575,6 +1589,8 @@
 				070B807017BE3A1400ED4723 /* ASIHTTPRequestStub.m in Sources */,
 				070B807117BE3A1400ED4723 /* LSASIHTTPRequestAdapter.m in Sources */,
 				070B807217BE3A1400ED4723 /* LSASIHTTPRequestHook.m in Sources */,
+				099A4BB218E0280E0085DD25 /* HatenaAFHTTPRequestOperation.m in Sources */,
+				099A4BC218E0280E0085DD25 /* HatenaAFURLConnectionOperation.m in Sources */,
 				070B807317BE3A1400ED4723 /* LSHTTPClientHook.m in Sources */,
 				070B807417BE3A1400ED4723 /* LSHTTPStubURLProtocol.m in Sources */,
 				070B807517BE3A1400ED4723 /* LSNSURLHook.m in Sources */,
@@ -1585,7 +1601,9 @@
 				070B807A17BE3A1400ED4723 /* LSRegexMatcher.m in Sources */,
 				070B807B17BE3A1400ED4723 /* LSStringMatcher.m in Sources */,
 				070B807C17BE3A1400ED4723 /* NSRegularExpression+Matcheable.m in Sources */,
+				099A4BBB18E0280E0085DD25 /* HatenaAFNetworkActivityIndicatorManager.m in Sources */,
 				070B807D17BE3A1400ED4723 /* NSString+Matcheable.m in Sources */,
+				099A4BB518E0280E0085DD25 /* HatenaAFImageRequestOperation.m in Sources */,
 				070B807E17BE3A1400ED4723 /* LSStubRequest.m in Sources */,
 				070B807F17BE3A1400ED4723 /* LSStubResponse.m in Sources */,
 			);

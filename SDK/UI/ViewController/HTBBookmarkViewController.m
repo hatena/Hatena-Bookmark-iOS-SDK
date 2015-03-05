@@ -22,7 +22,7 @@
 
 #import "HTBBookmarkViewController.h"
 #import "HTBToggleButton.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+HatenaAFNetworking.h"
 #import "HTBTagTokenizer.h"
 #import "HTBBookmarkEntryView.h"
 #import "HTBCommentViewController.h"
