@@ -23,7 +23,7 @@ Clone this repository.
 git clone --recursive https://github.com/hatena/Hatena-Bookmark-iOS-SDK.git
 ```
 
-Copy `/SDK/` directory and add dependent modules [AFNetworking](https://github.com/AFNetworking/AFNetworking) and [SFHFKeychainUtils](https://github.com/ldandersen/scifihifi-iphone/) to your project .
+Copy `/SDK/` directory and add dependent modules [SFHFKeychainUtils](https://github.com/ldandersen/scifihifi-iphone/) to your project .
 
 # Usage
 
@@ -173,7 +173,7 @@ Clone this repository and run `make clean test` in root directory.
 ## Dependency
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking)
  - Version 1.x
- - Currently 2.0 is not supported because it required iOS 7.
+ - Currently 2.0 is not supported because it required iOS 7 and we included renamed AFNetworking 1.x.
 - [AFOAuth1Client](https://github.com/AFNetworking/AFOAuth1Client)
  - Currentry we forked and copied it as HTBAFOAuth1Client for waiting merge some pull requests.
 - [SFHFKeychainUtils](https://github.com/ldandersen/scifihifi-iphone/)

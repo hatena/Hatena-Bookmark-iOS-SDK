@@ -23,7 +23,7 @@
 #import "HTBHatenaBookmarkAPIClient.h"
 
 #import "HTBAFOAuth1Client.h"
-#import "AFJSONRequestOperation.h"
+#import "HatenaAFJSONRequestOperation.h"
 
 #import "HTBUserManager.h"
 
@@ -85,8 +85,8 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
 {
     self = [super initWithBaseURL:[NSURL URLWithString:kHatenaBookmarkBaseURLString] key:key secret:secret];
     if (self) {
-        [self registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+        [self registerHTTPOperationClass:[HatenaAFHTTPRequestOperation class]];
+        [self registerHTTPOperationClass:[HatenaAFJSONRequestOperation class]];
     }
     return self;
 }
@@ -98,7 +98,7 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
 
         NSMutableDictionary *parameters = [@{} mutableCopy];
         [parameters setValue:requestToken.key forKey:@"oauth_token"];
-        NSMutableURLRequest *request = [[[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kHatenaBookmarkBaseURLString]] requestWithMethod:@"GET" path:kHatenaOAuthUserAuthorizationPath parameters:parameters];
+        NSMutableURLRequest *request = [[[HatenaAFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kHatenaBookmarkBaseURLString]] requestWithMethod:@"GET" path:kHatenaOAuthUserAuthorizationPath parameters:parameters];
         request.HTTPShouldHandleCookies = NO;
         __block AFOAuth1Token *currentRequestToken = requestToken;
         
@@ -144,8 +144,8 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
                              comment:(NSString *)comment
                                 tags:(NSArray *)tags
                              options:(HatenaBookmarkPOSTOptions)options
-                             success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+                             success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                             failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSString *path = @"/1/my/bookmark.json";
     NSDictionary *parameters = @{
@@ -159,11 +159,11 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
         @"send_mail"     : [NSNumber numberWithBool:options & HatenaBookmarkPostOptionSendMail],
         @"private"       : [NSNumber numberWithBool:options & HatenaBookmarkPostOptionPrivate],
     };    
-    [self postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self postPath:path parameters:parameters success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
         if (success) {
             success(operation, responseJSON);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(operation, error);
         }
@@ -172,18 +172,18 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
 
 // Delete your bookmark.
 - (void)deleteBookmarkWithURL:(NSURL *)bookmarkURL
-                      success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+                      success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                      failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSString *path = @"/1/my/bookmark.json";
     NSDictionary *parameters = @{
         @"url": [bookmarkURL absoluteString],
     };
-    [self deletePath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self deletePath:path parameters:parameters success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
         if (success) {
             success(operation, responseJSON);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(operation, error);
         }
@@ -192,18 +192,18 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
 
 // Get your bookmarked information.
 - (void)getBookmarkWithURL:(NSURL *)bookmarkURL
-                   success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+                   success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                   failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSString *path = @"/1/my/bookmark.json";
     NSDictionary *parameters = @{
         @"url": [bookmarkURL absoluteString],
     };
-    [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self getPath:path parameters:parameters success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
         if (success) {
             success(operation, responseJSON);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(operation, error);
         }
@@ -211,15 +211,15 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
 }
 
 // Get your user information.
-- (void)getMyWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+- (void)getMyWithSuccess:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                 failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSString *path = @"/1/my.json";
-    [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self getPath:path parameters:nil success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
         if (success) {
             success(operation, responseJSON);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(operation, error);
         }
@@ -227,15 +227,15 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
 }
 
 // Get your tags.
-- (void)getMyTagsWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+- (void)getMyTagsWithSuccess:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                     failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSString *path = @"/1/my/tags.json";
-    [self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self getPath:path parameters:nil success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
         if (success) {
             success(operation, responseJSON);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(operation, error);
         }
@@ -244,19 +244,19 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
 
 // Get public entry information.
 - (void)getEntryWithURL:(NSURL *)bookmarkURL
-                   success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+                   success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                   failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSString *path = @"/1/entry.json";
     NSDictionary *parameters = @{
         @"url": [bookmarkURL absoluteString],
         @"with_tag_recommendations" : @YES,
     };
-    [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self getPath:path parameters:parameters success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
         if (success) {
             success(operation, responseJSON);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(operation, error);
         }
@@ -265,16 +265,16 @@ static NSDictionary * HTBParametersFromQueryString(NSString *queryString) {
 
 // Get canonical information.
 - (void)getCanonicalEntryWithURL:(NSURL *)bookmarkURL
-                    success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+                    success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                    failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSString *path = @"/1/canonical_entry.json";
     NSDictionary *parameters = @{ @"url": [bookmarkURL absoluteString] };
-    [self getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseJSON) {
+    [self getPath:path parameters:parameters success:^(HatenaAFHTTPRequestOperation *operation, id responseJSON) {
         if (success) {
             success(operation, responseJSON);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(HatenaAFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(operation, error);
         }

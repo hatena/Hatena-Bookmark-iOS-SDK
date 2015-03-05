@@ -50,39 +50,39 @@ extern NSString * const kHTBApplicationLaunchOptionsURLKey;
                      failure:(void (^)(NSError *error))failure;
 
 // Get your user information.
-- (void)getMyWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+- (void)getMyWithSuccess:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                 failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure;
 
 // Get your tags.
-- (void)getMyTagsWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+- (void)getMyTagsWithSuccess:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                     failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure;
 
 // Get public entry information.
 - (void)getEntryWithURL:(NSURL *)bookmarkURL
-                success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+                success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure;
 
 // Get canonical information.
 - (void)getCanonicalEntryWithURL:(NSURL *)bookmarkURL
-                success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+                success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure;
 
 // Get your bookmark information.
 - (void)getBookmarkWithURL:(NSURL *)bookmarkURL
-                   success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+                   success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                   failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure;
 
 // Add or edit your bookmark.
 - (void)postBookmarkWithURL:(NSURL *)bookmarkURL
                     comment:(NSString *)comment
                        tags:(NSArray *)tags
                     options:(HatenaBookmarkPOSTOptions)options
-                    success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+                    success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                    failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure;
 
 // Delete your bookmark.
 - (void)deleteBookmarkWithURL:(NSURL *)bookmarkURL
-                      success:(void (^)(AFHTTPRequestOperation *operation, id responseJSON))success
-                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+                      success:(void (^)(HatenaAFHTTPRequestOperation *operation, id responseJSON))success
+                      failure:(void (^)(HatenaAFHTTPRequestOperation *operation, NSError *error))failure;
 
 @end

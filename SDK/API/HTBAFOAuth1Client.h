@@ -25,7 +25,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "AFHTTPClient.h"
+#import "HatenaAFHTTPClient.h"
 
 typedef enum {
     AFHMACSHA1SignatureMethod = 1,
@@ -36,7 +36,7 @@ typedef enum {
 /**
 
  */
-@interface HTBAFOAuth1Client : AFHTTPClient <NSCoding, NSCopying>
+@interface HTBAFOAuth1Client : HatenaAFHTTPClient <NSCoding, NSCopying>
 
 ///-----------------------------------
 /// @name Managing OAuth Configuration
