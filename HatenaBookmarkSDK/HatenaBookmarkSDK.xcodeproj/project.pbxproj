@@ -191,6 +191,7 @@
 		070B808417BE3B9600ED4723 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B808317BE3B9600ED4723 /* Security.framework */; };
 		070B808517BE3BA400ED4723 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B802917BE38DF00ED4723 /* SystemConfiguration.framework */; };
 		070B808617BE3BBF00ED4723 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B802B17BE38E900ED4723 /* MobileCoreServices.framework */; };
+		3F7308651AA5F05500A9D097 /* HTBMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F7308641AA5F05500A9D097 /* HTBMacro.h */; };
 		099A4BAD18E0280E0085DD25 /* HatenaAFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 099A4B9A18E0280E0085DD25 /* HatenaAFHTTPClient.h */; };
 		099A4BAE18E0280E0085DD25 /* HatenaAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4B9B18E0280E0085DD25 /* HatenaAFHTTPClient.m */; };
 		099A4BAF18E0280E0085DD25 /* HatenaAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 099A4B9B18E0280E0085DD25 /* HatenaAFHTTPClient.m */; };
@@ -546,6 +547,7 @@
 		070B806917BE3A1400ED4723 /* LSStubResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSStubResponse.m; sourceTree = "<group>"; };
 		070B808017BE3B1600ED4723 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		070B808317BE3B9600ED4723 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3F7308641AA5F05500A9D097 /* HTBMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBMacro.h; sourceTree = "<group>"; };
 		099A4B9A18E0280E0085DD25 /* HatenaAFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFHTTPClient.h; sourceTree = "<group>"; };
 		099A4B9B18E0280E0085DD25 /* HatenaAFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HatenaAFHTTPClient.m; sourceTree = "<group>"; };
 		099A4B9C18E0280E0085DD25 /* HatenaAFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HatenaAFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -721,6 +723,7 @@
 		070B7A2317BE370500ED4723 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				3F7308641AA5F05500A9D097 /* HTBMacro.h */,
 				070B7A2417BE370500ED4723 /* HTBTagTokenizer.h */,
 				070B7A2517BE370500ED4723 /* HTBTagTokenizer.m */,
 				070B7A2617BE370500ED4723 /* HTBUtility.h */,
@@ -1247,6 +1250,7 @@
 				099A4BB018E0280E0085DD25 /* HatenaAFHTTPRequestOperation.h in Headers */,
 				070B7A4D17BE370500ED4723 /* HTBHatenaBookmarkActivity.h in Headers */,
 				070B7A5017BE370500ED4723 /* HTBAuthorizeEntry.h in Headers */,
+				3F7308651AA5F05500A9D097 /* HTBMacro.h in Headers */,
 				070B7A5217BE370500ED4723 /* HTBBookmarkedDataEntry.h in Headers */,
 				070B7A5417BE370500ED4723 /* HTBBookmarkEntry.h in Headers */,
 				099A4BC018E0280E0085DD25 /* HatenaAFURLConnectionOperation.h in Headers */,
@@ -1328,7 +1332,7 @@
 			name = HatenaBookmarkSDKTests;
 			productName = HatenaBookmarkSDKTests;
 			productReference = 070B79E817BE36C500ED4723 /* HatenaBookmarkSDKTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
