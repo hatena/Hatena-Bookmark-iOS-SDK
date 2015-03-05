@@ -71,7 +71,7 @@
 
 - (NSString *)countUsers
 {
-    return [NSString stringWithFormat:@"%d users", self.count];
+    return [NSString stringWithFormat:@"%ld users", (long)self.count];
 }
 
 @end
