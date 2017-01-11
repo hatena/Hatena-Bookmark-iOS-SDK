@@ -237,7 +237,6 @@
     HatenaBookmarkPOSTOptions options = self.rootView.toolbarView.selectedPostOptions;
     
     [[HTBHatenaBookmarkManager sharedManager] postBookmarkWithURL:self.URL comment:self.rootView.commentTextView.text tags:tags options:options success:^(HTBBookmarkedDataEntry *entry) {
-        [self setBookmarkedDataEntry:entry];
         [HTBHatenaBookmarkManager sharedManager].userManager.lastPostOptions = options;
         [self.rootView.myBookmarkActivityIndicatorView stopAnimating];
         [(HTBHatenaBookmarkViewController *)self.navigationController.parentViewController dismissHatenaBookmarkViewControllerCompleted:YES];
