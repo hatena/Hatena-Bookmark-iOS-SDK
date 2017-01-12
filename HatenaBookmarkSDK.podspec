@@ -12,4 +12,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.resource = 'SDK/UI/HTBResources.bundle'
   s.dependency 'SFHFKeychainUtils'
+  s.deprecated = true
 end
